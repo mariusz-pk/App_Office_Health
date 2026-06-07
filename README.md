@@ -1,43 +1,20 @@
-# Office Health Console v2.0 - Opis Aplikacji
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-> ⚠️ Szczegółowe informacje techniczne, architektura danych oraz instrukcje uruchomienia znajdują się w pliku [DOKUMENTACJA_TECHNICZNA.md](DOKUMENTACJA_TECHNICZNA.md).
+# Run and deploy your AI Studio app
 
-## Koncepcja i Cel Aplikacji
-Office Health Console to intuicyjna aplikacja webowa (Progressive Web App - PWA) zaprojektowana z myślą o pracownikach biurowych i korporacyjnych pracujących w trybie siedzącym. 
-Celem narzędzia jest pomoc w codziennym monitorowaniu kluczowych parametrów zdrowotnych, budowaniu zdrowych nawyków, utrzymaniu odpowiedniego nawodnienia oraz wczesnym diagnozowaniu objawów przemęczenia.
+This contains everything you need to run your app locally.
 
-Zamiast standardowego żargonu medycznego, aplikacja komunikuje się w przystępnym, "korporacyjnym" języku, przedstawiając zarządzanie własnym zdrowiem jak optymalizację projektów biznesowych ("Rutyna", "Centrum Kontroli", "Raporty").
+View your app in AI Studio: https://ai.studio/apps/8434b982-8c64-4737-aa54-fed663f856e5
 
-## Funkcjonalności i Opis Modułów
+## Run Locally
 
-Aplikacja jest podzielona na 5 oddzielnych sekcji znajdujących się w dolnym pasku nawigacyjnym:
+**Prerequisites:**  Node.js
 
-### 1. Rutyna (Codzienny check-in)
-Moduł pozwalający na śledzenie i rozliczanie nawyków każdego dnia.
-- Lista 5 głównych nawyków (m.in. Poranny Izotonik, Mikro-przerwy w trakcie pracy).
-- Skala samooceny jakości snu oraz poziomu energii/skupienia suwakami (od 1 do 10).
-- Skondensowany i przeliczany na bieżąco procentowy „Wskaźnik Witalności i Efektywności”.
-- Możliwość wygodnego przeglądu historycznych dni (w trybie tylko do odczytu).
 
-### 2. Baza (Spiżarnia Wellness)
-Lista zakupów i zasobów, które warto mieć zawsze pod ręką.
-- Podział asortymentu w postaci filtrów na: „Miesięczną Bazę” (suplementy i produkty z długą datą) oraz „Tygodniowe Uzupełnienie” (produkty świeże, jajka, warzywa itp.).
-- Interaktywny pasek postępu wyświetlający procent skompletowania optymalnej diety biohackera.
-
-### 3. Kafejka (Hydratacja i Zioła)
-Osobisty barista wspierający nawodnienie organizmu.
-- Szybki panel logowania wypitych płynów z wskaźnikiem dobowego celu (z możliwością ustawienia własnego progu).
-- Biblioteka „10 Napojów Mocy” podzielonych funkcjonalnie według precyzyjnych pór konsumpcji (Poranek, W trakcie dnia, Wieczór, Całodobowo).
-- Dokładne zasady przyrządzania naparów wspierane systemowymi stoperami odliczającymi czas parzenia.
-
-### 4. Kontrola (Centrum diagnostyki)
-Miejsce analizowania kondycji układu nerwowego i zgłaszania objawów.
-- Rejestrowanie podstawowych odczytów: rannego Tętna Spoczynkowego (RHR) i Saturacji tlenem (SpO2).
-- Natychmiastowe mapowanie alertów — aplikacja poinformuje użytkownika o wysokim poziomie stresu w organizmie (czerwony alert przy zbyt wysokim tętnie) oraz przypomni o przerwie.
-- Opcja symulowanego „zgłaszania objawów” (np. skurcze mięśni, mgła mózgowa) zwracająca konkretne i zdrowe alternatywy naprawcze proponowane przez algorytm.
-
-### 5. Raporty (Trendy Witalności)
-Strona agregująca zebrane z kilku tygodni dane i prezentująca postępy w formie podsumowań audytowych.
-- Czytelny wykres słupkowy z danymi dot. dziennych wyników energii z ostatnich 7 dni.
-- Syntetyczny raport zbiorczy 30-dniowych średnich dla skupienia i regeneracji.
-- Pasek postępu konkretnych procesów pokazujący, których nawyków procentowo użytkownik trzyma się najlepiej.
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
