@@ -1,0 +1,91 @@
+import React, { useState } from 'react';
+import { Activity, ListChecks, Package, Droplet, Sliders, BarChart3, CupSoda } from 'lucide-react';
+import DailyRoutine from './components/DailyRoutine';
+import Essentials from './components/Essentials';
+import WellnessCafe from './components/WellnessCafe';
+import ControlCenter from './components/ControlCenter';
+import Reports from './components/Reports';
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('routine');
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'routine': return <DailyRoutine />;
+      case 'essentials': return <Essentials />;
+      case 'cafe': return <WellnessCafe />;
+      case 'control': return <ControlCenter />;
+      case 'reports': return <Reports />;
+      default: return <DailyRoutine />;
+    }
+  };
+
+  const getTitle = () => {
+    switch (activeTab) {
+      case 'routine': return 'Rutyna Dnia';
+      case 'essentials': return 'Niezbędnik';
+      case 'cafe': return 'Kafejka Mocy';
+      case 'control': return 'Diagnoza';
+      case 'reports': return 'Raporty';
+      default: return 'Corporate Health';
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-900 font-sans text-slate-100 selection:bg-emerald-500/30 overflow-hidden">
+      <div className="max-w-md mx-auto min-h-screen relative shadow-2xl bg-slate-900 overflow-y-auto overflow-x-hidden">
+        
+        {/* Header */}
+        <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md px-6 py-5 border-b border-slate-800">
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="text-[10px] font-bold tracking-[0.15em] text-emerald-500 uppercase mb-1">
+                Office Health Console
+              </div>
+              <h1 className="text-xl font-bold tracking-wide text-white">
+                {getTitle()}
+              </h1>
+            </div>
+            <button className="w-10 h-10 rounded-[10px] bg-slate-800 border border-slate-700 flex items-center justify-center shadow-sm hover:border-slate-600 transition-colors">
+              <Activity className="w-5 h-5 text-emerald-500" />
+            </button>
+          </div>
+        </header>
+
+        {/* Dynamic Content */}
+        <main className="px-5 py-6 min-h-[calc(100vh-160px)]">
+          {renderContent()}
+        </main>
+
+        {/* Bottom Nav */}
+        <nav className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pb-safe">
+          <div className="w-full max-w-md bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 flex items-center justify-between px-6 py-3">
+            {[
+              { id: 'routine', icon: ListChecks, label: 'Rutyna' },
+              { id: 'essentials', icon: Package, label: 'Baza' },
+              { id: 'cafe', icon: CupSoda, label: 'Kafejka' },
+              { id: 'control', icon: Sliders, label: 'Kontrola' },
+              { id: 'reports', icon: BarChart3, label: 'Raporty' },
+            ].map(tab => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button 
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex flex-col items-center gap-1.5 min-w-[3.5rem] p-1 rounded-xl transition-all duration-300 ${isActive ? 'text-emerald-500' : 'text-slate-500 hover:text-slate-300'}`}
+                >
+                  <Icon className={`w-5 h-5 transition-transform ${isActive ? 'scale-110 mb-0.5 shadow-emerald-500/50' : ''}`} />
+                  <span className={`text-[10px] font-semibold tracking-wide ${isActive ? 'opacity-100' : 'opacity-70'}`}>
+                    {tab.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+
+      </div>
+    </div>
+  );
+}
