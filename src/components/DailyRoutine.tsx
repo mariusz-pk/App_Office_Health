@@ -40,12 +40,12 @@ export default function DailyRoutine() {
 
   const todayStr = new Date().toISOString().split('T')[0];
   const isToday = currentDateStr === todayStr;
-  const currentData = history[currentDateStr] || { checkedHabits: [], energyLevel: 0, sleepQuality: 0 };
+  const currentData = history[currentDateStr] || { checkedHabits: [], energyLevel: 5, sleepQuality: 5 };
 
   const handleHabitToggle = (habit: string) => {
     if (!isToday) return;
     setHistory(prev => {
-      const dayData = prev[currentDateStr] || { checkedHabits: [], energyLevel: 0, sleepQuality: 0 };
+      const dayData = prev[currentDateStr] || { checkedHabits: [], energyLevel: 5, sleepQuality: 5 };
       const checked = dayData.checkedHabits.includes(habit);
       const newHabits = checked 
         ? dayData.checkedHabits.filter(h => h !== habit)
@@ -60,7 +60,7 @@ export default function DailyRoutine() {
   const handleSliderChange = (type: 'energy' | 'sleep', value: number) => {
     if (!isToday) return;
     setHistory(prev => {
-      const dayData = prev[currentDateStr] || { checkedHabits: [], energyLevel: 0, sleepQuality: 0 };
+      const dayData = prev[currentDateStr] || { checkedHabits: [], energyLevel: 5, sleepQuality: 5 };
       return {
         ...prev,
         [currentDateStr]: { 

@@ -66,7 +66,7 @@ export default function Essentials() {
               }`}>
                 <Box className="w-[20px] h-[20px]" />
               </div>
-              <div className={`flex-1 text-sm font-medium transition-colors ${isChecked ? 'text-white' : 'text-slate-300'}`}>
+              <div className={`flex-1 text-sm font-medium transition-all ${isChecked ? 'text-slate-500 line-through' : 'text-slate-200'}`}>
                 {item}
               </div>
               {isChecked ? (

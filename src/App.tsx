@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, ListChecks, Package, Droplet, Sliders, BarChart3, CupSoda } from 'lucide-react';
+import { Activity, ListChecks, ShoppingCart, Droplet, Sliders, BarChart3, CupSoda } from 'lucide-react';
 import DailyRoutine from './components/DailyRoutine';
 import Essentials from './components/Essentials';
 import WellnessCafe from './components/WellnessCafe';
@@ -62,7 +62,7 @@ export default function App() {
           <div className="w-full max-w-md bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 flex items-center justify-between px-6 py-3">
             {[
               { id: 'routine', icon: ListChecks, label: 'Rutyna' },
-              { id: 'essentials', icon: Package, label: 'Baza' },
+              { id: 'essentials', icon: ShoppingCart, label: 'Baza' },
               { id: 'cafe', icon: CupSoda, label: 'Kafejka' },
               { id: 'control', icon: Sliders, label: 'Kontrola' },
               { id: 'reports', icon: BarChart3, label: 'Raporty' },

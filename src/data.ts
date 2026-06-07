@@ -9,20 +9,28 @@ export const HABITS_LIST = [
 ];
 
 export const SHOPPING_BASE = [
-  "Kasza jaglana i gryczana",
-  "Jajka (klasa 0 lub 1)",
-  "Olej lniany z lodówki",
-  "Dzikie ryby (śledź/łosoś)",
-  "Glicynian magnezu",
-  "Witamina D3 + K2 MK7"
+  "Kasza jaglana i gryczana (niepalona)",
+  "Witamina D3 + K2 MK7 (tarcza systemowa)",
+  "Glicynian magnezu (regeneracja nocna)",
+  "Sól kłodawska i Ocet jabłkowy (do izotoników)",
+  "Zielona Matcha i wysokiej jakości Kawa",
+  "Pyłek pszczeli / Rokitnik (wsparcie odporności)",
+  "Nasiona: Siemię lniane i Chia (osłona jelit)",
+  "Oleje: kokosowy i lniany z lodówki (tłuszcze mocy)",
+  "Przyprawy: Kurkuma, Cynamon, Kardamon",
+  "Miód i Surowe Kakao (do napojów adaptogennych)",
+  "Zioła suszone: Szałwia, Melisa, Imbir",
+  "Kreatyna (opcjonalne wsparcie funkcji poznawczych mózgu)"
 ];
 
 export const SHOPPING_WEEKLY = [
-  "Domowe kiszonki / Zakwas",
-  "Świeży imbir i kurkuma",
-  "Dzika borówka",
-  "Pyłek pszczeli / Rokitnik",
-  "Mleko roślinne"
+  "Jajka (klasa 0 lub 1 - fundament białkowy)",
+  "Domowe kiszonki / Zakwas z buraka (probiotyki)",
+  "Dzika borówka / owoce jagodowe (antyoksydanty)",
+  "Świeży imbir i cytryny",
+  "Dzikie ryby (śledź / dziki łosoś - źródło Omega-3)",
+  "Warzywa: Buraki i przecier pomidorowy",
+  "Mleko roślinne (bez dodatku cukru)"
 ];
 
 export const DRINKS_CATALOG = [
