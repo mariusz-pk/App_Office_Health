@@ -32,8 +32,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 font-sans text-slate-100 selection:bg-emerald-500/30 overflow-hidden">
-      <div className="max-w-md mx-auto min-h-screen relative shadow-2xl bg-slate-900 overflow-y-auto overflow-x-hidden">
+    <div className="min-h-screen bg-slate-900 font-sans text-slate-100 selection:bg-emerald-500/30">
+      <div className="max-w-md mx-auto min-h-screen relative shadow-2xl bg-slate-900 pb-20">
         
         {/* Header */}
         <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md px-6 py-5 border-b border-slate-800">
