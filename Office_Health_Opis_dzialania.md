@@ -1,12 +1,12 @@
-# Office Health Console v2.0 - Opis Aplikacji
+# Office Health vs 2.0 - Opis Aplikacji
 
-> ⚠️ Szczegółowe informacje techniczne, architektura danych oraz instrukcje uruchomienia znajdują się w pliku [DOKUMENTACJA_TECHNICZNA.md](DOKUMENTACJA_TECHNICZNA.md).
+> ⚠️ Szczegółowe informacje techniczne, architektura danych oraz instrukcje uruchomienia znajdują się w pliku [Office_Health- dokumentacja_techniczna.md](Office_Health-%20dokumentacja_techniczna.md).
 
 ## Koncepcja i Cel Aplikacji
-Office Health Console to intuicyjna aplikacja webowa (Progressive Web App - PWA) zaprojektowana z myślą o pracownikach biurowych i korporacyjnych pracujących w trybie siedzącym. 
+Office Health vs 2.0 to intuicyjna aplikacja webowa (Progressive Web App - PWA) zaprojektowana z myślą o pracownikach biurowych i korporacyjnych pracujących w trybie siedzącym. 
 Celem narzędzia jest pomoc w codziennym monitorowaniu kluczowych parametrów zdrowotnych, budowaniu zdrowych nawyków, utrzymaniu odpowiedniego nawodnienia oraz wczesnym diagnozowaniu objawów przemęczenia.
 
-Zamiast standardowego żargonu medycznego, aplikacja komunikuje się w przystępnym, "korporacyjnym" języku, przedstawiając zarządzanie własnym zdrowiem jak optymalizację projektów biznesowych ("Rutyna", "Centrum Kontroli", "Raporty").
+Zamiast standardowego żargonu medycznego, aplikacja komunikuje się w przystępnym, "korporacyjnym" języku, przedstawiając zarządzanie własnym zdrowiem jak optymalizację projektów biznesowych ("Rutyna", "Baza", "Kafejka", "Kontrola", "Raporty").
 
 ## Funkcjonalności i Opis Modułów
 
@@ -38,6 +38,6 @@ Miejsce analizowania kondycji układu nerwowego i zgłaszania objawów.
 
 ### 5. Raporty (Trendy Witalności)
 Strona agregująca zebrane z kilku tygodni dane i prezentująca postępy w formie podsumowań audytowych.
-- Czytelny wykres słupkowy z danymi dot. dziennych wyników energii z ostatnich 7 dni.
+- Czytelny wykres słupkowy z danymi dot. dziennych wyników witalności (w %), generowany dynamicznie począwszy od pierwszego dnia zarejestrowania danych.
 - Syntetyczny raport zbiorczy 30-dniowych średnich dla skupienia i regeneracji.
 - Pasek postępu konkretnych procesów pokazujący, których nawyków procentowo użytkownik trzyma się najlepiej.

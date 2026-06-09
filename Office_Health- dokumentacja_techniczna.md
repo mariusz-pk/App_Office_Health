@@ -1,4 +1,4 @@
-# Office Health Console v2.0 - Dokumentacja Techniczna
+# Office Health vs 2.0 - Dokumentacja Techniczna
 
 ## Stos Technologiczny (Tech Stack)
 - **Framework:** React 19 (architektura sfokusowana na strict state z zastosowaniem hooków).
@@ -19,8 +19,9 @@ Aplikacja została zaprojektowana w architekturze symulującej bazę danych przy
 4. `corp_hydrationLogs_v2` (Array of Objects) - Wykaz spożytych ilości płynów ustrukturyzowany względem godzin dodania.
 5. `corp_hydrationTarget` (Integer) - Cel dla wyliczeń % nawodnienia dobowego (domyślnie: 2000ml).
 
-## Wybrane Moduły i Logika Binnesowa:
-- `/src/App.tsx` - "Shell" układu strony. Odpowiada za szumny szkielet Mobile-App UI, Header i główny system routingu dolnego paska nawigacji (PWA Footer Tab Bar). Posiada stan aktywności `activeTab`.
+## Wybrane Moduły i Logika Biznesowa:
+- `/src/App.tsx` - "Shell" układu strony. Odpowiada za główny szkielet Mobile-App UI, Header (z uwzględnieniem niestandardowej ikony gniazdka `SocketIcon` w SVG) i system routingu dolnego paska nawigacji (PWA Footer Tab Bar). Posiada stan aktywności `activeTab`. Nawigacja podzielona na moduły: Rutyna, Baza, Kafejka, Kontrola, Raporty.
+- `/src/components/Reports.tsx` - Moduł odpowiedzialny za statystyki z zaimplementowaną logiką wykresu słupkowego dla witalności (wartości % do osi Y), dynamicznie czerpiący dane począwszy od pierwszego dnia rejestrów analizy.
 - `/src/hooks/useLocalStorage.ts` - Implementacja logiki przechowywania i persystencji. Odpowiedzialne za dispatch globalnych zdarzeń celem powiadamiania innych instancji widoku o naruszeniu stanu (daje efekt spójności w raporcie).
 - `/src/data.ts` - Konfiguracja bazy z danymi, w tym słownika (tzw. enumeratorów) dotyczących polecanych produktów zakupu i napojów – wzorowana na dokumentacji merytorycznej zdrowia w trybie siedzącym. Zawiera metadane dla stoperów parzenia (`timer` values).
 - `/src/components/*` - Poszczególne interfejsy modułów: wskaźniki wizualizowane za pomocą odpowiednio manipulowanych elementach natywnych SVG (np. `strokeDashoffset`), integracja formularzy HTML do symulacji analizy medycznej oraz iteracja elementów tablic.
