@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckSquare, Square, Box, ShoppingCart } from 'lucide-react';
+import { CheckSquare, Square, ShoppingCart } from 'lucide-react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { SHOPPING_BASE, SHOPPING_WEEKLY } from '../data';
 
@@ -15,9 +15,16 @@ export default function Essentials() {
   };
 
   const currentList = activeSubTab === 'base' ? SHOPPING_BASE : SHOPPING_WEEKLY;
-  const collectedCount = currentList.filter(item => supplies.includes(item)).length;
+  const collectedCount = currentList.filter(item => supplies.includes(item.name)).length;
   const totalCount = currentList.length;
   const percentage = Math.round((collectedCount / totalCount) * 100) || 0;
+
+  // Group items by category
+  const groupedItems = currentList.reduce((acc, item) => {
+    if (!acc[item.category]) acc[item.category] = [];
+    acc[item.category].push(item);
+    return acc;
+  }, {} as Record<string, typeof currentList>);
 
   return (
     <div className="space-y-6 pb-24 animate-in fade-in slide-in-from-bottom-2 duration-500">
@@ -50,37 +57,43 @@ export default function Essentials() {
         </button>
       </div>
 
-      <div className="space-y-3">
-        {currentList.map(item => {
-          const isChecked = supplies.includes(item);
-          return (
-            <div 
-              key={item} 
-              onClick={() => handleToggle(item)}
-              className={`flex items-center gap-4 border p-4 rounded-xl cursor-pointer transition-all duration-200 ${
-                isChecked ? 'bg-slate-800 border-slate-700' : 'bg-slate-800/40 border-slate-700/50 hover:bg-slate-800/80'
-              }`}
-            >
-              <div className={`w-10 h-10 shrink-0 rounded-lg flex items-center justify-center transition-colors ${
-                isChecked ? 'bg-emerald-500/10 text-emerald-500' : 'bg-slate-700/50 text-slate-500'
-              }`}>
-                <Box className="w-[20px] h-[20px]" />
-              </div>
-              <div className={`flex-1 text-sm font-medium transition-all ${isChecked ? 'text-slate-500 line-through' : 'text-slate-200'}`}>
-                {item}
-              </div>
-              {isChecked ? (
-                <CheckSquare className="w-6 h-6 text-emerald-500" />
-              ) : (
-                <Square className="w-6 h-6 text-slate-600" />
-              )}
+      <div className="space-y-6">
+        {Object.entries(groupedItems).map(([categoryName, items]) => (
+          <div key={categoryName} className="space-y-3">
+            <h3 className="text-xs font-semibold tracking-widest text-slate-400 uppercase pl-1 mb-2">
+              {categoryName}
+            </h3>
+            <div className="space-y-3">
+              {items.map(product => {
+                const isChecked = supplies.includes(product.name);
+                const Icon = product.icon;
+                return (
+                  <div 
+                    key={product.name} 
+                    onClick={() => handleToggle(product.name)}
+                    className={`flex items-center gap-4 border p-4 rounded-xl cursor-pointer transition-all duration-200 ${
+                      isChecked ? 'bg-slate-800 border-slate-700' : 'bg-slate-800/40 border-slate-700/50 hover:bg-slate-800/80'
+                    }`}
+                  >
+                    <div className={`w-10 h-10 shrink-0 rounded-lg flex items-center justify-center transition-colors ${
+                      isChecked ? 'bg-emerald-500/10 text-emerald-500' : 'bg-slate-700/50 text-slate-400'
+                    }`}>
+                      <Icon className="w-[20px] h-[20px]" />
+                    </div>
+                    <div className={`flex-1 text-sm font-medium transition-all ${isChecked ? 'text-slate-500 line-through' : 'text-slate-200'}`}>
+                      {product.name}
+                    </div>
+                    {isChecked ? (
+                      <CheckSquare className="w-6 h-6 text-emerald-500" />
+                    ) : (
+                      <Square className="w-6 h-6 text-slate-600" />
+                    )}
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
-      </div>
-
-      <div className="text-center text-xs text-slate-500 font-medium">
-        Kategoria: {activeSubTab === 'base' ? 'Suplementy i Baza Diety' : 'Świeże składniki i dodatki'}
+          </div>
+        ))}
       </div>
     </div>
   );

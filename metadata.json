@@ -1,5 +1,5 @@
 {
-  "name": "Corporate Health Console",
+  "name": "Office Health vs 2.0",
   "description": "A comprehensive wellness and routine tracking application.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

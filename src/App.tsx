@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
-import { Activity, ListChecks, ShoppingCart, Droplet, Sliders, BarChart3, CupSoda } from 'lucide-react';
+import { ListChecks, ShoppingCart, Droplet, Sliders, BarChart3, CupSoda } from 'lucide-react';
 import DailyRoutine from './components/DailyRoutine';
 import Essentials from './components/Essentials';
 import WellnessCafe from './components/WellnessCafe';
 import ControlCenter from './components/ControlCenter';
 import Reports from './components/Reports';
+
+const SocketIcon = ({ className }: { className?: string }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 100 100" 
+    className={className}
+    fill="currentColor"
+  >
+    <circle cx="50" cy="50" r="38" stroke="currentColor" strokeWidth="8" fill="none" />
+    <rect x="30" y="32" width="12" height="20" />
+    <rect x="58" y="32" width="12" height="20" />
+    <path d="M 42 66 A 8 10 0 0 1 58 66 Z" />
+  </svg>
+);
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('routine');
@@ -23,9 +37,9 @@ export default function App() {
   const getTitle = () => {
     switch (activeTab) {
       case 'routine': return 'Rutyna Dnia';
-      case 'essentials': return 'Niezbędnik';
+      case 'essentials': return 'Baza';
       case 'cafe': return 'Kafejka Mocy';
-      case 'control': return 'Diagnoza';
+      case 'control': return 'Kontrola';
       case 'reports': return 'Raporty';
       default: return 'Corporate Health';
     }
@@ -40,14 +54,14 @@ export default function App() {
           <div className="flex items-start justify-between">
             <div>
               <div className="text-[10px] font-bold tracking-[0.15em] text-emerald-500 uppercase mb-1">
-                Office Health Console
+                Office Health vs 2.0
               </div>
               <h1 className="text-xl font-bold tracking-wide text-white">
                 {getTitle()}
               </h1>
             </div>
             <button className="w-10 h-10 rounded-[10px] bg-slate-800 border border-slate-700 flex items-center justify-center shadow-sm hover:border-slate-600 transition-colors">
-              <Activity className="w-5 h-5 text-emerald-500" />
+              <SocketIcon className="w-6 h-6 text-[#5AB4FF]" />
             </button>
           </div>
         </header>

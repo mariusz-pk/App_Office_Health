@@ -1,4 +1,4 @@
-import { Activity, Droplet, Moon, Sun, Hexagon, Zap, Shield, Wind } from 'lucide-react';
+import { Activity, Droplet, Moon, Sun, Hexagon, Zap, Shield, Wind, Wheat, ShieldPlus, Pill, FlaskConical, Coffee, Leaf, Sprout, Sparkles, Bean, Flower2, Brain, Egg, TestTube, Target, Grape, Citrus, Fish, Carrot, Milk, Beaker, Flame, ThermometerSun, CupSoda, Waves, Cherry, Nut, Vegan } from 'lucide-react';
 
 export const HABITS_LIST = [
   "Poranny Izotonik",
@@ -9,43 +9,75 @@ export const HABITS_LIST = [
 ];
 
 export const SHOPPING_BASE = [
-  "Kasza jaglana i gryczana (niepalona)",
-  "Witamina D3 + K2 MK7 (tarcza systemowa)",
-  "Glicynian magnezu (regeneracja nocna)",
-  "Sól kłodawska i Ocet jabłkowy (do izotoników)",
-  "Zielona Matcha i wysokiej jakości Kawa",
-  "Pyłek pszczeli / Rokitnik (wsparcie odporności)",
-  "Nasiona: Siemię lniane i Chia (osłona jelit)",
-  "Oleje: kokosowy i lniany z lodówki (tłuszcze mocy)",
-  "Przyprawy: Kurkuma, Cynamon, Kardamon",
-  "Miód i Surowe Kakao (do napojów adaptogennych)",
-  "Zioła suszone: Szałwia, Melisa, Imbir",
-  "Kreatyna (opcjonalne wsparcie funkcji poznawczych mózgu)"
+  { name: "Kasza jaglana i gryczana niepalona", category: "Sypkie i Nasiona", icon: Wheat },
+  { name: "Komosa ryżowa (quinoa)", category: "Sypkie i Nasiona", icon: Wheat },
+  { name: "Nasiona: Siemię lniane i Chia", category: "Sypkie i Nasiona", icon: Sprout },
+  { name: "Pestki dyni i Słonecznik", category: "Sypkie i Nasiona", icon: Sprout },
+  { name: "Orzechy włoskie, Migdały, Brazylijskie", category: "Sypkie i Nasiona", icon: Bean },
+  { name: "Surowe Kakao / Kakao ceremonialne", category: "Sypkie i Nasiona", icon: Bean },
+  
+  { name: "Oliwa z oliwek extra virgin", category: "Płyny i Dodatki", icon: Droplet },
+  { name: "Olej lniany (tłoczony na zimno)", category: "Płyny i Dodatki", icon: Droplet },
+  { name: "Olej kokosowy", category: "Płyny i Dodatki", icon: Droplet },
+  { name: "Ocet jabłkowy mętny (BIO)", category: "Płyny i Dodatki", icon: FlaskConical },
+
+  { name: "Zioła: Szałwia, Melisa", category: "Zioła", icon: Flower2 },
+  { name: "Szyszki chmielu", category: "Zioła", icon: Flower2 },
+  { name: "Krwawnik pospolity", category: "Zioła", icon: Flower2 },
+
+  { name: "Sól kłodawska (niejodowana)", category: "Przyprawy i Dodatki", icon: Sparkles },
+  { name: "Przyprawy: Kurkuma, Cynamon, Kardamon", category: "Przyprawy i Dodatki", icon: Sparkles },
+  { name: "Pieprz cayenne / czarny pieprz", category: "Przyprawy i Dodatki", icon: Sparkles },
+  { name: "Suszony imbir", category: "Przyprawy i Dodatki", icon: Flame },
+
+  { name: "Pyłek pszczeli (wsparcie odporności)", category: "Produkty Pszczele", icon: Sparkles },
+  { name: "Miód spadziowy lub lipowy (wsparcie odporności)", category: "Produkty Pszczele", icon: Droplet },
+
+  { name: "Witamina D3 + K2 MK7", category: "Suplementy", icon: ShieldPlus },
+  { name: "Magnez (jabłczan lub diglicynian)", category: "Suplementy", icon: Pill },
+  { name: "Omega-3 (suplement)", category: "Suplementy", icon: Pill },
+  { name: "Kreatyna (wsparcie funkcji poznawczych)", category: "Suplementy", icon: Brain },
+  { name: "Adaptogeny (np. Ashwagandha)", category: "Suplementy", icon: TestTube },
+  { name: "Kurkumina z piperyną", category: "Suplementy", icon: ShieldPlus },
+
+  { name: "Zielona Matcha (stabilne skupienie)", category: "Napoje", icon: Leaf },
+  { name: "Kawa w ziarnach jakościowa (szybka energia)", category: "Napoje", icon: Coffee },
+  
+  { name: "Rokitnik (wsparcie odporności)", category: "Owoce i Warzywa", icon: Grape }
 ];
 
 export const SHOPPING_WEEKLY = [
-  "Jajka (klasa 0 lub 1 - fundament białkowy)",
-  "Domowe kiszonki / Zakwas z buraka (probiotyki)",
-  "Dzika borówka / owoce jagodowe (antyoksydanty)",
-  "Świeży imbir i cytryny",
-  "Dzikie ryby (śledź / dziki łosoś - źródło Omega-3)",
-  "Warzywa: Buraki i przecier pomidorowy",
-  "Mleko roślinne (bez dodatku cukru)"
+  { name: "Warzywa: Brokuły, Kalafior, Kapusta", category: "Owoce i Warzywa", icon: Carrot },
+  { name: "Korzeniowe: Buraki, Marchew, Seler, Pietruszka", category: "Owoce i Warzywa", icon: Carrot },
+  { name: "Zielone: Szpinak, Jarmuż, Rukola", category: "Owoce i Warzywa", icon: Leaf },
+  { name: "Czosnek i Cebula", category: "Owoce i Warzywa", icon: Flame },
+  { name: "Świeży imbir", category: "Owoce i Warzywa", icon: Zap },
+  { name: "Świeża kurkuma", category: "Owoce i Warzywa", icon: Sparkles },
+  { name: "Dzika borówka (może być mrożona)", category: "Owoce i Warzywa", icon: Cherry },
+  { name: "Cytryny", category: "Owoce i Warzywa", icon: Citrus },
+  { name: "Awokado", category: "Owoce i Warzywa", icon: Vegan },
+
+  { name: "Domowe kiszonki / Zakwas z buraka", category: "Przetwory", icon: TestTube },
+
+  { name: "Jajka (klasa 0 lub 1 - fundament białkowy)", category: "Nabiał i Jaja", icon: Egg },
+  { name: "Mleko A2 / Mleko roślinne bez dodatków", category: "Nabiał i Jaja", icon: Milk },
+  
+  { name: "Dzikie ryby (śledź / dziki łosoś - Omega-3)", category: "Mięso i Ryby", icon: Fish }
 ];
 
 export const DRINKS_CATALOG = [
   // CATEGORY 1: PORANEK (Aktywacja i Skupienie)
-  { id: 1, title: "Poranny Izotonik", effect: "Nawodnienie na start", when: "07:00 po wstaniu", ingredients: "300ml ciepłej wody, sól kłodawska, ocet jabłkowy", icon: Droplet, category: "PORANEK" },
-  { id: 2, title: "Zielona Matcha Latte", effect: "Skupienie 3-4 h", when: "09:00 start pracy", ingredients: "matcha, woda max 80°C, mleko roślinne", timer: 120, icon: Activity, color: "text-emerald-500", bg: "bg-emerald-500/10", category: "PORANEK" },
+  { id: 1, title: "Poranny Izotonik", effect: "Nawodnienie na start", when: "07:00 po wstaniu", ingredients: "300ml ciepłej wody, sól kłodawska, ocet jabłkowy", icon: Waves, category: "PORANEK" },
+  { id: 2, title: "Zielona Matcha Latte", effect: "Skupienie 3-4 h", when: "09:00 start pracy", ingredients: "matcha, woda max 80°C, mleko roślinne", timer: 120, icon: Leaf, color: "text-emerald-500", bg: "bg-emerald-500/10", category: "PORANEK" },
   
   // CATEGORY 2: W TRAKCIE DNIA (Energia i Trawienie)
-  { id: 3, title: "Złoty Eliksir Imbirowy", effect: "Przeciwzapalny", when: "11:00/14:00", ingredients: "świeży imbir, cytryna, ciepła woda, miód", timer: 300, icon: Sun, color: "text-amber-500", bg: "bg-amber-500/10", category: "W TRAKCIE DNIA" },
-  { id: 4, title: "Szot z Zakwasu Buraka", effect: "Wsparcie mikrobiomu", when: "Do obiadu", ingredients: "100ml zakwasu z buraka", icon: Hexagon, color: "text-rose-500", bg: "bg-rose-500/10", category: "W TRAKCIE DNIA" },
+  { id: 3, title: "Złoty Eliksir Imbirowy", effect: "Przeciwzapalny", when: "11:00/14:00", ingredients: "świeży imbir, cytryna, ciepła woda, miód", timer: 300, icon: Flame, color: "text-amber-500", bg: "bg-amber-500/10", category: "W TRAKCIE DNIA" },
+  { id: 4, title: "Szot z Zakwasu Buraka", effect: "Wsparcie mikrobiomu", when: "Do obiadu", ingredients: "100ml zakwasu z buraka", icon: FlaskConical, color: "text-rose-500", bg: "bg-rose-500/10", category: "W TRAKCIE DNIA" },
   { id: 5, title: "Matcha-Mate Turbo", effect: "Maksymalna energia na deadline/kryzys", when: "Kiedy potrzebujesz", ingredients: "matcha, yerba mate", timer: 180, icon: Zap, color: "text-emerald-400", bg: "bg-emerald-400/10", category: "W TRAKCIE DNIA" },
-  { id: 6, title: "Kakao Adaptogenne", effect: "Redukcja stresu", when: "Popołudnie", ingredients: "surowe kakao, adaptogeny, napój roślinny", icon: Wind, color: "text-orange-400", bg: "bg-orange-400/10", category: "W TRAKCIE DNIA" },
+  { id: 6, title: "Kakao Adaptogenne", effect: "Redukcja stresu", when: "Popołudnie", ingredients: "surowe kakao, adaptogeny, napój roślinny", icon: CupSoda, color: "text-orange-400", bg: "bg-orange-400/10", category: "W TRAKCIE DNIA" },
   
   // CATEGORY 3: WIECZÓR (Wyciszenie i Sen)
-  { id: 7, title: "Złote Mleko Kardamonowe", effect: "Sen i relaks", when: "20:00", ingredients: "mleko roślinne, kurkuma, cynamon, kardamon, olej kokosowy", timer: 300, icon: Moon, color: "text-amber-400", bg: "bg-amber-400/10", category: "WIECZÓR" },
+  { id: 7, title: "Złote Mleko Kardamonowe", effect: "Sen i relaks", when: "20:00", ingredients: "mleko roślinne, kurkuma, cynamon, kardamon, olej kokosowy", timer: 300, icon: Beaker, color: "text-amber-400", bg: "bg-amber-400/10", category: "WIECZÓR" },
   { id: 8, title: "Lemoniada Magnezowa", effect: "Głęboka faza REM", when: "21:00 przed snem", ingredients: "woda, cytryna, magnez", icon: Moon, color: "text-blue-400", bg: "bg-blue-400/10", category: "WIECZÓR" },
   
   // CATEGORY 4: DOWOLNA PORA (Wsparcie Całodobowe)
