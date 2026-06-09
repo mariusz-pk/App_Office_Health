@@ -38,18 +38,19 @@ export default function Reports() {
 
     const daysCount = recentDates.length;
 
-    // Generate last 7 days chart data
-    const last7Days = [];
-    const today = new Date();
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
+    const firstDateStr = dates.length > 0 ? dates[0] : new Date().toISOString().split('T')[0];
+    const startDate = new Date(firstDateStr);
+
+    const chartDays = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(startDate);
+      d.setDate(d.getDate() + i);
       const dateStr = d.toISOString().split('T')[0];
       const data = history[dateStr];
       const score = data ? Math.min(100, Math.round((data.checkedHabits.length * 14) + (data.energyLevel * 1.5) + (data.sleepQuality * 1.5))) : 0;
       
       const dayName = ['Ni', 'Po', 'Wt', 'Śr', 'Cz', 'Pi', 'So'][d.getDay()];
-      last7Days.push({
+      chartDays.push({
         label: dayName,
         value: score,
         color: score >= 80 ? '#10b981' : score >= 50 ? '#f59e0b' : score > 0 ? '#f43f5e' : 'transparent'
@@ -65,7 +66,7 @@ export default function Reports() {
         title: h,
         percentage: Math.round((habitCounts[h] / daysCount) * 100)
       })),
-      chart: last7Days
+      chart: chartDays
     };
   }, [history]);
 
@@ -81,13 +82,13 @@ export default function Reports() {
           <BarChart3 className="w-4 h-4 text-emerald-500" /> Witalność — Ostatnie 7 dni
         </div>
         
-        <div className="flex items-end justify-between h-36 px-1">
+        <div className="flex items-end justify-around h-36 px-1">
           {stats.chart.map((d, i) => (
             <div key={i} className="flex flex-col items-center gap-2.5 w-10">
               {d.value > 0 ? (
-                <span className="text-[11px] text-white font-medium">{d.value}</span>
+                <span className="text-[11px] text-white font-medium">{d.value}%</span>
               ) : (
-                <span className="text-[11px] text-transparent">0</span>
+                <span className="text-[11px] text-transparent">0%</span>
               )}
               
               <div className="w-full flex items-end justify-center h-[90px]">
