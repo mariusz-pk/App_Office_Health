@@ -11,7 +11,7 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['icon.svg'],
+        includeAssets: ['app-icon.png', 'icon.svg'],
         manifest: {
           name: 'Office Health Console',
           short_name: 'Office Health',
@@ -22,9 +22,9 @@ export default defineConfig(() => {
           orientation: 'portrait',
           icons: [
             {
-              src: '/icon.svg',
-              sizes: '192x192 512x512',
-              type: 'image/svg+xml',
+              src: '/app-icon.png',
+              sizes: '192x192 256x256 512x512',
+              type: 'image/png',
               purpose: 'any maskable'
             }
           ]
