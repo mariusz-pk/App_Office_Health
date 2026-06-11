@@ -1,10 +1,54 @@
-import React from 'react';
-import { Share2, BellOff, Bell } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Share2, BellOff, Bell, Clock } from 'lucide-react';
 import { useAuth } from './AuthProvider';
 
 export default function CloudAlerts() {
   const { user, signIn, logOut } = useAuth();
-  const [notificationsEnabled, setNotificationsEnabled] = React.useState(false);
+  
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [notificationTime, setNotificationTime] = useState('17:00');
+  const [saveSuccess, setSaveSuccess] = useState(false);
+
+  useEffect(() => {
+    const savedEnabled = window.localStorage.getItem('corp_notificationsEnabled') === 'true';
+    const savedTime = window.localStorage.getItem('corp_notificationTime') || '17:00';
+    setNotificationsEnabled(savedEnabled);
+    setNotificationTime(savedTime);
+  }, []);
+
+  const handleToggleNotifications = async () => {
+    if (!notificationsEnabled) {
+      // Trying to enable
+      if (!('Notification' in window)) {
+        alert('Twoja przeglądarka nie wspiera powiadomień.');
+        return;
+      }
+      
+      const permission = await Notification.requestPermission();
+      if (permission === 'granted') {
+        setNotificationsEnabled(true);
+        window.localStorage.setItem('corp_notificationsEnabled', 'true');
+      } else {
+        alert('Brak uprawnień do powiadomień.');
+      }
+    } else {
+      // Trying to disable
+      setNotificationsEnabled(false);
+      window.localStorage.setItem('corp_notificationsEnabled', 'false');
+    }
+  };
+
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTime = e.target.value;
+    setNotificationTime(newTime);
+    setSaveSuccess(false);
+  };
+
+  const handleSaveTime = () => {
+    window.localStorage.setItem('corp_notificationTime', notificationTime);
+    setSaveSuccess(true);
+    setTimeout(() => setSaveSuccess(false), 3000);
+  };
 
   return (
     <div className="space-y-8 pb-10 fade-in">
@@ -35,8 +79,8 @@ export default function CloudAlerts() {
             
             {/* Toggle Switch */}
             <button
-              onClick={() => setNotificationsEnabled(!notificationsEnabled)}
-              className={`w-11 h-6 rounded-full transition-colors relative focus:outline-none ${
+              onClick={handleToggleNotifications}
+              className={`w-11 h-6 shrink-0 rounded-full transition-colors relative focus:outline-none ${
                 notificationsEnabled ? 'bg-emerald-500' : 'bg-slate-600'
               }`}
             >
@@ -47,6 +91,36 @@ export default function CloudAlerts() {
               />
             </button>
           </div>
+
+          {notificationsEnabled && (
+            <div className="mt-5 pt-5 border-t border-slate-700/50 flex flex-col gap-4 animate-in fade-in slide-in-from-top-2">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2 text-sm text-slate-300">
+                  <Clock className="w-4 h-4 text-emerald-500" />
+                  Godzina przypomnienia
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="time"
+                    value={notificationTime}
+                    onChange={handleTimeChange}
+                    className="bg-slate-900 text-slate-200 text-sm font-bold border border-slate-700 rounded-lg px-3 py-1.5 focus:outline-none focus:border-emerald-500"
+                  />
+                  <button
+                    onClick={handleSaveTime}
+                    className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 px-3 py-1.5 rounded-lg text-sm font-bold transition-colors"
+                  >
+                    Zapisz
+                  </button>
+                </div>
+              </div>
+              {saveSuccess && (
+                <div className="text-xs text-emerald-400 text-right animate-in fade-in slide-in-from-top-1">
+                  Godzina przypomnienia została zapisana.
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
