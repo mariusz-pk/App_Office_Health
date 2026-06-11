@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { CheckSquare, Square, ShoppingCart } from 'lucide-react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useFirebaseSupplies } from '../hooks/useFirebaseSupplies';
 import { SHOPPING_BASE, SHOPPING_WEEKLY } from '../data';
 
 export default function Essentials() {
-  const [supplies, setSupplies] = useLocalStorage<string[]>('corp_vitalSupplies', []);
+  const [supplies, setSupplies] = useFirebaseSupplies();
   const [activeSubTab, setActiveSubTab] = useState<'base' | 'weekly'>('base');
 
   const handleToggle = (item: string) => {

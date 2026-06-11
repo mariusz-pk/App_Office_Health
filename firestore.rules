@@ -1,0 +1,88 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+    
+    function isValidHealthLog(data, userId) {
+      return data.keys().hasAll(['rhr', 'spo2', 'date', 'userId']) &&
+        data.rhr is number && data.rhr >= 0 && data.rhr <= 300 &&
+        data.spo2 is number && data.spo2 >= 0 && data.spo2 <= 100 &&
+        data.date is string && data.date.size() <= 30 &&
+        data.userId == userId &&
+        (data.keys().hasAll(['symptoms']) ? (data.symptoms is list && data.symptoms.size() <= 50) : true);
+    }
+
+    function isValidRoutineLog(data, userId) {
+      return data.keys().hasAll(['checkedHabits', 'energyLevel', 'sleepQuality', 'userId']) &&
+        data.energyLevel is number && data.energyLevel >= 0 && data.energyLevel <= 10 &&
+        data.sleepQuality is number && data.sleepQuality >= 0 && data.sleepQuality <= 10 &&
+        data.checkedHabits is list && data.checkedHabits.size() <= 100 && // can be empty or have up to 100 strings
+        data.userId == userId;
+    }
+
+    function isValidHydrationLog(data, userId) {
+      return data.keys().hasAll(['amount', 'time', 'date', 'userId']) &&
+        data.amount is number && data.amount > 0 && data.amount <= 10000 &&
+        data.time is string && data.time.size() <= 30 &&
+        data.date is string && data.date.size() <= 30 &&
+        data.userId == userId;
+    }
+
+    function isValidSettings(data, userId) {
+      return data.keys().hasAll(['userId']) && 
+        data.userId == userId &&
+        (!('hydrationTarget' in data) || (data.hydrationTarget is number && data.hydrationTarget > 0 && data.hydrationTarget <= 10000)) &&
+        (!('vitalSupplies' in data) || (data.vitalSupplies is list && data.vitalSupplies.size() <= 500));
+    }
+
+    match /users/{userId} {
+      match /healthLogs/{logId} {
+        allow read: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
+        allow list: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
+        allow create: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId) && isValidHealthLog(incoming(), userId);
+        allow update: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId) && isValidHealthLog(incoming(), userId) && incoming().userId == existing().userId;
+        allow delete: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId);
+      }
+
+      match /routineHistory/{date} {
+        allow read: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
+        allow list: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
+        allow create: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(date) && isValidRoutineLog(incoming(), userId);
+        allow update: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(date) && isValidRoutineLog(incoming(), userId) && incoming().userId == existing().userId;
+        allow delete: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(date);
+      }
+
+      match /hydrationLogs/{logId} {
+        allow read: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
+        allow list: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
+        allow create: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId) && isValidHydrationLog(incoming(), userId);
+        allow update: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId) && isValidHydrationLog(incoming(), userId) && incoming().userId == existing().userId;
+        allow delete: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId);
+      }
+
+      match /settings/default {
+        allow read: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
+        allow create: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidSettings(incoming(), userId);
+        allow update: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidSettings(incoming(), userId) && incoming().userId == existing().userId;
+      }
+    }
+  }
+}

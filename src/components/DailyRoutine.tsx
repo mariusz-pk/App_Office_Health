@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Activity, Coffee, Moon, Footprints, Sun, CheckCircle2, Droplet, CheckSquare, Square } from 'lucide-react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useFirebaseRoutine } from '../hooks/useFirebaseRoutine';
 import { RoutineHistory } from '../types';
 import { HABITS_LIST } from '../data';
 
@@ -13,7 +13,7 @@ const HABIT_ICONS: Record<string, React.ElementType> = {
 };
 
 export default function DailyRoutine() {
-  const [history, setHistory] = useLocalStorage<RoutineHistory>('corp_dailyRoutineHistory', {});
+  const [history, setHistory] = useFirebaseRoutine();
   const [currentDateStr, setCurrentDateStr] = useState('');
 
   useEffect(() => {

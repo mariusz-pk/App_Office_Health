@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Droplet, RefreshCw, Plus, ChevronDown, Play, StopCircle, Sunrise, Sun, Sunset, Clock } from 'lucide-react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useFirebaseHydrationTarget } from '../hooks/useFirebaseHydrationTarget';
+import { useFirebaseCollection } from '../hooks/useFirebaseData';
 import { DRINKS_CATALOG } from '../data';
 import { HydrationLog } from '../types';
 
 export default function WellnessCafe() {
   const [openAccordion, setOpenAccordion] = useState<number | null>(null);
-  const [target, setTarget] = useLocalStorage('corp_hydrationTarget', 2000);
-  const [history, setHistory] = useLocalStorage<HydrationLog[]>('corp_hydrationLogs_v2', []);
+  const [target, setTarget] = useFirebaseHydrationTarget();
+  const { data: history, addOrUpdateDoc } = useFirebaseCollection<HydrationLog>('hydrationLogs');
   
   // Timer State
   const [activeTimer, setActiveTimer] = useState<{ id: number, remaining: number } | null>(null);
@@ -19,12 +20,13 @@ export default function WellnessCafe() {
 
   const addWater = (amount: number) => {
     const now = new Date();
+    const logId = Date.now().toString();
     const newLog: HydrationLog = {
       amount,
       time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       date: todayStr
     };
-    setHistory(prev => [newLog, ...prev]);
+    addOrUpdateDoc(logId, newLog);
   };
 
   const resetTargetParams = () => {

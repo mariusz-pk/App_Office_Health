@@ -1,0 +1,79 @@
+{
+  "entities": {
+    "HealthLog": {
+      "title": "HealthLog",
+      "description": "Logs of user health stats",
+      "type": "object",
+      "properties": {
+        "rhr": { "type": "number" },
+        "spo2": { "type": "number" },
+        "symptoms": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "date": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["rhr", "spo2", "date", "userId"]
+    },
+    "RoutineLog": {
+      "title": "RoutineLog",
+      "description": "Daily routine values",
+      "type": "object",
+      "properties": {
+        "checkedHabits": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "energyLevel": { "type": "number" },
+        "sleepQuality": { "type": "number" },
+        "userId": { "type": "string" }
+      },
+      "required": ["checkedHabits", "energyLevel", "sleepQuality", "userId"]
+    },
+    "HydrationLog": {
+      "title": "HydrationLog",
+      "description": "Hydration tracking log",
+      "type": "object",
+      "properties": {
+        "amount": { "type": "number" },
+        "time": { "type": "string" },
+        "date": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["amount", "time", "date", "userId"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "User specific settings",
+      "type": "object",
+      "properties": {
+        "hydrationTarget": { "type": "number" },
+        "vitalSupplies": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "userId": { "type": "string" }
+      },
+      "required": ["userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/healthLogs/{logId}": {
+      "schema": { "$ref": "#/entities/HealthLog" },
+      "description": "User's health logs"
+    },
+    "/users/{userId}/routineHistory/{date}": {
+      "schema": { "$ref": "#/entities/RoutineLog" },
+      "description": "Daily routine log indexed by date"
+    },
+    "/users/{userId}/hydrationLogs/{logId}": {
+      "schema": { "$ref": "#/entities/HydrationLog" },
+      "description": "User's hydration events"
+    },
+    "/users/{userId}/settings/default": {
+      "schema": { "$ref": "#/entities/Settings" },
+      "description": "Basic user settings"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, Activity, Square, CheckSquare, Clock, AlertTriangle, CheckCircle } from 'lucide-react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useFirebaseCollection } from '../hooks/useFirebaseData';
 import { HealthLog } from '../types';
 
 const SYMPTOMS_MAP: Record<string, string> = {
@@ -12,11 +12,14 @@ const SYMPTOMS_MAP: Record<string, string> = {
 };
 
 export default function ControlCenter() {
-  const [logs, setLogs] = useLocalStorage<HealthLog[]>('corp_healthLogs', []);
+  const { data: logs, addOrUpdateDoc } = useFirebaseCollection<HealthLog>('healthLogs');
   const [rhr, setRhr] = useState('');
   const [spo2, setSpo2] = useState('');
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
   const [alertState, setAlertState] = useState<{ type: 'ok' | 'warning' | 'error', msg: string } | null>(null);
+
+  // sort logs internally for display
+  const sortedLogs = [...logs].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const handleSave = () => {
     const rhVal = parseInt(rhr);
@@ -36,15 +39,15 @@ export default function ControlCenter() {
       setAlertState({ type: 'ok', msg: "Parametry w normie. Stabilna wydajność." });
     }
 
-    const newLog: HealthLog = {
-      id: Date.now().toString(),
-      date: new Date().toISOString(),
+    const logId = Date.now().toString();
+    const newLog = {
       rhr: rhVal || 0,
       spo2: spVal || 0,
-      symptoms: [...selectedSymptoms]
+      symptoms: [...selectedSymptoms],
+      date: new Date().toISOString()
     };
 
-    setLogs(prev => [newLog, ...prev]);
+    addOrUpdateDoc(logId, newLog);
     setRhr('');
     setSpo2('');
     setSelectedSymptoms([]);
@@ -141,11 +144,11 @@ export default function ControlCenter() {
 
       <div>
         <div className="text-xs font-medium tracking-widest text-slate-500 uppercase mb-4 pl-1 pt-2">Historia Dzienników</div>
-        {logs.length === 0 ? (
+        {sortedLogs.length === 0 ? (
           <div className="text-sm text-slate-500 text-center py-6">Brak dzienników w bazie.</div>
         ) : (
           <div className="space-y-3">
-            {logs.map(log => {
+            {sortedLogs.map(log => {
               const d = new Date(log.date);
               const fmtDate = `${d.getDate()} ${d.toLocaleString('default', { month: 'short' })}, ${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
               

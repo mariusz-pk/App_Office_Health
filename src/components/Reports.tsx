@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import { BarChart3, Activity, Sun, Moon, CheckSquare, Target } from 'lucide-react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useFirebaseRoutine } from '../hooks/useFirebaseRoutine';
 import { RoutineHistory } from '../types';
 import { HABITS_LIST } from '../data';
 
 export default function Reports() {
-  const [history] = useLocalStorage<RoutineHistory>('corp_dailyRoutineHistory', {});
+  const [history] = useFirebaseRoutine();
 
   const stats = useMemo(() => {
     const dates = Object.keys(history).sort();

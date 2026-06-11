@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { ListChecks, ShoppingCart, Droplet, Sliders, BarChart3, CupSoda } from 'lucide-react';
+import { ListChecks, ShoppingCart, Droplet, Sliders, BarChart3, CupSoda, LogOut, Cloud } from 'lucide-react';
+import { useAuth } from './components/AuthProvider';
 import DailyRoutine from './components/DailyRoutine';
 import Essentials from './components/Essentials';
 import WellnessCafe from './components/WellnessCafe';
 import ControlCenter from './components/ControlCenter';
 import Reports from './components/Reports';
+import CloudAlerts from './components/CloudAlerts';
 
 const SocketIcon = ({ className }: { className?: string }) => (
   <svg 
@@ -21,7 +23,8 @@ const SocketIcon = ({ className }: { className?: string }) => (
 );
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('routine');
+  const [activeTab, setActiveTab] = useState('cloud');
+  const { user } = useAuth();
 
   const renderContent = () => {
     switch (activeTab) {
@@ -30,6 +33,7 @@ export default function App() {
       case 'cafe': return <WellnessCafe />;
       case 'control': return <ControlCenter />;
       case 'reports': return <Reports />;
+      case 'cloud': return <CloudAlerts />;
       default: return <DailyRoutine />;
     }
   };
@@ -41,9 +45,17 @@ export default function App() {
       case 'cafe': return 'Kafejka Mocy';
       case 'control': return 'Kontrola';
       case 'reports': return 'Raporty';
-      default: return 'Corporate Health';
+      case 'cloud': return 'Chmura i Alerty';
+      default: return 'IT Health';
     }
   };
+
+  const getSubtitle = () => {
+    switch (activeTab) {
+      case 'cloud': return 'Przypomnienia i kopie zapasowe';
+      default: return 'Zapisano pomyślnie. Zsynchronizowano.';
+    }
+  }
 
   return (
     <div className="min-h-screen bg-slate-900 font-sans text-slate-100 selection:bg-emerald-500/30">
@@ -60,37 +72,48 @@ export default function App() {
                 {getTitle()}
               </h1>
             </div>
-            <button className="w-10 h-10 rounded-[10px] bg-slate-800 border border-slate-700 flex items-center justify-center shadow-sm hover:border-slate-600 transition-colors">
-              <SocketIcon className="w-6 h-6 text-[#5AB4FF]" />
-            </button>
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-[10px] bg-slate-800 border border-slate-700 flex items-center justify-center shadow-sm">
+                <SocketIcon className="w-6 h-6 text-[#5AB4FF]" />
+              </div>
+            </div>
           </div>
         </header>
 
         {/* Dynamic Content */}
         <main className="px-5 py-6 min-h-[calc(100vh-160px)]">
+          {activeTab === 'cloud' && (
+            <p className="text-sm text-slate-400 mb-6 font-mono pl-1">
+              {getSubtitle()}
+            </p>
+          )}
+
           {renderContent()}
         </main>
 
         {/* Bottom Nav */}
         <nav className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pb-safe">
-          <div className="w-full max-w-md bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 flex items-center justify-between px-6 py-3">
+          <div className="w-full max-w-md bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 flex items-center justify-between px-4 py-3">
             {[
               { id: 'routine', icon: ListChecks, label: 'Rutyna' },
               { id: 'essentials', icon: ShoppingCart, label: 'Baza' },
               { id: 'cafe', icon: CupSoda, label: 'Kafejka' },
               { id: 'control', icon: Sliders, label: 'Kontrola' },
               { id: 'reports', icon: BarChart3, label: 'Raporty' },
-            ].map(tab => {
+              { id: 'cloud', icon: Cloud, label: 'Chmura' },
+            ].map((tab, idx) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
+              
+              // We've 6 tabs now, so let's adjust padding to fit
               return (
                 <button 
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex flex-col items-center gap-1.5 min-w-[3.5rem] p-1 rounded-xl transition-all duration-300 ${isActive ? 'text-emerald-500' : 'text-slate-500 hover:text-slate-300'}`}
+                  className={`flex flex-col items-center gap-1 min-w-[3rem] p-1 rounded-xl transition-all duration-300 ${isActive ? 'text-emerald-500' : 'text-slate-500 hover:text-slate-300'}`}
                 >
                   <Icon className={`w-5 h-5 transition-transform ${isActive ? 'scale-110 mb-0.5 shadow-emerald-500/50' : ''}`} />
-                  <span className={`text-[10px] font-semibold tracking-wide ${isActive ? 'opacity-100' : 'opacity-70'}`}>
+                  <span className={`text-[9px] font-semibold tracking-wide ${isActive ? 'opacity-100' : 'opacity-70'}`}>
                     {tab.label}
                   </span>
                 </button>
