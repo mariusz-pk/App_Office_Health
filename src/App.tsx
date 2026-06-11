@@ -26,7 +26,7 @@ const SocketIcon = ({ className }: { className?: string }) => (
 export default function App() {
   const [activeTab, setActiveTab] = useState('cloud');
   const { user } = useAuth();
-  const { showBigModal, setShowBigModal, missingCount } = useNotifications();
+  const { showBigModal, dismissBigModal, missingCount } = useNotifications();
 
   const renderContent = () => {
     switch (activeTab) {
@@ -124,34 +124,40 @@ export default function App() {
         </nav>
 
         {/* Big Modal */}
-        {showBigModal && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 backdrop-blur-sm px-4 fade-in">
-            <div className="bg-slate-800 border border-slate-700 w-full max-w-sm rounded-[24px] shadow-2xl p-8 relative zoom-in-95">
-              <button 
-                onClick={() => setShowBigModal(false)}
-                className="absolute top-4 right-4 text-slate-400 hover:text-white p-2"
-              >
-                <X className="w-5 h-5" />
-              </button>
-              <div className="w-16 h-16 bg-rose-500/10 text-rose-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(244,63,94,0.15)]">
-                <ListChecks className="w-8 h-8" />
+        {showBigModal && (() => {
+          const isEvening = new Date().getHours() >= 18;
+          
+          return (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 backdrop-blur-sm px-4 fade-in">
+              <div className="bg-slate-800 border border-slate-700 w-full max-w-sm rounded-[24px] shadow-2xl p-8 relative zoom-in-95">
+                <button 
+                  onClick={dismissBigModal}
+                  className="absolute top-4 right-4 text-slate-400 hover:text-white p-2"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <div className="w-16 h-16 bg-rose-500/10 text-rose-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(244,63,94,0.15)]">
+                  <ListChecks className="w-8 h-8" />
+                </div>
+                <h2 className="text-2xl font-bold text-center text-white mb-2">
+                  {isEvening ? 'DZIEŃ SIĘ KOŃCZY!' : 'CZAS NA ZADANIA!'}
+                </h2>
+                <p className="text-center text-slate-300 mb-8 leading-relaxed">
+                  Masz <strong className="text-rose-400 text-lg">{missingCount}</strong> niezaznaczonych zadań. Sprawdź swoją listę!
+                </p>
+                <button 
+                  onClick={() => {
+                    dismissBigModal();
+                    setActiveTab('routine');
+                  }}
+                  className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-[0_0_15px_rgba(16,185,129,0.2)] text-lg"
+                >
+                  Zróbmy to teraz!
+                </button>
               </div>
-              <h2 className="text-2xl font-bold text-center text-white mb-2">Dzień się kończy!</h2>
-              <p className="text-center text-slate-300 mb-8 leading-relaxed">
-                Masz <strong className="text-rose-400 text-lg">{missingCount}</strong> niezaznaczonych zadań (np. magnez lub kroków). Odznacz je, żeby utrzymać rytm!
-              </p>
-              <button 
-                onClick={() => {
-                  setShowBigModal(false);
-                  setActiveTab('routine');
-                }}
-                className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-[0_0_15px_rgba(16,185,129,0.2)] text-lg"
-              >
-                Zróbmy to teraz!
-              </button>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
       </div>
     </div>

@@ -31,7 +31,7 @@ export function useNotifications() {
     const targetTimeMinutes = targetHour * 60 + targetMinute;
     const currentTimeMinutes = currentHour * 60 + currentMinute;
 
-    const todayStr = now.toISOString().split('T')[0];
+    const todayStr = [now.getFullYear(), String(now.getMonth() + 1).padStart(2, '0'), String(now.getDate()).padStart(2, '0')].join('-');
     const lastSentDate = window.localStorage.getItem('corp_notificationLastSent_DATE');
 
     // Make sure it's past the target time today
@@ -62,16 +62,22 @@ export function useNotifications() {
 
         // Show Big Modal on app mount/open if past the time and we have missing habits + we haven't shown it this session
         if (isMountCheck) {
-          const sessionModalShown = window.sessionStorage.getItem('corp_bigModalShown');
-          if (!sessionModalShown) {
+          const dismissedDate = window.localStorage.getItem('corp_bigModalDismissed_DATE');
+          if (dismissedDate !== todayStr) {
             setShowBigModal(true);
-            window.sessionStorage.setItem('corp_bigModalShown', 'true');
           }
         }
       }
     }
   };
 
-  return { showBigModal, setShowBigModal, missingCount };
+  const dismissBigModal = () => {
+    const now = new Date();
+    const todayStr = [now.getFullYear(), String(now.getMonth() + 1).padStart(2, '0'), String(now.getDate()).padStart(2, '0')].join('-');
+    window.localStorage.setItem('corp_bigModalDismissed_DATE', todayStr);
+    setShowBigModal(false);
+  };
+
+  return { showBigModal, dismissBigModal, missingCount };
 }
 
