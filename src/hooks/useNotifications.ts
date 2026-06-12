@@ -12,12 +12,12 @@ export function useNotifications() {
     }, 60000);
     
     // Initial check on mount for Big Modal and missed notifications
-    checkAndSendNotification(true);
+    checkAndSendNotification();
 
     return () => clearInterval(interval);
   }, []);
 
-  const checkAndSendNotification = (isMountCheck = false) => {
+  const checkAndSendNotification = () => {
     const isEnabled = window.localStorage.getItem('corp_notificationsEnabled') === 'true';
     if (!isEnabled) return;
 
@@ -60,12 +60,10 @@ export function useNotifications() {
           window.localStorage.setItem('corp_notificationLastSent_DATE', todayStr);
         }
 
-        // Show Big Modal on app mount/open if past the time and we have missing habits + we haven't shown it this session
-        if (isMountCheck) {
-          const dismissedDate = window.localStorage.getItem('corp_bigModalDismissed_DATE');
-          if (dismissedDate !== todayStr) {
-            setShowBigModal(true);
-          }
+        // Show Big Modal if past the time and we have missing habits + we haven't dismissed it today
+        const dismissedDate = window.localStorage.getItem('corp_bigModalDismissed_DATE');
+        if (dismissedDate !== todayStr) {
+          setShowBigModal(true);
         }
       }
     }

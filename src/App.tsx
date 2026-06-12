@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ListChecks, ShoppingCart, Droplet, Sliders, BarChart3, CupSoda, LogOut, Cloud, X } from 'lucide-react';
+import { ListChecks, ShoppingCart, Droplet, Sliders, BarChart3, CupSoda, LogOut, Settings, X } from 'lucide-react';
 import { useAuth } from './components/AuthProvider';
 import DailyRoutine from './components/DailyRoutine';
 import Essentials from './components/Essentials';
@@ -47,17 +47,10 @@ export default function App() {
       case 'cafe': return 'Kafejka Mocy';
       case 'control': return 'Kontrola';
       case 'reports': return 'Raporty';
-      case 'cloud': return 'Chmura i Alerty';
+      case 'cloud': return 'Powiadomienia i synchronizacja';
       default: return 'IT Health';
     }
   };
-
-  const getSubtitle = () => {
-    switch (activeTab) {
-      case 'cloud': return 'Przypomnienia i kopie zapasowe';
-      default: return 'Zapisano pomyślnie. Zsynchronizowano.';
-    }
-  }
 
   return (
     <div className="min-h-screen bg-slate-900 font-sans text-slate-100 selection:bg-emerald-500/30">
@@ -84,12 +77,6 @@ export default function App() {
 
         {/* Dynamic Content */}
         <main className="px-5 py-6 min-h-[calc(100vh-160px)]">
-          {activeTab === 'cloud' && (
-            <p className="text-sm text-slate-400 mb-6 font-mono pl-1">
-              {getSubtitle()}
-            </p>
-          )}
-
           {renderContent()}
         </main>
 
@@ -102,7 +89,7 @@ export default function App() {
               { id: 'cafe', icon: CupSoda, label: 'Kafejka' },
               { id: 'control', icon: Sliders, label: 'Kontrola' },
               { id: 'reports', icon: BarChart3, label: 'Raporty' },
-              { id: 'cloud', icon: Cloud, label: 'Chmura' },
+              { id: 'cloud', icon: Settings, label: 'Opcje' },
             ].map((tab, idx) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
