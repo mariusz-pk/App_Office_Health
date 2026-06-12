@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Share2, BellOff, Bell, Clock } from 'lucide-react';
+import { Share2, BellOff, Bell, Clock, Cloud, User } from 'lucide-react';
+
 import { useAuth } from './AuthProvider';
 
 export default function CloudAlerts() {
@@ -126,47 +127,70 @@ export default function CloudAlerts() {
 
       {/* Cloud Sync */}
       <section>
-        <div className="text-[10px] font-bold tracking-[0.15em] text-slate-500 uppercase mb-3 pl-1">
-          Konta i Synchronizacja
-        </div>
-        <div className="bg-slate-800 border border-slate-700 rounded-2xl p-8 shadow-lg shadow-slate-900/50 flex flex-col items-center text-center">
-          <div className="mb-6 opacity-60">
-            <Share2 className="w-10 h-10 text-emerald-500" />
+        <div className="flex items-center gap-4 mb-4">
+          <div className="text-[11px] font-bold tracking-[0.15em] text-slate-400 uppercase">
+            SYNCHRONIZACJA Z CHMURĄ
           </div>
-          
-          {!user ? (
-            <>
-              <p className="text-sm text-slate-300 leading-relaxed mb-6 max-w-[260px]">
-                Zaloguj się kontem Google, aby odblokować synchronizację danych z chmurą i kopie zapasowe.
-              </p>
-              
-              <button 
-                onClick={signIn}
-                className="w-full max-w-[220px] bg-slate-900 hover:bg-slate-950 text-white border border-slate-700 hover:border-emerald-500/50 font-bold py-3.5 rounded-xl flex items-center justify-center gap-3 transition-all cursor-pointer"
-              >
-                <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4" />
-                Zaloguj przez Google
-              </button>
-            </>
-          ) : (
-            <>
-              <p className="text-sm text-emerald-500 font-bold mb-2">
-                Zalogowano jako {user.email}
-              </p>
-              <p className="text-xs text-slate-400 leading-relaxed mb-6 max-w-[260px]">
-                Twoje dane są na bieżąco synchronizowane z chmurą i zabezpieczone w archiwum bazy danych.
-              </p>
-              
+          <div className="h-[1px] bg-slate-800 flex-1"></div>
+        </div>
+
+        {!user ? (
+          <div className="bg-slate-800 border border-slate-700 rounded-2xl p-8 shadow-lg shadow-slate-900/50 flex flex-col items-center text-center">
+            <div className="mb-6 opacity-60">
+              <Share2 className="w-10 h-10 text-emerald-500" />
+            </div>
+            
+            <p className="text-sm text-slate-300 leading-relaxed mb-6 max-w-[260px]">
+              Zaloguj się kontem Google, aby odblokować synchronizację danych z chmurą i kopie zapasowe.
+            </p>
+            
+            <button 
+              onClick={signIn}
+              className="w-full max-w-[220px] bg-slate-900 hover:bg-slate-950 text-white border border-slate-700 hover:border-emerald-500/50 font-bold py-3.5 rounded-xl flex items-center justify-center gap-3 transition-all cursor-pointer"
+            >
+              <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4" />
+              Zaloguj przez Google
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="bg-[#0f172a]/80 border border-slate-800 rounded-xl p-5 flex items-center justify-between shadow-lg shadow-slate-950/30">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center ring-2 ring-[#4cd9e4] shrink-0 border-[3px] border-[#0f172a]">
+                  {user.photoURL ? (
+                    <img src={user.photoURL} alt="Avatar" className="w-full h-full rounded-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
+                      <div className="w-5 h-5 border-2 border-white rounded-full relative flex items-center justify-center">
+                        <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-[17px] font-bold text-white mb-0.5 tracking-tight">{user.displayName || user.email?.split('@')[0] || 'Użytkownik'}</span>
+                  <span className="text-[13px] text-slate-500 font-medium">Zalogowano pomyślnie</span>
+                </div>
+              </div>
               <button 
                 onClick={logOut}
-                className="w-full max-w-[220px] bg-slate-900 hover:bg-rose-500/10 text-white hover:text-rose-400 border border-slate-700 hover:border-rose-500/30 font-bold py-3 rounded-xl flex items-center justify-center transition-all cursor-pointer"
+                className="text-[11px] font-bold tracking-[0.1em] text-slate-400 hover:text-white uppercase transition-colors px-2 py-1 shrink-0"
               >
-                Wyloguj ze wszystkich urządzeń
+                WYLOGUJ
               </button>
-            </>
-          )}
-          
-        </div>
+            </div>
+
+            <div className="bg-[#022c22]/40 border border-[#064e3b] rounded-xl p-5 flex items-start gap-4 shadow-lg shadow-slate-950/30">
+              <Cloud className="w-[22px] h-[22px] text-emerald-400 shrink-0 mt-0.5" />
+              <div className="flex flex-col text-left">
+                <span className="text-[15px] font-bold text-white mb-1.5 leading-none">Backup automatyczny</span>
+                <span className="text-[13px] text-emerald-500/90 leading-[1.6]">
+                  Twoje postępy są automatycznie zabezpieczane na Twoim własnym koncie w chmurze bez limitów.
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   );
