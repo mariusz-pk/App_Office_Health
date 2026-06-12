@@ -53,10 +53,23 @@ export function useNotifications() {
       if (missing > 0) {
         // Send actual push notification if it wasn't sent today
         if (lastSentDate !== todayStr && 'Notification' in window && Notification.permission === 'granted') {
-          new Notification('Uzupełnij Rutynę!', {
-            body: `Hej! Czas odznaczyć dzisiejsze zadania w zakładce Rutyna!`,
-            icon: 'https://www.google.com/favicon.ico' // optional
-          });
+          try {
+            new Notification('Uzupełnij Rutynę!', {
+              body: `Hej! Czas odznaczyć dzisiejsze zadania w zakładce Rutyna!`,
+              icon: 'https://www.google.com/favicon.ico' // optional
+            });
+          } catch (e) {
+            console.error('Failed to send notification (likely requires Service Worker on mobile):', e);
+            // Fallback for mobile PWA using ServiceWorkerRegistration.showNotification
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.ready.then(registration => {
+                registration.showNotification('Uzupełnij Rutynę!', {
+                  body: `Hej! Czas odznaczyć dzisiejsze zadania w zakładce Rutyna!`,
+                  icon: 'https://www.google.com/favicon.ico'
+                });
+              }).catch(err => console.error("SW notification fallback failed", err));
+            }
+          }
           window.localStorage.setItem('corp_notificationLastSent_DATE', todayStr);
         }
 
