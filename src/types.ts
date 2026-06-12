@@ -2,6 +2,7 @@ export interface DailyRoutineLog {
   checkedHabits: string[];
   energyLevel: number;
   sleepQuality: number;
+  stepCount?: string;
 }
 
 export interface RoutineHistory {

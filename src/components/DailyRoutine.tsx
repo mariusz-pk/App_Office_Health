@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Activity, Coffee, Moon, Footprints, Sun, CheckCircle2, Droplet, CheckSquare, Square, Plus } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Activity, Coffee, Moon, Footprints, Sun, CheckCircle2, Droplet, CheckSquare, Square, Plus, Save } from 'lucide-react';
 import { useFirebaseRoutine } from '../hooks/useFirebaseRoutine';
 import { useFirebaseHydrationTarget } from '../hooks/useFirebaseHydrationTarget';
 import { useFirebaseCollection } from '../hooks/useFirebaseData';
@@ -22,6 +22,7 @@ export default function DailyRoutine() {
   const { data: hydrationLogsData, addOrUpdateDoc: addHydrationDoc } = useFirebaseCollection<HydrationLog>('hydrationLogs');
   const [isEditingTarget, setIsEditingTarget] = useState(false);
   const [tempTarget, setTempTarget] = useState('');
+  const [showStepSaveMsg, setShowStepSaveMsg] = useState(false);
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
@@ -108,6 +109,22 @@ export default function DailyRoutine() {
     });
   };
 
+  const handleStepCountChange = (val: string) => {
+    if (!isToday) return;
+    setHistory(prev => {
+      const dayData = prev[currentDateStr] || { checkedHabits: [], energyLevel: 5, sleepQuality: 5 };
+      return {
+        ...prev,
+        [currentDateStr]: { ...dayData, stepCount: val }
+      };
+    });
+  };
+
+  const handleSaveSteps = () => {
+    setShowStepSaveMsg(true);
+    setTimeout(() => setShowStepSaveMsg(false), 2000);
+  };
+
   const score = Math.min(100, Math.round(
     (currentData.checkedHabits.length * 10) + 
     (currentData.energyLevel * 1.5) + 
@@ -133,7 +150,7 @@ export default function DailyRoutine() {
         </button>
       </div>
 
-      <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 flex flex-col md:flex-row items-center gap-6 shadow-lg shadow-slate-900/50">
+      <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 flex flex-col md:flex-row items-center gap-5 shadow-lg shadow-slate-900/50">
         <div className="relative w-32 h-32 shrink-0 flex items-center justify-center">
           <svg className="transform -rotate-90 w-full h-full">
             <circle cx="64" cy="64" r="54" className="stroke-slate-700" strokeWidth="10" fill="none" />
@@ -166,13 +183,34 @@ export default function DailyRoutine() {
               <div 
                 key={habit} 
                 onClick={() => handleHabitToggle(habit)}
-                className={`flex items-center gap-4 border p-4 rounded-xl transition-all duration-200 ${!isToday ? 'opacity-80 cursor-default' : 'cursor-pointer hover:border-slate-500'} ${isChecked ? 'bg-slate-800 border-slate-700' : 'bg-slate-800/50 border-slate-700/50'}`}
+                className={`flex items-center gap-3.5 border p-3 rounded-xl transition-all duration-200 ${!isToday ? 'opacity-80 cursor-default' : 'cursor-pointer hover:border-slate-500'} ${isChecked ? 'bg-slate-800 border-slate-700' : 'bg-slate-800/50 border-slate-700/50'}`}
               >
-                <div className={`w-11 h-11 shrink-0 rounded-[10px] flex items-center justify-center transition-colors ${isChecked ? 'bg-emerald-500/10' : 'bg-slate-700/50'}`}>
-                  <Icon className={`w-[22px] h-[22px] ${isChecked ? 'text-emerald-500' : 'text-slate-500'}`} />
+                <div className={`w-[38px] h-[38px] shrink-0 rounded-[10px] flex items-center justify-center transition-colors ${isChecked ? 'bg-emerald-500/10' : 'bg-slate-700/50'}`}>
+                  <Icon className={`w-5 h-5 ${isChecked ? 'text-emerald-500' : 'text-slate-500'}`} />
                 </div>
-                <div className="flex-1 min-w-0">
+                <div className="flex-1 min-w-0 pr-4 flex flex-col justify-center">
                   <div className={`text-sm font-semibold truncate transition-colors ${isChecked ? 'text-white' : 'text-slate-300'}`}>{habit}</div>
+                  {habit === "Dzienny limit kroków" && (
+                    <div className="flex items-center gap-2 mt-2" onClick={(e) => e.stopPropagation()}>
+                      <input
+                        type="number"
+                        placeholder="kroki"
+                        value={currentData.stepCount || ''}
+                        onChange={(e) => handleStepCountChange(e.target.value)}
+                        disabled={!isToday}
+                        className="w-24 bg-slate-900 border border-slate-700/50 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-blue-500 disabled:opacity-50 h-7 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      />
+                      <button
+                        onClick={handleSaveSteps}
+                        disabled={!isToday}
+                        className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg p-1.5 transition-colors disabled:opacity-50 flex items-center justify-center shrink-0"
+                        title="Zapisz"
+                      >
+                        <Save className="w-4 h-4" />
+                      </button>
+                      {showStepSaveMsg && <span className="text-[10px] text-emerald-400 font-medium ml-2">Zapisano!</span>}
+                    </div>
+                  )}
                 </div>
                 {isChecked ? (
                   <CheckSquare className="w-6 h-6 text-emerald-500 shrink-0" />
@@ -185,7 +223,7 @@ export default function DailyRoutine() {
         </div>
       </div>
 
-      <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg shadow-slate-900/50">
+      <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg shadow-slate-900/50">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2 text-[10px] text-slate-400 tracking-wider uppercase font-medium">
             <Droplet className="w-3.5 h-3.5 text-blue-400" /> Nawodnienie
@@ -237,7 +275,7 @@ export default function DailyRoutine() {
         </div>
 
         <div className="flex gap-3">
-          <button onClick={() => addWater(250)} disabled={!isToday} className={`w-full font-semibold py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors ${!isToday ? 'bg-blue-500/50 text-white/50 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 text-white shadow-[0_0_15px_rgba(59,130,246,0.2)]'}`}>
+          <button onClick={() => addWater(250)} disabled={!isToday} className={`w-full font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors ${!isToday ? 'bg-blue-500/50 text-white/50 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 text-white shadow-[0_0_15px_rgba(59,130,246,0.2)]'}`}>
             <Plus className="w-5 h-5" /> 250 ml
           </button>
         </div>
@@ -262,9 +300,9 @@ export default function DailyRoutine() {
 
       <div>
         <div className="text-xs font-medium tracking-widest text-slate-500 uppercase mb-4 pl-1 pt-2">Samoocena</div>
-        <div className="space-y-4">
-          <div className="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-lg shadow-slate-900/20">
-            <div className="flex justify-between items-center mb-5">
+        <div className="space-y-3">
+          <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 shadow-lg shadow-slate-900/20">
+            <div className="flex justify-between items-center mb-4">
               <div className="flex items-center gap-2.5">
                 <Sun className="w-[18px] h-[18px] text-amber-400" />
                 <span className="text-sm font-medium text-slate-200">Energia i Skupienie</span>
@@ -280,8 +318,8 @@ export default function DailyRoutine() {
             />
           </div>
           
-          <div className="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-lg shadow-slate-900/20">
-            <div className="flex justify-between items-center mb-5">
+          <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 shadow-lg shadow-slate-900/20">
+            <div className="flex justify-between items-center mb-4">
               <div className="flex items-center gap-2.5">
                 <Moon className="w-[18px] h-[18px] text-blue-400" />
                 <span className="text-sm font-medium text-slate-200">Sen i Regeneracja</span>
