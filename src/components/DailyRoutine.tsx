@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Activity, Coffee, Moon, Footprints, Sun, CheckCircle2, Droplet, CheckSquare, Square } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Activity, Coffee, Moon, Footprints, Sun, CheckCircle2, Droplet, CheckSquare, Square, Plus } from 'lucide-react';
 import { useFirebaseRoutine } from '../hooks/useFirebaseRoutine';
-import { RoutineHistory } from '../types';
+import { useFirebaseHydrationTarget } from '../hooks/useFirebaseHydrationTarget';
+import { useFirebaseCollection } from '../hooks/useFirebaseData';
+import { RoutineHistory, HydrationLog } from '../types';
 import { HABITS_LIST } from '../data';
 
 const HABIT_ICONS: Record<string, React.ElementType> = {
@@ -15,6 +17,11 @@ const HABIT_ICONS: Record<string, React.ElementType> = {
 export default function DailyRoutine() {
   const [history, setHistory] = useFirebaseRoutine();
   const [currentDateStr, setCurrentDateStr] = useState('');
+  
+  const [target, setTarget] = useFirebaseHydrationTarget();
+  const { data: hydrationLogsData, addOrUpdateDoc: addHydrationDoc } = useFirebaseCollection<HydrationLog>('hydrationLogs');
+  const [isEditingTarget, setIsEditingTarget] = useState(false);
+  const [tempTarget, setTempTarget] = useState('');
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
@@ -41,6 +48,35 @@ export default function DailyRoutine() {
   const todayStr = new Date().toISOString().split('T')[0];
   const isToday = currentDateStr === todayStr;
   const currentData = history[currentDateStr] || { checkedHabits: [], energyLevel: 5, sleepQuality: 5 };
+
+  const todayLogs = hydrationLogsData.filter(log => log.date === currentDateStr);
+  const currentAmount = todayLogs.reduce((sum, log) => sum + log.amount, 0);
+  const percentage = Math.round((currentAmount / target) * 100) || 0;
+
+  const addWater = (amount: number) => {
+    if (!currentDateStr) return;
+    const now = new Date();
+    const logId = Date.now().toString();
+    const newLog: HydrationLog = {
+      amount,
+      time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      date: currentDateStr
+    };
+    addHydrationDoc(logId, newLog);
+  };
+
+  const handleSaveTarget = () => {
+    const val = Number(tempTarget);
+    if (!isNaN(val) && val > 0) {
+      setTarget(val);
+    }
+    setIsEditingTarget(false);
+  };
+
+  const resetTargetParams = () => {
+    setTempTarget(target.toString());
+    setIsEditingTarget(true);
+  };
 
   const handleHabitToggle = (habit: string) => {
     if (!isToday) return;
@@ -73,9 +109,10 @@ export default function DailyRoutine() {
   };
 
   const score = Math.min(100, Math.round(
-    (currentData.checkedHabits.length * 14) + 
+    (currentData.checkedHabits.length * 10) + 
     (currentData.energyLevel * 1.5) + 
-    (currentData.sleepQuality * 1.5)
+    (currentData.sleepQuality * 1.5) +
+    ((Math.min(currentAmount, target) / target) * 20)
   ));
   
   const circumference = 2 * Math.PI * 54;
@@ -146,6 +183,81 @@ export default function DailyRoutine() {
             );
           })}
         </div>
+      </div>
+
+      <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg shadow-slate-900/50">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2 text-[10px] text-slate-400 tracking-wider uppercase font-medium">
+            <Droplet className="w-3.5 h-3.5 text-blue-400" /> Nawodnienie
+          </div>
+          {!isEditingTarget && (
+            <button onClick={resetTargetParams} className="px-3 py-1 text-xs font-medium border border-slate-600 rounded-lg text-slate-300 hover:bg-slate-700 transition-colors">Zmień Cel</button>
+          )}
+        </div>
+        
+        <div className="flex items-baseline gap-1 mb-4 h-9">
+          <span className="text-3xl font-bold text-white leading-none">{currentAmount}</span>
+          {isEditingTarget ? (
+            <div className="flex items-center gap-2 ml-2">
+              <span className="text-base text-slate-400 font-medium">/</span>
+              <input
+                type="number"
+                value={tempTarget}
+                onChange={(e) => setTempTarget(e.target.value)}
+                className="w-20 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-sm text-white focus:outline-none focus:border-blue-500 h-8"
+                autoFocus
+              />
+              <span className="text-base text-slate-400 font-medium mr-2">ml</span>
+              <button 
+                onClick={handleSaveTarget}
+                className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-xs font-medium transition-colors h-8"
+              >
+                Zapisz
+              </button>
+              <button 
+                onClick={() => setIsEditingTarget(false)}
+                className="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-xs font-medium transition-colors h-8"
+              >
+                Anuluj
+              </button>
+            </div>
+          ) : (
+            <span className="text-base text-slate-400 font-medium">/ {target} ml</span>
+          )}
+        </div>
+
+        <div className="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden mb-2 border border-slate-700/50">
+          <div className="h-full bg-blue-500 rounded-full transition-all duration-700 ease-out shadow-[0_0_10px_rgba(59,130,246,0.4)]" style={{ width: `${Math.min(100, percentage)}%` }}></div>
+        </div>
+        <div className="flex items-center justify-between mb-6">
+          <div className="text-[11px] text-emerald-400 font-medium tracking-wide">
+            {currentAmount >= target ? 'Gratulacje, cel został osiągnięty! 🎉' : ''}
+          </div>
+          <div className="text-right text-[11px] text-slate-500 font-medium shrink-0">{percentage}% celu</div>
+        </div>
+
+        <div className="flex gap-3">
+          <button onClick={() => addWater(250)} disabled={!isToday} className={`w-full font-semibold py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors ${!isToday ? 'bg-blue-500/50 text-white/50 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 text-white shadow-[0_0_15px_rgba(59,130,246,0.2)]'}`}>
+            <Plus className="w-5 h-5" /> 250 ml
+          </button>
+        </div>
+
+        {todayLogs.length > 0 && (
+          <div className="mt-8">
+            <div className="text-[11px] font-medium tracking-widest text-slate-500 uppercase mb-4">Ostatni wpis</div>
+            <div className="space-y-4">
+              {[...todayLogs].sort((a,b)=>a.time.localeCompare(b.time)).reverse().slice(0, 1).map((entry, i) => (
+                <div key={i} className="flex justify-between items-center px-1">
+                  <div className="flex items-center gap-3">
+                    <Droplet className="w-4 h-4 text-blue-400" />
+                    <span className="text-sm text-slate-300">{entry.time}</span>
+                  </div>
+                  <span className="text-sm font-medium text-white">+{entry.amount} ml</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <div>

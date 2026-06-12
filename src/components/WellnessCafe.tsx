@@ -69,51 +69,6 @@ export default function WellnessCafe() {
   return (
     <div className="space-y-6 pb-24 animate-in fade-in slide-in-from-bottom-2 duration-500">
       
-      <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg shadow-slate-900/50">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2 text-[10px] text-slate-400 tracking-wider uppercase font-medium">
-            <Droplet className="w-3.5 h-3.5 text-blue-400" /> Nawodnienie
-          </div>
-          <button onClick={resetTargetParams} className="px-3 py-1 text-xs font-medium border border-slate-600 rounded-lg text-slate-300 hover:bg-slate-700 transition-colors">Zmień Cel</button>
-        </div>
-        
-        <div className="flex items-baseline gap-1 mb-4">
-          <span className="text-3xl font-bold text-white">{currentAmount}</span>
-          <span className="text-base text-slate-400 font-medium">/ {target} ml</span>
-        </div>
-
-        <div className="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden mb-2 border border-slate-700/50">
-          <div className="h-full bg-blue-500 rounded-full transition-all duration-700 ease-out shadow-[0_0_10px_rgba(59,130,246,0.4)]" style={{ width: `${percentage}%` }}></div>
-        </div>
-        <div className="text-right text-[11px] text-slate-500 mb-6 font-medium">{percentage}% celu</div>
-
-        <div className="flex gap-3">
-          <button onClick={() => addWater(250)} className="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-            <Plus className="w-5 h-5" /> 250 ml
-          </button>
-          <button onClick={() => addWater(500)} className="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3.5 rounded-xl border border-slate-600 flex items-center justify-center gap-2 transition-colors">
-            <Plus className="w-5 h-5" /> 500 ml
-          </button>
-        </div>
-
-        {todayLogs.length > 0 && (
-          <div className="mt-8">
-            <div className="text-[11px] font-medium tracking-widest text-slate-500 uppercase mb-4">Dzisiejsze wpisy</div>
-            <div className="space-y-4">
-              {todayLogs.slice(0, 5).map((entry, i) => (
-                <div key={i} className="flex justify-between items-center px-1">
-                  <div className="flex items-center gap-3">
-                    <Droplet className="w-4 h-4 text-blue-400" />
-                    <span className="text-sm text-slate-300">{entry.time}</span>
-                  </div>
-                  <span className="text-sm font-medium text-white">+{entry.amount} ml</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
       <div className="space-y-8">
         {categories.map((cat) => {
           const catDrinks = DRINKS_CATALOG.filter(d => d.category === cat.name);

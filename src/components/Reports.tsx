@@ -1,11 +1,15 @@
 import React, { useMemo } from 'react';
-import { BarChart3, Activity, Sun, Moon, CheckSquare, Target } from 'lucide-react';
+import { BarChart3, Activity, Sun, Moon, CheckSquare, Target, Droplet } from 'lucide-react';
 import { useFirebaseRoutine } from '../hooks/useFirebaseRoutine';
-import { RoutineHistory } from '../types';
+import { useFirebaseHydrationTarget } from '../hooks/useFirebaseHydrationTarget';
+import { useFirebaseCollection } from '../hooks/useFirebaseData';
+import { RoutineHistory, HydrationLog } from '../types';
 import { HABITS_LIST } from '../data';
 
 export default function Reports() {
   const [history] = useFirebaseRoutine();
+  const [hydrationTarget] = useFirebaseHydrationTarget();
+  const { data: hydrationLogs } = useFirebaseCollection<HydrationLog>('hydrationLogs');
 
   const stats = useMemo(() => {
     const dates = Object.keys(history).sort();
@@ -24,9 +28,42 @@ export default function Reports() {
     const habitCounts: Record<string, number> = {};
     HABITS_LIST.forEach(h => habitCounts[h] = 0);
 
+    // Group hydration by date
+    const hydrationByDate: Record<string, number> = {};
+    hydrationLogs.forEach(log => {
+      const d = log.date;
+      if (new Date(d) >= thirtyDaysAgo) {
+        hydrationByDate[d] = (hydrationByDate[d] || 0) + log.amount;
+      }
+    });
+
+    let hydrationGoalAchievedDays = 0;
+    let totalVolume = 0;
+    let hydrationDaysCount = 0;
+
+    Object.values(hydrationByDate).forEach(amount => {
+      hydrationDaysCount++;
+      totalVolume += amount;
+      if (amount >= hydrationTarget) {
+        hydrationGoalAchievedDays++;
+      }
+    });
+
+    const avgVolume = hydrationDaysCount > 0 ? Math.round(totalVolume / hydrationDaysCount) : 0;
+    const hydrationSuccessRate = hydrationTarget > 0 ? Math.round((avgVolume / hydrationTarget) * 100) : 0;
+
     recentDates.forEach(date => {
       const data = history[date];
-      const score = Math.min(100, Math.round((data.checkedHabits.length * 14) + (data.energyLevel * 1.5) + (data.sleepQuality * 1.5)));
+      const dailyHydration = hydrationByDate[date] || 0;
+      const hydrationPoints = (Math.min(dailyHydration, hydrationTarget) / hydrationTarget) * 20;
+      
+      const score = Math.min(100, Math.round(
+        (data.checkedHabits.length * 10) + 
+        (data.energyLevel * 1.5) + 
+        (data.sleepQuality * 1.5) + 
+        hydrationPoints
+      ));
+
       totalScore += score;
       totalEnergy += data.energyLevel;
       totalSleep += data.sleepQuality;
@@ -47,7 +84,18 @@ export default function Reports() {
       d.setDate(d.getDate() + i);
       const dateStr = d.toISOString().split('T')[0];
       const data = history[dateStr];
-      const score = data ? Math.min(100, Math.round((data.checkedHabits.length * 14) + (data.energyLevel * 1.5) + (data.sleepQuality * 1.5))) : 0;
+      const dailyHydration = hydrationByDate[dateStr] || 0;
+      
+      let score = 0;
+      if (data) {
+        const hydrationPoints = (Math.min(dailyHydration, hydrationTarget) / hydrationTarget) * 20;
+        score = Math.min(100, Math.round(
+          (data.checkedHabits.length * 10) + 
+          (data.energyLevel * 1.5) + 
+          (data.sleepQuality * 1.5) + 
+          hydrationPoints
+        ));
+      }
       
       const dayName = ['Ni', 'Po', 'Wt', 'Śr', 'Cz', 'Pi', 'So'][d.getDay()];
       chartDays.push({
@@ -62,13 +110,15 @@ export default function Reports() {
       avgEnergy: (totalEnergy / daysCount).toFixed(1),
       avgSleep: (totalSleep / daysCount).toFixed(1),
       consistency: Math.round((daysCount / 30) * 100),
+      hydrationSuccessRate,
+      avgVolume,
       habitStats: HABITS_LIST.map(h => ({
         title: h,
         percentage: Math.round((habitCounts[h] / daysCount) * 100)
       })),
       chart: chartDays
     };
-  }, [history]);
+  }, [history, hydrationLogs, hydrationTarget]);
 
   if (!stats) {
     return <div className="text-center py-20 text-slate-500">Brak danych do wygenerowania raportu. Wypełniaj rutynę codziennie!</div>;
@@ -145,6 +195,27 @@ export default function Reports() {
       <div>
         <div className="text-[11px] font-medium tracking-widest text-slate-500 uppercase mb-4 pl-1 pt-2">Wykonanie Procesów (30 dni)</div>
         <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 space-y-6">
+          <div>
+            <div className="flex justify-between items-center mb-2.5">
+              <div className="flex items-center gap-2">
+                <Droplet className="w-4 h-4 text-blue-400" />
+                <span className="text-xs font-medium text-slate-200">Reżim Nawodnienia</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-[10px] text-slate-400 font-medium">Średnia: {stats.avgVolume} ml/dzień</span>
+                <span className="text-xs font-bold" style={{ color: stats.hydrationSuccessRate >= 80 ? '#10b981' : stats.hydrationSuccessRate >= 50 ? '#f59e0b' : '#f43f5e' }}>
+                  {stats.hydrationSuccessRate}%
+                </span>
+              </div>
+            </div>
+            <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden border border-slate-700/50">
+              <div 
+                className="h-full rounded-full transition-all duration-1000 ease-out" 
+                style={{ width: `${Math.min(100, stats.hydrationSuccessRate)}%`, backgroundColor: stats.hydrationSuccessRate >= 80 ? '#10b981' : stats.hydrationSuccessRate >= 50 ? '#f59e0b' : '#f43f5e' }}
+              />
+            </div>
+          </div>
+
           {stats.habitStats.map((habit, i) => {
             const color = habit.percentage >= 80 ? '#10b981' : habit.percentage >= 50 ? '#f59e0b' : '#f43f5e';
             return (
