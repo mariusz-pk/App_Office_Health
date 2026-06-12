@@ -15,6 +15,7 @@ Aplikacja jest podzielona na 5 oddzielnych sekcji znajdujących się w dolnym pa
 ### 1. Rutyna (Codzienny check-in)
 Moduł pozwalający na śledzenie i rozliczanie nawyków każdego dnia.
 - Lista 5 głównych nawyków (m.in. Poranny Izotonik, Mikro-przerwy w trakcie pracy).
+- Interaktywne pola nawyków, m.in. możliwość wprowadzania i zapisywania dokładnej liczby wykonanych kroków (z czytelnym panelem powiadomienia o zapisanym wyniku).
 - Skala samooceny jakości snu oraz poziomu energii/skupienia suwakami (od 1 do 10).
 - Skondensowany i przeliczany na bieżąco procentowy „Wskaźnik Witalności i Efektywności”.
 - Możliwość wygodnego przeglądu historycznych dni (w trybie tylko do odczytu).
@@ -41,3 +42,9 @@ Strona agregująca zebrane z kilku tygodni dane i prezentująca postępy w formi
 - Czytelny wykres słupkowy z danymi dot. dziennych wyników witalności (w %), generowany dynamicznie począwszy od pierwszego dnia zarejestrowania danych.
 - Syntetyczny raport zbiorczy 30-dniowych średnich dla skupienia i regeneracji.
 - Pasek postępu konkretnych procesów pokazujący, których nawyków procentowo użytkownik trzyma się najlepiej.
+
+### 6. Synchronizacja z chmurą
+Moduł zarządzania logowaniem i zabezpieczaniem postępów użytkownika (Cloud Alerts).
+- Logowanie za pomocą konta Google (Firebase Authentication).
+- Spersonalizowany widok zalogowanego użytkownika (wyświetla awatar profilowy, imię i status autoryzacji).
+- Automatyczny, limitless backup w chmurze – zabezpieczający na bieżąco postępy statystyk (Firestore).

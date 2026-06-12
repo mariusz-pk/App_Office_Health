@@ -4,15 +4,16 @@
 - **Framework:** React 19 (architektura sfokusowana na strict state z zastosowaniem hooków).
 - **Język:** TypeScript (zawiera silnie typowane interfejsy zdefiniowane w `types.ts`).
 - **Stylizacja:** Tailwind CSS v4 (podejście utility-first, projekt mocno osadzony w stylistyce ciemnego trybu z paletą "slate", akcentami "emerald" oraz "rose").
-- **Zarządzanie stanem Local-First:** Niestandardowy hook `useLocalStorage` sprzężony z mechanizmem ciągłej synchronizacji poprzez Event Listanery na globalnym obiekcie Window.
+- **Backend / Chmura:** Firebase (Authentication do autoryzacji Google, Firestore do zabezpieczania logów statystyk i rutyny).
+- **Zarządzanie stanem (Hooki):** Niestandardowe hooki łączące bazę chmurową z warstwą wizualną (m.in. `useFirebaseRoutine`, `useFirebaseCollection`).
 - **Ikony:** Lucide React.
 - **PWA:** Vite PWA Plugin, pozwalający na łatwą instalację aplikacji na ekranie głównym urządzeń mobilnych wspierający "standalone mode".
 - **Budowa:** Vite.
 
 ## Architektura Danych / Model Pamięci
-Aplikacja została zaprojektowana w architekturze symulującej bazę danych przy wykorzystaniu przeglądarkowego zasobu Local Storage. Stan jest reaktywny i odporny na opuszczanie kart – każda aktualizacja jest dynamicznie odzwierciedlana dzięki Eventom systemowym (`storage` oraz niestandardowemu `local-storage`).
+Aplikacja przeszła wielofazową migrację. Oryginalnie zaprojektowana przy użyciu `localStorage`, system korzysta obecnie z chmury Firebase do ciągłej synchronizacji postępów dla zalogowanych autoryzacją Google użytkowników.
 
-**Klucze Pamięci (Storage Keys zadeklarowane w obiekcie window.localStorage):**
+**Klucze Pamięci (Główne Kolekcje Firestore):**
 1. `corp_dailyRoutineHistory` (Obiekt Mapujący Daty na Obiekty Danych) - Rejestry nawyków i wskaźników per wybrany dzień. Znacznik datowy jako KLUCZ o formacie `YYYY-MM-DD`.
 2. `corp_vitalSupplies` (Array String) - Lista ciągów znaków (identyfikatorów) asortymentów zaznaczonych w panelu Spiżarni.
 3. `corp_healthLogs` (Array of Objects) - Serializowana macierz logów z badaniami i wyliczonymi symptomami diagnostycznymi (Saturacja, Tętno Spoczynkowe).
@@ -22,9 +23,11 @@ Aplikacja została zaprojektowana w architekturze symulującej bazę danych przy
 ## Wybrane Moduły i Logika Biznesowa:
 - `/src/App.tsx` - "Shell" układu strony. Odpowiada za główny szkielet Mobile-App UI, Header (z uwzględnieniem niestandardowej ikony gniazdka `SocketIcon` w SVG) i system routingu dolnego paska nawigacji (PWA Footer Tab Bar). Posiada stan aktywności `activeTab`. Nawigacja podzielona na moduły: Rutyna, Baza, Kafejka, Kontrola, Raporty.
 - `/src/components/Reports.tsx` - Moduł odpowiedzialny za statystyki z zaimplementowaną logiką wykresu słupkowego dla witalności (wartości % do osi Y), dynamicznie czerpiący dane począwszy od pierwszego dnia rejestrów analizy.
-- `/src/hooks/useLocalStorage.ts` - Implementacja logiki przechowywania i persystencji. Odpowiedzialne za dispatch globalnych zdarzeń celem powiadamiania innych instancji widoku o naruszeniu stanu (daje efekt spójności w raporcie).
+- `/src/hooks/useFirebaseRoutine.ts` i integracje - Zaawansowane hooki spinające warstwę klienta bezpośrednio z kolekcjami Firestore. Całkowicie zarządza autoryzacją i subskrypcją po migracji z LocalStorage.
+- `/src/components/CloudAlerts.tsx` - Przeprojektowany panel autoryzacji w chmurze Google, z wbudowanym renderowaniem awatara profilu użtkownika oraz notyfikacją powiadamiającą o zabezpieczaniu danych ze wsparciem interfejsu wizualnego synchronizacji.
+- `/src/components/DailyRoutine.tsx` - Cechujący się wsparciem dla interaktywnych elementów wejścia (np. wpisywanie w dzienniku zaliczonych ilości kroków w połączeniu z przyciskiem do wymuszania natychmiastowego statusu "Zapisano").
 - `/src/data.ts` - Konfiguracja bazy z danymi, w tym słownika (tzw. enumeratorów) dotyczących polecanych produktów zakupu i napojów – wzorowana na dokumentacji merytorycznej zdrowia w trybie siedzącym. Zawiera metadane dla stoperów parzenia (`timer` values).
-- `/src/components/*` - Poszczególne interfejsy modułów: wskaźniki wizualizowane za pomocą odpowiednio manipulowanych elementach natywnych SVG (np. `strokeDashoffset`), integracja formularzy HTML do symulacji analizy medycznej oraz iteracja elementów tablic.
+- `/src/components/*` - Poszczególne interfejsy wizualne oparte m.in. o renderowanie w locie natywnych bibliotek i tagów SVG wspierana przez platformę uwierzytelniania.
 
 ## Wymagania i Uruchomienie
 
