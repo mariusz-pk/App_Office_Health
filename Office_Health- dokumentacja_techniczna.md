@@ -27,6 +27,7 @@ Aplikacja przeszła wielofazową migrację. Oryginalnie zaprojektowana przy uży
 - `/src/components/CloudAlerts.tsx` - Przeprojektowany panel autoryzacji w chmurze Google, z wbudowanym renderowaniem awatara profilu użtkownika oraz notyfikacją powiadamiającą o zabezpieczaniu danych ze wsparciem interfejsu wizualnego synchronizacji.
 - `/src/components/DailyRoutine.tsx` - Cechujący się wsparciem dla interaktywnych elementów wejścia (np. wpisywanie w dzienniku zaliczonych ilości kroków w połączeniu z przyciskiem do wymuszania natychmiastowego statusu "Zapisano").
 - `/src/data.ts` - Konfiguracja bazy z danymi, w tym słownika (tzw. enumeratorów) dotyczących polecanych produktów zakupu i napojów – wzorowana na dokumentacji merytorycznej zdrowia w trybie siedzącym. Zawiera metadane dla stoperów parzenia (`timer` values).
+- `/src/components/ControlCenter.tsx` & `/src/components/WellnessCafe.tsx` - Moduły wykorzystujące wewnętrzny system "In-App Alerts". Zastąpiono powiadomienia natywne przeglądarki (alert/prompt) nowoczesnym zarządzaniem stanu powiadomień w React (np. `setAlertState`, `setPermissionError`), pozwalającym na renderowanie animowanych (Tailwind CSS) komponentów nieblokujących wątku.
 - `/src/components/*` - Poszczególne interfejsy wizualne oparte m.in. o renderowanie w locie natywnych bibliotek i tagów SVG wspierana przez platformę uwierzytelniania.
 
 ## Wymagania i Uruchomienie

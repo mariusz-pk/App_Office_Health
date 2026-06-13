@@ -48,3 +48,9 @@ Moduł zarządzania logowaniem i zabezpieczaniem postępów użytkownika (Cloud 
 - Logowanie za pomocą konta Google (Firebase Authentication).
 - Spersonalizowany widok zalogowanego użytkownika (wyświetla awatar profilowy, imię i status autoryzacji).
 - Automatyczny, limitless backup w chmurze – zabezpieczający na bieżąco postępy statystyk (Firestore).
+
+### 7. Nowoczesny UX i In-App Alerts (Powiadomienia Wewnętrzne)
+System powiadamiania użytkownika został zaprojektowany z zachowaniem natywnego wrażenia "app-like UX".
+- Całkowita rezygnacja z inwazyjnych blokujących okien przeglądarki (np. `alert()`, `prompt()`) na rzecz dedykowanych komponentów alertowych UI.
+- Powiadomienia w autoryzacji chmurowej m.in. o braku uprawnień w ustawieniach przeglądarki, renderujące się łagodnie w oknie aplikacji.
+- Pływające powiadomienia (banery / toast) z wbudowanym systemem opóźnień asynchronicznych podczas raportowania ukończonego parzenia w *Kafejce* oraz wskaźników z *Centrum Kontroli*.
