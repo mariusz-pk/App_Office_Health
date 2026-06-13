@@ -26,7 +26,8 @@ export default function ControlCenter() {
     const spVal = parseInt(spo2);
 
     if (!rhVal && !spVal) {
-      alert("Wprowadź chociaż jeden parametr do zapisu.");
+      setAlertState({ type: 'warning', msg: "Wprowadź chociaż jeden parametr do zapisu." });
+      setTimeout(() => setAlertState(null), 5000);
       return;
     }
 

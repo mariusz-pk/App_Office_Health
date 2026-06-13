@@ -9,6 +9,7 @@ export default function CloudAlerts() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [notificationTime, setNotificationTime] = useState('17:00');
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [permissionError, setPermissionError] = useState<string | null>(null);
 
   useEffect(() => {
     const savedEnabled = window.localStorage.getItem('corp_notificationsEnabled') === 'true';
@@ -18,10 +19,12 @@ export default function CloudAlerts() {
   }, []);
 
   const handleToggleNotifications = async () => {
+    setPermissionError(null);
     if (!notificationsEnabled) {
       // Trying to enable
       if (!('Notification' in window)) {
-        alert('Twoja przeglądarka nie wspiera powiadomień.');
+        setPermissionError('Twoja przeglądarka nie wspiera powiadomień.');
+        setTimeout(() => setPermissionError(null), 5000);
         return;
       }
       
@@ -30,7 +33,8 @@ export default function CloudAlerts() {
         setNotificationsEnabled(true);
         window.localStorage.setItem('corp_notificationsEnabled', 'true');
       } else {
-        alert('Brak uprawnień do powiadomień.');
+        setPermissionError('Brak uprawnień. Kliknij kłódkę/ikonę obok adresu URL i zezwól na powiadomienia.');
+        setTimeout(() => setPermissionError(null), 8000);
       }
     } else {
       // Trying to disable
@@ -79,19 +83,33 @@ export default function CloudAlerts() {
             </div>
             
             {/* Toggle Switch */}
-            <button
-              onClick={handleToggleNotifications}
-              className={`w-11 h-6 shrink-0 rounded-full transition-colors relative focus:outline-none ${
-                notificationsEnabled ? 'bg-emerald-500' : 'bg-slate-600'
-              }`}
-            >
-              <div
-                className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${
-                  notificationsEnabled ? 'translate-x-6' : 'translate-x-1'
+            <div className="flex flex-col items-end gap-2">
+              <button
+                onClick={handleToggleNotifications}
+                className={`w-11 h-6 shrink-0 rounded-full transition-colors relative focus:outline-none ${
+                  notificationsEnabled ? 'bg-emerald-500' : 'bg-slate-600'
                 }`}
-              />
-            </button>
+              >
+                <div
+                  className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${
+                    notificationsEnabled ? 'translate-x-6' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+            </div>
           </div>
+
+          {permissionError && (
+             <div className="mt-3 text-xs text-rose-400 font-medium bg-rose-500/10 border border-rose-500/20 rounded-lg p-2.5 flex items-center justify-between animate-in fade-in slide-in-from-top-1">
+               <span>{permissionError}</span>
+               <button 
+                 onClick={() => setPermissionError(null)}
+                 className="w-5 h-5 flex items-center justify-center shrink-0 opacity-70 hover:opacity-100"
+               >
+                 ✕
+               </button>
+             </div>
+          )}
 
           {notificationsEnabled && (
             <div className="mt-5 pt-5 border-t border-slate-700/50 flex flex-col gap-4 animate-in fade-in slide-in-from-top-2">

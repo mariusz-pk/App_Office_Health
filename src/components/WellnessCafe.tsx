@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Droplet, RefreshCw, Plus, ChevronDown, Play, StopCircle, Sunrise, Sun, Sunset, Clock } from 'lucide-react';
+import { Droplet, RefreshCw, Plus, ChevronDown, Play, StopCircle, Sunrise, Sun, Sunset, Clock, CheckCircle } from 'lucide-react';
 import { useFirebaseHydrationTarget } from '../hooks/useFirebaseHydrationTarget';
 import { useFirebaseCollection } from '../hooks/useFirebaseData';
 import { DRINKS_CATALOG } from '../data';
@@ -12,6 +12,7 @@ export default function WellnessCafe() {
   
   // Timer State
   const [activeTimer, setActiveTimer] = useState<{ id: number, remaining: number } | null>(null);
+  const [timerCompleteMessage, setTimerCompleteMessage] = useState<string | null>(null);
 
   const todayStr = new Date().toISOString().split('T')[0];
   const todayLogs = history.filter(log => log.date === todayStr);
@@ -29,12 +30,6 @@ export default function WellnessCafe() {
     addOrUpdateDoc(logId, newLog);
   };
 
-  const resetTargetParams = () => {
-    const val = prompt('Ustaw nowy dzienny cel nawodnienia (ml):', target.toString());
-    if (val && !isNaN(Number(val))) setTarget(Number(val));
-  };
-
-
   useEffect(() => {
     let interval: number;
     if (activeTimer && activeTimer.remaining > 0) {
@@ -43,8 +38,9 @@ export default function WellnessCafe() {
       }, 1000);
     } else if (activeTimer && activeTimer.remaining === 0) {
       if (navigator.vibrate) navigator.vibrate([100, 100, 100]);
-      alert('Czas parzenia zakończony! Twój napój jest gotowy.');
+      setTimerCompleteMessage('Czas parzenia zakończony! Twój napój jest gotowy.');
       setActiveTimer(null);
+      setTimeout(() => setTimerCompleteMessage(null), 8000);
     }
     return () => clearInterval(interval);
   }, [activeTimer]);
@@ -69,6 +65,18 @@ export default function WellnessCafe() {
   return (
     <div className="space-y-6 pb-24 animate-in fade-in slide-in-from-bottom-2 duration-500">
       
+      {timerCompleteMessage && (
+        <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-4 rounded-xl flex justify-between items-center animate-in fade-in slide-in-from-top-2">
+          <div className="flex items-center gap-3">
+            <CheckCircle className="w-5 h-5" />
+            <span className="text-sm font-medium">{timerCompleteMessage}</span>
+          </div>
+          <button onClick={() => setTimerCompleteMessage(null)} className="opacity-70 hover:opacity-100 p-1">
+            ✕
+          </button>
+        </div>
+      )}
+
       <div className="space-y-8">
         {categories.map((cat) => {
           const catDrinks = DRINKS_CATALOG.filter(d => d.category === cat.name);
