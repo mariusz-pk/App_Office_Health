@@ -29,7 +29,8 @@ Lista zakupów i zasobów, które warto mieć zawsze pod ręką.
 Osobisty barista wspierający nawodnienie organizmu.
 - Szybki panel logowania wypitych płynów z wskaźnikiem dobowego celu (z możliwością ustawienia własnego progu).
 - Biblioteka „10 Napojów Mocy” podzielonych funkcjonalnie według precyzyjnych pór konsumpcji (Poranek, W trakcie dnia, Wieczór, Całodobowo).
-- Dokładne zasady przyrządzania naparów wspierane systemowymi stoperami odliczającymi czas parzenia.
+- Dokładne zasady przyrządzania naparów wspierane systemowymi stoperami odliczającymi czas parzenia oraz szczegółową instrukcją przygotowania "krok po kroku".
+- Zaktualizowana prezentacja przepisów: czytelne listowanie składników (np. specyfikacja "mleko A2 Bio", dokładne temperatury np. "ok. 75-80°C") oraz starannie renderowane parametry.
 
 ### 4. Kontrola (Centrum diagnostyki)
 Miejsce analizowania kondycji układu nerwowego i zgłaszania objawów.
