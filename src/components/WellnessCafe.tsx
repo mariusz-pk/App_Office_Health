@@ -120,7 +120,20 @@ export default function WellnessCafe() {
                       {isOpen && (
                         <div className="p-4 pt-2 text-sm text-slate-400 border-t border-slate-700/50 bg-slate-900/30">
                           <div className="space-y-3">
-                            <div><strong className="text-slate-300">Składniki:</strong> {recipe.ingredients}</div>
+                            <div>
+                              <strong className="text-slate-300 block mb-1">Składniki:</strong>
+                              <ul className="list-disc pl-5 space-y-1">
+                                {recipe.ingredients.split(',').map((ingredient, idx) => (
+                                  <li key={idx}>{ingredient.trim()}</li>
+                                ))}
+                              </ul>
+                            </div>
+                            {recipe.instructions && (
+                              <div>
+                                <strong className="text-slate-300 block mb-1">Instrukcja przygotowania:</strong>
+                                <p className="leading-relaxed">{recipe.instructions}</p>
+                              </div>
+                            )}
                             <div><strong className="text-slate-300">Kiedy pić:</strong> {recipe.when}</div>
                             
                             {recipe.timer && (
