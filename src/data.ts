@@ -68,16 +68,16 @@ export const SHOPPING_WEEKLY = [
 export const DRINKS_CATALOG = [
   // CATEGORY 1: PORANEK (Aktywacja i Skupienie)
   { id: 1, title: "Poranny Izotonik", effect: "Nawodnienie na start", when: "07:00 po wstaniu", ingredients: "300ml ciepłej wody, sól kłodawska, ocet jabłkowy", icon: Waves, category: "PORANEK" },
-  { id: 2, title: "Zielona Matcha Latte", effect: "Skupienie 3-4 h", when: "09:00 start pracy", ingredients: "matcha, woda max 80°C, mleko roślinne", timer: 120, icon: Leaf, color: "text-emerald-500", bg: "bg-emerald-500/10", category: "PORANEK" },
+  { id: 2, title: "Zielona Matcha Latte", effect: "Skupienie 3-4 h", when: "09:00 start pracy", ingredients: "matcha, woda max 80°C, mleko roślinne (mleko A2 Bio)", timer: 120, icon: Leaf, color: "text-emerald-500", bg: "bg-emerald-500/10", category: "PORANEK" },
   
   // CATEGORY 2: W TRAKCIE DNIA (Energia i Trawienie)
   { id: 3, title: "Złoty Eliksir Imbirowy", effect: "Przeciwzapalny", when: "11:00/14:00", ingredients: "świeży imbir, cytryna, ciepła woda, miód", timer: 300, icon: Flame, color: "text-amber-500", bg: "bg-amber-500/10", category: "W TRAKCIE DNIA" },
   { id: 4, title: "Szot z Zakwasu Buraka", effect: "Wsparcie mikrobiomu", when: "Do obiadu", ingredients: "100ml zakwasu z buraka", icon: FlaskConical, color: "text-rose-500", bg: "bg-rose-500/10", category: "W TRAKCIE DNIA" },
-  { id: 5, title: "Matcha-Mate Turbo", effect: "Maksymalna energia na deadline/kryzys", when: "Kiedy potrzebujesz", ingredients: "matcha, yerba mate", timer: 180, icon: Zap, color: "text-emerald-400", bg: "bg-emerald-400/10", category: "W TRAKCIE DNIA" },
+  { id: 5, title: "Matcha-Mate Turbo", effect: "Maksymalna energia na deadline/kryzys", when: "Kiedy potrzebujesz", ingredients: "matcha, yerba mate, Ciepła woda (ok. 75-80 C)", timer: 180, icon: Zap, color: "text-emerald-400", bg: "bg-emerald-400/10", category: "W TRAKCIE DNIA" },
   { id: 6, title: "Kakao Adaptogenne", effect: "Redukcja stresu", when: "Popołudnie", ingredients: "surowe kakao, adaptogeny, napój roślinny", icon: CupSoda, color: "text-orange-400", bg: "bg-orange-400/10", category: "W TRAKCIE DNIA" },
   
   // CATEGORY 3: WIECZÓR (Wyciszenie i Sen)
-  { id: 7, title: "Złote Mleko Kardamonowe", effect: "Sen i relaks", when: "20:00", ingredients: "mleko roślinne, kurkuma, cynamon, kardamon, olej kokosowy", timer: 300, icon: Beaker, color: "text-amber-400", bg: "bg-amber-400/10", category: "WIECZÓR" },
+  { id: 7, title: "Złote Mleko Kardamonowe", effect: "Sen i relaks", when: "20:00", ingredients: "mleko roślinne (mleko A2 Bio), kurkuma, cynamon, kardamon, olej kokosowy", timer: 300, icon: Beaker, color: "text-amber-400", bg: "bg-amber-400/10", category: "WIECZÓR" },
   { id: 8, title: "Lemoniada Magnezowa", effect: "Głęboka faza REM", when: "21:00 przed snem", ingredients: "woda, cytryna, magnez", icon: Moon, color: "text-blue-400", bg: "bg-blue-400/10", category: "WIECZÓR" },
   
   // CATEGORY 4: DOWOLNA PORA (Wsparcie Całodobowe)
