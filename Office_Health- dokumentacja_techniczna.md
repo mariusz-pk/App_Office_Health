@@ -1,4 +1,4 @@
-# Office Health vs 2.0 - Dokumentacja Techniczna
+# Office Health V2.0 - Dokumentacja Techniczna
 
 ## Stos Technologiczny (Tech Stack)
 - **Framework:** React 19 (architektura sfokusowana na strict state z zastosowaniem hooków).

@@ -13,8 +13,8 @@ export default defineConfig(() => {
         registerType: 'autoUpdate',
         includeAssets: ['app-icon.png', 'icon.svg'],
         manifest: {
-          name: 'Office Health Console',
-          short_name: 'Office Health',
+          name: 'Office Health V2.0',
+          short_name: 'Office Health V2.0',
           description: 'Aplikacja wspierająca zdrowie i efektywność w pracy biurowej.',
           theme_color: '#0f172a',
           background_color: '#0f172a',

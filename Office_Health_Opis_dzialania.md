@@ -1,9 +1,9 @@
-# Office Health vs 2.0 - Opis Aplikacji
+# Office Health V2.0 - Opis Aplikacji
 
 > ⚠️ Szczegółowe informacje techniczne, architektura danych oraz instrukcje uruchomienia znajdują się w pliku [Office_Health- dokumentacja_techniczna.md](Office_Health-%20dokumentacja_techniczna.md).
 
 ## Koncepcja i Cel Aplikacji
-Office Health vs 2.0 to intuicyjna aplikacja webowa (Progressive Web App - PWA) zaprojektowana z myślą o pracownikach biurowych i korporacyjnych pracujących w trybie siedzącym. 
+Office Health V2.0 to intuicyjna aplikacja webowa (Progressive Web App - PWA) zaprojektowana z myślą o pracownikach biurowych i korporacyjnych pracujących w trybie siedzącym. 
 Celem narzędzia jest pomoc w codziennym monitorowaniu kluczowych parametrów zdrowotnych, budowaniu zdrowych nawyków, utrzymaniu odpowiedniego nawodnienia oraz wczesnym diagnozowaniu objawów przemęczenia.
 
 Zamiast standardowego żargonu medycznego, aplikacja komunikuje się w przystępnym, "korporacyjnym" języku, przedstawiając zarządzanie własnym zdrowiem jak optymalizację projektów biznesowych ("Rutyna", "Baza", "Kafejka", "Kontrola", "Raporty").

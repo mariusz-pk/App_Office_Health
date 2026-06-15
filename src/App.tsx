@@ -43,9 +43,9 @@ export default function App() {
   const getTitle = () => {
     switch (activeTab) {
       case 'routine': return 'Rutyna Dnia';
-      case 'essentials': return 'Baza';
+      case 'essentials': return 'Baza zakupowa';
       case 'cafe': return 'Kafejka Mocy';
-      case 'control': return 'Kontrola';
+      case 'control': return 'Kontrola samopoczucia';
       case 'reports': return 'Raporty';
       case 'cloud': return 'Powiadomienia i synchronizacja';
       default: return 'IT Health';
@@ -61,7 +61,7 @@ export default function App() {
           <div className="flex items-start justify-between">
             <div>
               <div className="text-[10px] font-bold tracking-[0.15em] text-emerald-500 uppercase mb-1">
-                Office Health vs 2.0
+                Office Health V2.0
               </div>
               <h1 className="text-xl font-bold tracking-wide text-white">
                 {getTitle()}

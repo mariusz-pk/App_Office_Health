@@ -195,7 +195,7 @@ export default function DailyRoutine() {
                       <input
                         type="number"
                         placeholder="kroki"
-                        value={currentData.stepCount || ''}
+                        value={currentData.stepCount !== undefined && currentData.stepCount !== null ? currentData.stepCount : '5000'}
                         onChange={(e) => handleStepCountChange(e.target.value)}
                         disabled={!isToday}
                         className="w-24 bg-slate-900 border border-slate-700/50 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-blue-500 disabled:opacity-50 h-7 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"

@@ -49,7 +49,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     return (
       <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4">
         <div className="text-center mb-8">
-          <div className="text-[10px] font-bold tracking-[0.15em] text-emerald-500 uppercase mb-2">Office Health vs 2.0</div>
+          <div className="text-[10px] font-bold tracking-[0.15em] text-emerald-500 uppercase mb-2">Office Health V2.0</div>
           <h1 className="text-2xl font-bold tracking-wide text-white">Logowanie do Systemu</h1>
         </div>
         <button 

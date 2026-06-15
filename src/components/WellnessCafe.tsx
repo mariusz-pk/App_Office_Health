@@ -131,7 +131,7 @@ export default function WellnessCafe() {
                             {recipe.instructions && (
                               <div>
                                 <strong className="text-slate-300 block mb-1">Instrukcja przygotowania:</strong>
-                                <p className="leading-relaxed">{recipe.instructions}</p>
+                                <p className="leading-relaxed text-justify">{recipe.instructions}</p>
                               </div>
                             )}
                             <div><strong className="text-slate-300">Kiedy pić:</strong> {recipe.when}</div>
