@@ -75,13 +75,10 @@ export default function Reports() {
 
     const daysCount = recentDates.length;
 
-    const firstDateStr = dates.length > 0 ? dates[0] : new Date().toISOString().split('T')[0];
-    const startDate = new Date(firstDateStr);
-
     const chartDays = [];
-    for (let i = 0; i < 7; i++) {
-      const d = new Date(startDate);
-      d.setDate(d.getDate() + i);
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
       const dateStr = d.toISOString().split('T')[0];
       const data = history[dateStr];
       const dailyHydration = hydrationByDate[dateStr] || 0;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot, doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { collection, onSnapshot, doc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../components/AuthProvider';
 import { handleFirestoreError, OperationType } from '../firebaseErrors';
@@ -24,7 +24,8 @@ export function useFirebaseCollection<T extends { id?: string }>(collectionName:
       return;
     }
     const path = `users/${user.uid}/${collectionName}`;
-    const unsubscribe = onSnapshot(collection(db, path), (snapshot) => {
+    const q = query(collection(db, path), where("userId", "==", user.uid));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       const result: T[] = [];
       snapshot.forEach(docSnap => {
         result.push({ ...docSnap.data(), id: docSnap.id } as unknown as T);

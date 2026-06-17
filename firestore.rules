@@ -55,31 +55,31 @@ service cloud.firestore {
 
     match /users/{userId} {
       match /healthLogs/{logId} {
-        allow read: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
-        allow list: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
+        allow read: if isSignedIn() && request.auth.uid == userId;
+        allow list: if isSignedIn() && request.auth.uid == userId;
         allow create: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId) && isValidHealthLog(incoming(), userId);
         allow update: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId) && isValidHealthLog(incoming(), userId) && incoming().userId == existing().userId;
         allow delete: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId);
       }
 
       match /routineHistory/{date} {
-        allow read: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
-        allow list: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
+        allow read: if isSignedIn() && request.auth.uid == userId;
+        allow list: if isSignedIn() && request.auth.uid == userId;
         allow create: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(date) && isValidRoutineLog(incoming(), userId);
         allow update: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(date) && isValidRoutineLog(incoming(), userId) && incoming().userId == existing().userId;
         allow delete: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(date);
       }
 
       match /hydrationLogs/{logId} {
-        allow read: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
-        allow list: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
+        allow read: if isSignedIn() && request.auth.uid == userId;
+        allow list: if isSignedIn() && request.auth.uid == userId;
         allow create: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId) && isValidHydrationLog(incoming(), userId);
         allow update: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId) && isValidHydrationLog(incoming(), userId) && incoming().userId == existing().userId;
         allow delete: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidId(logId);
       }
 
       match /settings/default {
-        allow read: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && resource.data.userId == request.auth.uid;
+        allow read: if isSignedIn() && request.auth.uid == userId;
         allow create: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidSettings(incoming(), userId);
         allow update: if isSignedIn() && request.auth.uid == userId && isValidId(userId) && isValidSettings(incoming(), userId) && incoming().userId == existing().userId;
       }

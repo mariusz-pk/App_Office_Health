@@ -121,9 +121,9 @@ export default function ControlCenter() {
           {Object.keys(SYMPTOMS_MAP).map((symptom, i) => {
             const isChecked = selectedSymptoms.includes(symptom);
             return (
-              <div key={i} onClick={() => toggleSymptom(symptom)} className={`flex items-center gap-4 border p-4 rounded-xl cursor-pointer transition-colors ${isChecked ? 'bg-slate-800 border-slate-600' : 'bg-slate-800/60 border-slate-700 hover:bg-slate-800'}`}>
-                {isChecked ? <CheckSquare className="w-6 h-6 text-amber-500 shrink-0" /> : <Square className="w-6 h-6 text-slate-600 shrink-0" />}
-                <span className={`text-sm font-medium ${isChecked ? 'text-white' : 'text-slate-300'}`}>{symptom}</span>
+              <div key={i} onClick={() => toggleSymptom(symptom)} className={`flex items-start gap-4 border p-4 rounded-xl cursor-pointer transition-colors text-justify ${isChecked ? 'bg-slate-800 border-slate-600' : 'bg-slate-800/60 border-slate-700 hover:bg-slate-800'}`}>
+                {isChecked ? <CheckSquare className="w-5 h-5 mt-0.5 text-amber-500 shrink-0" /> : <Square className="w-5 h-5 mt-0.5 text-slate-600 shrink-0" />}
+                <span className={`flex-1 text-sm font-medium leading-relaxed ${isChecked ? 'text-white' : 'text-slate-300'}`}>{symptom}</span>
               </div>
             );
           })}
@@ -131,11 +131,12 @@ export default function ControlCenter() {
 
         {activeRemedies.length > 0 && (
           <div className="mt-4 p-5 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-3">
-            <div className="text-[10px] font-bold tracking-widest uppercase text-amber-500">Rekomendacje z bazy Corporate Health</div>
-            <ul className="space-y-2">
+            <div className="text-[10px] font-bold tracking-widest uppercase text-amber-500 mb-3">Rekomendacje z bazy Office Health</div>
+            <ul className="space-y-3">
               {activeRemedies.map((remedy, idx) => (
-                <li key={idx} className="text-sm text-amber-200/90 leading-relaxed flex gap-2">
-                  <span className="text-amber-500 mt-0.5">•</span> {remedy}
+                <li key={idx} className="text-sm text-amber-200/90 leading-relaxed flex items-start gap-3 text-justify">
+                  <span className="text-amber-500 shrink-0 mt-[1px] text-base">•</span> 
+                  <span className="flex-1">{remedy}</span>
                 </li>
               ))}
             </ul>

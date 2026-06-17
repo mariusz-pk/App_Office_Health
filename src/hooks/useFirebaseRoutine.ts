@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot, doc, setDoc } from 'firebase/firestore';
+import { collection, onSnapshot, doc, setDoc, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../components/AuthProvider';
 import { handleFirestoreError, OperationType } from '../firebaseErrors';
@@ -26,7 +26,8 @@ export function useFirebaseRoutine() {
       return;
     }
     const path = `users/${user.uid}/routineHistory`;
-    const unsubscribe = onSnapshot(collection(db, path), (snapshot) => {
+    const q = query(collection(db, path), where("userId", "==", user.uid));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       const result: RoutineHistory = {};
       snapshot.forEach(docSnap => {
         result[docSnap.id] = docSnap.data() as DailyRoutineLog;
