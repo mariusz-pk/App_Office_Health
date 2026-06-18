@@ -143,20 +143,22 @@ export default function Reports() {
         <div className="flex items-end justify-start h-36 px-1 overflow-x-auto gap-4 pb-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
           {stats.chart.map((d, i) => (
             <div key={i} className="flex flex-col items-center gap-2.5 w-10 shrink-0">
-              {d.value > 0 ? (
-                <span className="text-[11px] text-white font-medium">{d.value}%</span>
-              ) : (
-                <span className="text-[11px] text-transparent">0%</span>
-              )}
-              
-              <div className="w-full flex items-end justify-center h-[90px]">
+              <div className="w-full flex items-end justify-center h-[100px]">
                 {d.value > 0 ? (
                   <div
-                    className="w-full max-w-[22px] rounded-sm transition-all duration-700 ease-out animate-in slide-in-from-bottom-5"
-                    style={{ height: `${d.value}%`, backgroundColor: d.color }}
-                  />
+                    className="w-full max-w-[22px] rounded-sm transition-all duration-700 ease-out animate-in slide-in-from-bottom-5 relative"
+                    style={{ height: `${Math.max(d.value, 4)}%`, backgroundColor: d.color }}
+                  >
+                    <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] font-medium text-white">
+                      {d.value}%
+                    </span>
+                  </div>
                 ) : (
-                  <div className="w-full max-w-[22px] h-[2px] bg-slate-700/50 rounded-sm" />
+                  <div className="w-full max-w-[22px] h-[2px] bg-slate-700/50 rounded-sm relative">
+                    <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] font-medium text-slate-500">
+                      0%
+                    </span>
+                  </div>
                 )}
               </div>
               <div className="flex flex-col items-center">

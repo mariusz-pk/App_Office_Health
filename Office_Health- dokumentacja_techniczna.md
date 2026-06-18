@@ -22,7 +22,7 @@ Aplikacja przeszła wielofazową migrację. Oryginalnie zaprojektowana przy uży
 
 ## Wybrane Moduły i Logika Biznesowa:
 - `/src/App.tsx` - "Shell" układu strony. Odpowiada za główny szkielet Mobile-App UI, Header oraz powitalny Splash Screen z animacją wygasającą (zintegrowaną ze zaktualizowanym logotypem `app-icon.png`). Obsługuje stan aktywności `activeTab`. Nawigacja podzielona na moduły z precyzyjnym nazewnictwem w Toolbarze.
-- `/src/components/Reports.tsx` - Moduł statystyk z zaimplementowaną logiką wykresu słupkowego dla witalności, generujący ustrukturyzowaną historycznie pełną oś czasu zaczynając od pierwszego odnotowanego logu do dzisiejszego odczytu daty.
+- `/src/components/Reports.tsx` - Moduł statystyk z zaimplementowaną logiką wykresu słupkowego dla witalności (wraz z dodanymi, bezpośrodnio widocznymi na osi Y nad słupkami wynikami w %). Generuje ustrukturyzowaną historycznie pełną oś czasu zaczynając od pierwszego odnotowanego logu do dzisiejszego odczytu daty.
 - `/src/hooks/useFirebaseRoutine.ts` i integracje - Zaawansowane hooki spinające warstwę klienta bezpośrednio z kolekcjami Firestore. Całkowicie zarządza autoryzacją i subskrypcją po migracji z LocalStorage.
 - `/src/components/CloudAlerts.tsx` - Przeprojektowany panel autoryzacji w chmurze Google, z wbudowanym renderowaniem awatara profilu użtkownika oraz notyfikacją powiadamiającą o zabezpieczaniu danych ze wsparciem interfejsu wizualnego synchronizacji.
 - `/src/components/DailyRoutine.tsx` - Interaktywny kalendarz postepów wspierający dodawanie ilości zaliczonych kroków. Wbudowano tutaj zabezpieczającą blokadę przechodzenia do przodu i w tył za ramy dostępnych wpisów.
