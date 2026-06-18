@@ -6,7 +6,7 @@
 - **Stylizacja:** Tailwind CSS v4 (podejście utility-first, projekt mocno osadzony w stylistyce ciemnego trybu z paletą "slate", akcentami "emerald" oraz "rose").
 - **Backend / Chmura:** Firebase (Authentication do autoryzacji Google, Firestore do zabezpieczania logów statystyk i rutyny).
 - **Zarządzanie stanem (Hooki):** Niestandardowe hooki łączące bazę chmurową z warstwą wizualną (m.in. `useFirebaseRoutine`, `useFirebaseCollection`).
-- **Ikony:** Lucide React.
+- **Ikony i Zasoby graficzne:** Lucide React oraz zoptymalizowane pod tryb ciemny maskowalne ikony PWA (`app-icon.png` w kolorystyce ciemnego granatu/slate dostosowanej do głównego motywu tła).
 - **PWA:** Vite PWA Plugin, pozwalający na łatwą instalację aplikacji na ekranie głównym urządzeń mobilnych wspierający "standalone mode".
 - **Budowa:** Vite.
 
@@ -21,7 +21,7 @@ Aplikacja przeszła wielofazową migrację. Oryginalnie zaprojektowana przy uży
 5. `corp_hydrationTarget` (Integer) - Cel dla wyliczeń % nawodnienia dobowego (domyślnie: 2000ml).
 
 ## Wybrane Moduły i Logika Biznesowa:
-- `/src/App.tsx` - "Shell" układu strony. Odpowiada za główny szkielet Mobile-App UI, Header oraz powitalny Splash Screen z animacją wygasającą. Obsługuje stan aktywności `activeTab`. Nawigacja podzielona na moduły z precyzyjnym nazewnictwem w Toolbarze.
+- `/src/App.tsx` - "Shell" układu strony. Odpowiada za główny szkielet Mobile-App UI, Header oraz powitalny Splash Screen z animacją wygasającą (zintegrowaną ze zaktualizowanym logotypem `app-icon.png`). Obsługuje stan aktywności `activeTab`. Nawigacja podzielona na moduły z precyzyjnym nazewnictwem w Toolbarze.
 - `/src/components/Reports.tsx` - Moduł statystyk z zaimplementowaną logiką wykresu słupkowego dla witalności, generujący ustrukturyzowaną historycznie pełną oś czasu zaczynając od pierwszego odnotowanego logu do dzisiejszego odczytu daty.
 - `/src/hooks/useFirebaseRoutine.ts` i integracje - Zaawansowane hooki spinające warstwę klienta bezpośrednio z kolekcjami Firestore. Całkowicie zarządza autoryzacją i subskrypcją po migracji z LocalStorage.
 - `/src/components/CloudAlerts.tsx` - Przeprojektowany panel autoryzacji w chmurze Google, z wbudowanym renderowaniem awatara profilu użtkownika oraz notyfikacją powiadamiającą o zabezpieczaniu danych ze wsparciem interfejsu wizualnego synchronizacji.
