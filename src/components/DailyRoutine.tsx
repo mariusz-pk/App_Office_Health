@@ -38,16 +38,27 @@ export default function DailyRoutine() {
     });
   }, []);
 
+  const todayStr = new Date().toISOString().split('T')[0];
+  
+  const historyDates = Object.keys(history);
+  const hydrationDates = hydrationLogsData.map(log => log.date);
+  const allDates = [...historyDates, ...hydrationDates, todayStr].sort();
+  const earliestDate = allDates.length > 0 ? allDates[0] : todayStr;
+
   const changeDate = (days: number) => {
     if (!currentDateStr) return;
     const date = new Date(currentDateStr);
     date.setDate(date.getDate() + days);
     const newDateStr = date.toISOString().split('T')[0];
+    
+    if (newDateStr > todayStr || newDateStr < earliestDate) {
+      return;
+    }
     setCurrentDateStr(newDateStr);
   };
 
-  const todayStr = new Date().toISOString().split('T')[0];
   const isToday = currentDateStr === todayStr;
+  const isEarliest = currentDateStr <= earliestDate;
   const currentData = history[currentDateStr] || { checkedHabits: [], energyLevel: 5, sleepQuality: 5 };
 
   const todayLogs = hydrationLogsData.filter(log => log.date === currentDateStr);
@@ -138,7 +149,7 @@ export default function DailyRoutine() {
   return (
     <div className="space-y-6 pb-24 animate-in fade-in slide-in-from-bottom-2 duration-500">
       <div className="flex items-center justify-between text-sm">
-        <button onClick={() => changeDate(-1)} className="p-2.5 rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-700 transition-colors">
+        <button onClick={() => changeDate(-1)} disabled={isEarliest} className={`p-2.5 rounded-xl border transition-colors ${isEarliest ? 'bg-slate-800/50 border-slate-800 opacity-50 cursor-not-allowed' : 'bg-slate-800 border-slate-700 hover:bg-slate-700'}`}>
           <ChevronLeft className="w-4 h-4 text-slate-400" />
         </button>
         <div className="text-center">

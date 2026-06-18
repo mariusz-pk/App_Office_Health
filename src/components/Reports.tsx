@@ -76,7 +76,17 @@ export default function Reports() {
     const daysCount = recentDates.length;
 
     const chartDays = [];
-    for (let i = 6; i >= 0; i--) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const earliestDateStr = dates[0];
+    const earliestDate = new Date(earliestDateStr);
+    earliestDate.setHours(0, 0, 0, 0);
+
+    const diffTime = today.getTime() - earliestDate.getTime();
+    const totalDays = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+
+    for (let i = totalDays; i >= 0; i--) {
       const d = new Date();
       d.setDate(d.getDate() - i);
       const dateStr = d.toISOString().split('T')[0];
@@ -97,21 +107,22 @@ export default function Reports() {
       const dayName = ['Ni', 'Po', 'Wt', 'Śr', 'Cz', 'Pi', 'So'][d.getDay()];
       chartDays.push({
         label: dayName,
+        dateStr,
         value: score,
         color: score >= 80 ? '#10b981' : score >= 50 ? '#f59e0b' : score > 0 ? '#f43f5e' : 'transparent'
       });
     }
 
     return {
-      avgScore: Math.round(totalScore / daysCount),
-      avgEnergy: (totalEnergy / daysCount).toFixed(1),
-      avgSleep: (totalSleep / daysCount).toFixed(1),
+      avgScore: daysCount > 0 ? Math.round(totalScore / daysCount) : 0,
+      avgEnergy: daysCount > 0 ? (totalEnergy / daysCount).toFixed(1) : '0.0',
+      avgSleep: daysCount > 0 ? (totalSleep / daysCount).toFixed(1) : '0.0',
       consistency: Math.round((daysCount / 30) * 100),
       hydrationSuccessRate,
       avgVolume,
       habitStats: HABITS_LIST.map(h => ({
         title: h,
-        percentage: Math.round((habitCounts[h] / daysCount) * 100)
+        percentage: daysCount > 0 ? Math.round((habitCounts[h] / daysCount) * 100) : 0
       })),
       chart: chartDays
     };
@@ -126,12 +137,12 @@ export default function Reports() {
       
       <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg shadow-slate-900/50">
         <div className="flex items-center gap-2 text-[10px] text-slate-400 tracking-wider uppercase font-semibold mb-6">
-          <BarChart3 className="w-4 h-4 text-emerald-500" /> Witalność — Ostatnie 7 dni
+          <BarChart3 className="w-4 h-4 text-emerald-500" /> Witalność — Pełna Historia
         </div>
         
-        <div className="flex items-end justify-around h-36 px-1">
+        <div className="flex items-end justify-start h-36 px-1 overflow-x-auto gap-4 pb-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
           {stats.chart.map((d, i) => (
-            <div key={i} className="flex flex-col items-center gap-2.5 w-10">
+            <div key={i} className="flex flex-col items-center gap-2.5 w-10 shrink-0">
               {d.value > 0 ? (
                 <span className="text-[11px] text-white font-medium">{d.value}%</span>
               ) : (
@@ -148,7 +159,10 @@ export default function Reports() {
                   <div className="w-full max-w-[22px] h-[2px] bg-slate-700/50 rounded-sm" />
                 )}
               </div>
-              <span className="text-[11px] text-slate-500 font-medium">{d.label}</span>
+              <div className="flex flex-col items-center">
+                <span className="text-[11px] text-slate-500 font-medium">{d.label}</span>
+                <span className="text-[9px] text-slate-600 block">{d.dateStr.slice(5)}</span>
+              </div>
             </div>
           ))}
         </div>

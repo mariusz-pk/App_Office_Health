@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ListChecks, ShoppingCart, Droplet, Sliders, BarChart3, CupSoda, LogOut, Settings, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ListChecks, ShoppingCart, Droplet, Sliders, BarChart3, CupSoda, LogOut, Settings, X, Cpu } from 'lucide-react';
 import { useAuth } from './components/AuthProvider';
 import DailyRoutine from './components/DailyRoutine';
 import Essentials from './components/Essentials';
@@ -25,8 +25,16 @@ const SocketIcon = ({ className }: { className?: string }) => (
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('cloud');
+  const [showSplash, setShowSplash] = useState(true);
   const { user } = useAuth();
   const { showBigModal, dismissBigModal, missingCount } = useNotifications();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const renderContent = () => {
     switch (activeTab) {
@@ -51,6 +59,36 @@ export default function App() {
       default: return 'IT Health';
     }
   };
+
+  if (showSplash) {
+    return (
+      <div className="fixed inset-0 z-[1000] bg-slate-900 flex flex-col items-center justify-center animate-in fade-in duration-1000">
+        <div className="flex-1 flex flex-col items-center justify-center w-full max-w-sm px-6 animate-in zoom-in-95 duration-1000 delay-150">
+          <div className="relative w-48 h-48 mb-8 rounded-[2rem] shadow-[0_0_80px_-15px_rgba(16,185,129,0.3)] bg-slate-800 p-2">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-[2rem] animate-pulse" />
+            <img 
+              src="/app-icon.png" 
+              alt="Office Health Logo" 
+              className="w-full h-full object-cover rounded-[1.5rem] relative z-10"
+            />
+          </div>
+          <h1 className="text-3xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400 text-center">
+            Office Health
+          </h1>
+          <p className="text-slate-400 text-sm mt-2 tracking-widest uppercase font-medium">v2.0</p>
+        </div>
+        
+        <div className="pb-12 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500">
+          <p className="text-[10px] text-slate-500 tracking-[0.2em] uppercase font-semibold">
+            Office Health v2.0
+          </p>
+          <p className="text-[10px] text-slate-600 tracking-wider uppercase mt-1">
+            by WszystkokolwiekWFormie
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-900 font-sans text-slate-100 selection:bg-emerald-500/30">
