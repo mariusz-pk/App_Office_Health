@@ -12,13 +12,16 @@ Zamiast standardowego żargonu medycznego, aplikacja komunikuje się w przystęp
 
 Aplikacja jest podzielona na 5 oddzielnych sekcji znajdujących się w dolnym pasku nawigacyjnym:
 
+### Ekran powitalny (Splash Screen)
+Podczas uruchamiania aplikacji wyświetlany jest płynny ekran powitalny, prezentujący logo aplikacji oraz podpis "Office Health v2.0 by WszystkokolwiekWFormie", nadając odczucie uruchamiania natywnego programu.
+
 ### 1. Rutyna (Codzienny check-in)
 Moduł pozwalający na śledzenie i rozliczanie nawyków każdego dnia.
 - Lista głównych nawyków środowiska biurowego (m.in. Poranny Izotonik, Mikro-przerwy w trakcie pracy).
 - Interaktywne pola nawyków, m.in. dedykowany licznik dla celu "Dzienny limit kroków" (z predefiniowaną, domyślną wartością ukierunkowującą użytkownika na minimum 5000 kroków) obudowany w czytelny panel powiadomienia o zapisanym wyniku.
 - Skala samooceny jakości snu oraz poziomu energii/skupienia suwakami (od 1 do 10).
 - Skondensowany i przeliczany na bieżąco procentowy „Wskaźnik Witalności i Efektywności”.
-- Możliwość wygodnego przeglądu historycznych dni (w trybie tylko do odczytu).
+- Możliwość wygodnego przeglądu historycznych dni (w trybie tylko do odczytu), z wbudowanym zabezpieczeniem przed wybieganiem w przyszłość lub nawigowaniem do dat systemowo pustych (przed rozpoczęciem użytkowania).
 
 ### 2. Baza zakupowa (Spiżarnia Wellness)
 Lista zakupów i zasobów, które warto mieć zawsze pod ręką.
@@ -40,8 +43,8 @@ Miejsce analizowania kondycji układu nerwowego i zgłaszania objawów.
 
 ### 5. Raporty (Trendy Witalności)
 Strona agregująca zebrane z kilku tygodni dane i prezentująca postępy w formie podsumowań audytowych.
-- Czytelny wykres słupkowy z danymi dot. dziennych wyników witalności (w %), generowany dynamicznie i prezentujący historię ostatnich 7 dni (w widoku wstecznym od dnia dzisiejszego).
-- Syntetyczny raport zbiorczy 30-dniowych średnich dla skupienia i regeneracji.
+- Czytelny wykres słupkowy z danymi dot. dziennych wyników witalności (w %), generowany dynamicznie i prezentujący pełną historię danych począwszy od pierwszego odnotowanego wpisu z możliwością bocznego przewijania.
+- Syntetyczny raport zbiorczy średnich dla skupienia i regeneracji.
 - Pasek postępu konkretnych procesów pokazujący, których nawyków procentowo użytkownik trzyma się najlepiej.
 
 ### 6. Synchronizacja z chmurą
