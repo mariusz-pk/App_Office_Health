@@ -140,7 +140,7 @@ export default function Reports() {
           <BarChart3 className="w-4 h-4 text-emerald-500" /> Witalność — Pełna Historia
         </div>
         
-        <div className="flex items-end justify-start h-36 px-1 overflow-x-auto gap-4 pb-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+        <div className="flex items-end justify-start h-44 pt-6 px-1 overflow-x-auto gap-4 pb-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
           {stats.chart.map((d, i) => (
             <div key={i} className="flex flex-col items-center gap-2.5 w-10 shrink-0">
               <div className="w-full flex items-end justify-center h-[100px]">
