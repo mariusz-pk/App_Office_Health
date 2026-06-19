@@ -43,7 +43,7 @@ Miejsce analizowania kondycji układu nerwowego i zgłaszania objawów.
 
 ### 5. Raporty (Trendy Witalności)
 Strona agregująca zebrane z kilku tygodni dane i prezentująca postępy w formie podsumowań audytowych.
-- Czytelny wykres słupkowy z danymi dot. dziennych wyników witalności (w %), generowany dynamicznie i prezentujący pełną historię danych począwszy od pierwszego odnotowanego wpisu z możliwością bocznego przewijania, ulepszony o bezpośrednie wyświetlanie wartości procentowej na górze nad każdym ze słupków.
+- Czytelny wykres słupkowy z danymi dot. dziennych wyników witalności (w %), generowany dynamicznie i prezentujący pełną historię danych począwszy od pierwszego odnotowanego wpisu z możliwością bocznego przewijania, ulepszony o bezbłędne wyświetlanie wartości procentowej na górze nad każdym ze słupków (odpowiednie skalowanie kontenera zapobiegające ucinaniu się tekstu).
 - Syntetyczny raport zbiorczy średnich dla skupienia i regeneracji.
 - Pasek postępu konkretnych procesów pokazujący, których nawyków procentowo użytkownik trzyma się najlepiej.
 
