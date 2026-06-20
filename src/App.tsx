@@ -73,15 +73,11 @@ export default function App() {
             />
           </div>
           <h1 className="text-3xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400 text-center">
-            Office Health
+            Office Health v2.0
           </h1>
-          <p className="text-slate-400 text-sm mt-2 tracking-widest uppercase font-medium">v2.0</p>
         </div>
         
         <div className="pb-12 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500">
-          <p className="text-[10px] text-slate-500 tracking-[0.2em] uppercase font-semibold">
-            Office Health v2.0
-          </p>
           <p className="text-[10px] text-slate-600 tracking-wider uppercase mt-1">
             by WszystkokolwiekWFormie
           </p>

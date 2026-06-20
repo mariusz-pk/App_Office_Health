@@ -1,6 +1,6 @@
 {
   "name": "Office Health v2.0",
-  "short_name": "Office Health",
+  "short_name": "Office Health v2.0",
   "description": "A comprehensive wellness and routine tracking application.",
   "start_url": "/",
   "display": "standalone",
@@ -10,12 +10,14 @@
     {
       "src": "/app-icon.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
     {
       "src": "/app-icon.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     }
   ]
 }
