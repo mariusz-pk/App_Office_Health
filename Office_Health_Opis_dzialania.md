@@ -13,7 +13,7 @@ Zamiast standardowego żargonu medycznego, aplikacja komunikuje się w przystęp
 Aplikacja jest podzielona na 5 oddzielnych sekcji znajdujących się w dolnym pasku nawigacyjnym:
 
 ### Ekran powitalny (Splash Screen)
-Podczas uruchamiania aplikacji wyświetlany jest płynny ekran powitalny, prezentujący odświeżone logo aplikacji (z dostosowanym, ciemnym tłem) oraz podpis "Office Health v2.0 by WszystkokolwiekWFormie", nadając odczucie uruchamiania natywnego programu.
+Podczas uruchamiania aplikacji wyświetlany jest płynny ekran powitalny, prezentujący odświeżone logo aplikacji (z dostosowanym, ciemnym tłem), centralny tytuł aplikacji "Office Health v2.0" oraz delikatny podpis u samego dołu ekranu "by WszystkokolwiekWFormie", nadając autentyczne odczucie uruchamiania natywnego programu.
 
 ### 1. Rutyna (Codzienny check-in)
 Moduł pozwalający na śledzenie i rozliczanie nawyków każdego dnia.

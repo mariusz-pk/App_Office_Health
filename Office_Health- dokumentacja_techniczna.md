@@ -7,7 +7,7 @@
 - **Backend / Chmura:** Firebase (Authentication do autoryzacji Google, Firestore do zabezpieczania logów statystyk i rutyny).
 - **Zarządzanie stanem (Hooki):** Niestandardowe hooki łączące bazę chmurową z warstwą wizualną (m.in. `useFirebaseRoutine`, `useFirebaseCollection`).
 - **Ikony i Zasoby graficzne:** Lucide React oraz zoptymalizowane pod tryb ciemny maskowalne ikony PWA (`app-icon.png` w kolorystyce ciemnego granatu/slate dostosowanej do głównego motywu tła).
-- **PWA:** Vite PWA Plugin, pozwalający na łatwą instalację aplikacji na ekranie głównym urządzeń mobilnych wspierający "standalone mode".
+- **PWA:** Vite PWA Plugin, pozwalający na łatwą instalację aplikacji na ekranie głównym urządzeń mobilnych wspierający "standalone mode" (w tym generujący prawidłową, wymuszoną docelową nazwę "Office Health v2.0" dla przypiętych skrótów `short_name` oraz definicje wymuszające poprawne renderowanie maskowalnych ikon instalacyjnych `purpose: "maskable any"`).
 - **Budowa:** Vite.
 
 ## Architektura Danych / Model Pamięci
