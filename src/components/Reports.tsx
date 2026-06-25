@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import { BarChart3, Activity, Sun, Moon, CheckSquare, Target, Droplet } from 'lucide-react';
 import { useFirebaseRoutine } from '../hooks/useFirebaseRoutine';
 import { useFirebaseHydrationTarget } from '../hooks/useFirebaseHydrationTarget';
@@ -10,6 +10,7 @@ export default function Reports() {
   const [history] = useFirebaseRoutine();
   const [hydrationTarget] = useFirebaseHydrationTarget();
   const { data: hydrationLogs } = useFirebaseCollection<HydrationLog>('hydrationLogs');
+  const chartContainerRef = useRef<HTMLDivElement>(null);
 
   const stats = useMemo(() => {
     const dates = Object.keys(history).sort();
@@ -79,14 +80,7 @@ export default function Reports() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const earliestDateStr = dates[0];
-    const earliestDate = new Date(earliestDateStr);
-    earliestDate.setHours(0, 0, 0, 0);
-
-    const diffTime = today.getTime() - earliestDate.getTime();
-    const totalDays = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
-
-    for (let i = totalDays; i >= 0; i--) {
+    for (let i = 6; i >= 0; i--) {
       const d = new Date();
       d.setDate(d.getDate() - i);
       const dateStr = d.toISOString().split('T')[0];
@@ -128,6 +122,12 @@ export default function Reports() {
     };
   }, [history, hydrationLogs, hydrationTarget]);
 
+  useEffect(() => {
+    if (chartContainerRef.current) {
+      chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
+    }
+  }, [stats]);
+
   if (!stats) {
     return <div className="text-center py-20 text-slate-500">Brak danych do wygenerowania raportu. Wypełniaj rutynę codziennie!</div>;
   }
@@ -137,10 +137,13 @@ export default function Reports() {
       
       <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg shadow-slate-900/50">
         <div className="flex items-center gap-2 text-[10px] text-slate-400 tracking-wider uppercase font-semibold mb-6">
-          <BarChart3 className="w-4 h-4 text-emerald-500" /> Witalność — Pełna Historia
+          <BarChart3 className="w-4 h-4 text-emerald-500" /> Witalność — Ostatnie 7 Dni
         </div>
         
-        <div className="flex items-end justify-start h-44 pt-6 px-1 overflow-x-auto gap-4 pb-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+        <div 
+          ref={chartContainerRef}
+          className="flex items-end justify-start h-44 pt-6 px-1 overflow-x-auto gap-4 pb-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent scroll-smooth"
+        >
           {stats.chart.map((d, i) => (
             <div key={i} className="flex flex-col items-center gap-2.5 w-10 shrink-0">
               <div className="w-full flex items-end justify-center h-[100px]">
