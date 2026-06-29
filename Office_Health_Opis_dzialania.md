@@ -25,7 +25,8 @@ Moduł pozwalający na śledzenie i rozliczanie nawyków każdego dnia.
 
 ### 2. Baza zakupowa (Spiżarnia Wellness)
 Lista zakupów i zasobów, które warto mieć zawsze pod ręką.
-- Podział asortymentu w postaci filtrów na: „Miesięczną Bazę” (suplementy i produkty z długą datą) oraz „Tygodniowe Uzupełnienie” (produkty świeże, jajka, warzywa itp.).
+- Podział asortymentu w postaci filtrów na: „Miesięczną Bazę” (suplementy, adaptogeny i produkty z długą datą) oraz „Tygodniowe Uzupełnienie” (produkty świeże, jajka, warzywa itp.).
+- Dodano dedykowaną, wyodrębnioną kategorię "ADAPTOGENY" na liście zakupowej dla łatwiejszego namierzania kluczowych wyciągów roślinnych (np. Soplówka jeżowata, Różeniec Górski).
 - Interaktywny pasek postępu wyświetlający procent skompletowania optymalnej diety biohackera.
 
 ### 3. Kafejka (Hydratacja i Zioła)
@@ -33,7 +34,7 @@ Osobisty barista wspierający nawodnienie organizmu.
 - Szybki panel logowania wypitych płynów z wskaźnikiem dobowego celu (z możliwością ustawienia własnego progu).
 - Biblioteka „10 Napojów Mocy” podzielonych funkcjonalnie według precyzyjnych pór konsumpcji (Poranek, W trakcie dnia, Wieczór, Całodobowo).
 - Dokładne zasady przyrządzania naparów wspierane systemowymi stoperami odliczającymi czas parzenia oraz szczegółową listą kroków "Krok po kroku".
-- Skrupulatna prezentacja przepisów: dynamiczne wyjustowanie tekstu instrukcji, czytelne listy wypunktowane przy składnikach (np. specyfikacje "mleko A2 Bio", parametry termiczne wody) budująca apetyczny UX (User Experience).
+- Skrupulatna prezentacja przepisów: dynamiczne wyjustowanie tekstu instrukcji, czytelne listy wypunktowane przy składnikach, oraz dedykowana, wyróżniona sekcja "🔥 Twój adaptogen" z rekomendowanymi mieszankami dopasowanymi do danego napoju.
 
 ### 4. Kontrola samopoczucia (Centrum diagnostyki)
 Miejsce analizowania kondycji układu nerwowego i zgłaszania objawów.
