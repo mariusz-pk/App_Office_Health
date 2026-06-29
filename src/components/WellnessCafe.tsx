@@ -121,20 +121,48 @@ export default function WellnessCafe() {
                         <div className="p-4 pt-2 text-sm text-slate-400 border-t border-slate-700/50 bg-slate-900/30">
                           <div className="space-y-3">
                             <div>
-                              <strong className="text-slate-300 block mb-1">Składniki:</strong>
-                              <ul className="list-disc pl-5 space-y-1">
+                              <strong className="text-slate-300 block mb-1">SKŁADNIKI:</strong>
+                              <ul className="list-none space-y-1">
                                 {recipe.ingredients.split(',').map((ingredient, idx) => (
-                                  <li key={idx}>{ingredient.trim()}</li>
+                                  <li key={idx} className="flex items-start gap-2">
+                                    <span className="text-slate-500 mt-1">-</span>
+                                    <span>{ingredient.trim()}</span>
+                                  </li>
                                 ))}
                               </ul>
                             </div>
+                            
+                            {(recipe.adaptogen || recipe.adaptogenOptions) && (
+                              <div className="mt-3">
+                                {recipe.adaptogen && (
+                                  <p className="leading-relaxed mb-2 text-slate-300 text-justify">
+                                    <strong className="text-orange-400 font-medium">🔥 Twój adaptogen: </strong>
+                                    {recipe.adaptogen}
+                                  </p>
+                                )}
+                                {!recipe.adaptogen && recipe.adaptogenOptions && (
+                                  <strong className="text-orange-400 font-medium block mb-2">🔥 Twój adaptogen:</strong>
+                                )}
+                                {recipe.adaptogenOptions && recipe.adaptogenOptions.length > 0 && (
+                                  <ul className="list-none space-y-1.5 mt-2 text-justify">
+                                    {recipe.adaptogenOptions.map((opt, idx) => (
+                                      <li key={idx} className="flex items-start gap-2 text-sm text-slate-400">
+                                        <span className="text-orange-400/50 mt-0.5">•</span>
+                                        <span className="whitespace-pre-line">{opt}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </div>
+                            )}
+
                             {recipe.instructions && (
-                              <div>
-                                <strong className="text-slate-300 block mb-1">Instrukcja przygotowania:</strong>
+                              <div className="mt-4">
+                                <strong className="text-slate-300 block mb-1">INSTRUKCJA PRZYGOTOWANIA:</strong>
                                 <p className="leading-relaxed text-justify">{recipe.instructions}</p>
                               </div>
                             )}
-                            <div><strong className="text-slate-300">Kiedy pić:</strong> {recipe.when}</div>
+                            <div className="mt-4"><strong className="text-slate-300">KIEDY PIĆ:</strong> {recipe.when}</div>
                             
                             {recipe.timer && (
                               <div className="pt-2">

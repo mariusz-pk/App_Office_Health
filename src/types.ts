@@ -18,6 +18,7 @@ export interface HealthLog {
 }
 
 export interface HydrationLog {
+  id?: string;
   amount: number;
   time: string;
   date: string;
