@@ -9,34 +9,41 @@ export const HABITS_LIST = [
 ];
 
 export const SHOPPING_BASE = [
-  { name: "Kasza jaglana i gryczana niepalona", category: "Sypkie i Nasiona", icon: Wheat },
+  { name: "Kasza jaglana", category: "Sypkie i Nasiona", icon: Wheat },
+  { name: "Gryczana niepalona", category: "Sypkie i Nasiona", icon: Wheat },
   { name: "Komosa ryżowa (quinoa)", category: "Sypkie i Nasiona", icon: Wheat },
-  { name: "Nasiona: Siemię lniane i Chia", category: "Sypkie i Nasiona", icon: Sprout },
-  { name: "Pestki dyni i Słonecznik", category: "Sypkie i Nasiona", icon: Sprout },
-  { name: "Orzechy włoskie, Migdały, Brazylijskie", category: "Sypkie i Nasiona", icon: Bean },
-  { name: "Surowe Kakao / Kakao ceremonialne", category: "Sypkie i Nasiona", icon: Bean },
+  { name: "Siemię lniane (całe)", category: "Sypkie i Nasiona", icon: Sprout },
+  { name: "Nasiona chia", category: "Sypkie i Nasiona", icon: Sprout },
+  { name: "Pestki dyni", category: "Sypkie i Nasiona", icon: Sprout },
+  { name: "Słonecznik (pestki)", category: "Sypkie i Nasiona", icon: Sprout },
+  { name: "Orzechy włoskie", category: "Sypkie i Nasiona", icon: Bean },
+  { name: "Migdały", category: "Sypkie i Nasiona", icon: Bean },
+  { name: "Orzechy brazylijskie", category: "Sypkie i Nasiona", icon: Bean },
+  { name: "Kakao ceremonialne", category: "Sypkie i Nasiona", icon: Bean },
   
   { name: "Oliwa z oliwek extra virgin", category: "Płyny i Dodatki", icon: Droplet },
   { name: "Olej lniany (tłoczony na zimno)", category: "Płyny i Dodatki", icon: Droplet },
   { name: "Olej kokosowy", category: "Płyny i Dodatki", icon: Droplet },
   { name: "Ocet jabłkowy mętny (BIO)", category: "Płyny i Dodatki", icon: FlaskConical },
 
-  { name: "Zioła: Szałwia, Melisa", category: "Zioła", icon: Flower2 },
-  { name: "Szyszki chmielu", category: "Zioła", icon: Flower2 },
-  { name: "Krwawnik pospolity", category: "Zioła", icon: Flower2 },
+  { name: "Szałwia lekarska (susz)", category: "Zioła", icon: Flower2 },
+  { name: "Melisa (susz)", category: "Zioła", icon: Flower2 },
+  { name: "Szyszki chmielu (susz)", category: "Zioła", icon: Flower2 },
+  { name: "Krwawnik pospolity (susz)", category: "Zioła", icon: Flower2 },
 
   { name: "Sól kłodawska (niejodowana)", category: "Przyprawy i Dodatki", icon: Sparkles },
-  { name: "Przyprawy: Kurkuma, Cynamon, Kardamon", category: "Przyprawy i Dodatki", icon: Sparkles },
+  { name: "Cynamon cejloński", category: "Przyprawy i Dodatki", icon: Sparkles },
+  { name: "Kardamon", category: "Przyprawy i Dodatki", icon: Sparkles },
   { name: "Pieprz cayenne / czarny pieprz", category: "Przyprawy i Dodatki", icon: Sparkles },
   { name: "Suszony imbir", category: "Przyprawy i Dodatki", icon: Flame },
 
-  { name: "Pyłek pszczeli (wsparcie odporności)", category: "Produkty Pszczele", icon: Sparkles },
-  { name: "Miód spadziowy lub lipowy (wsparcie odporności)", category: "Produkty Pszczele", icon: Droplet },
+  { name: "Pyłek pszczeli", category: "Produkty Pszczele", icon: Sparkles },
+  { name: "Miód spadziowy (lub lipowy)", category: "Produkty Pszczele", icon: Droplet },
 
-  { name: "Witamina D3 + K2 MK7", category: "Suplementy", icon: ShieldPlus },
+  { name: "Witamina D3+K2", category: "Suplementy", icon: ShieldPlus },
   { name: "Magnez (jabłczan lub diglicynian)", category: "Suplementy", icon: Pill },
   { name: "Omega-3 (suplement)", category: "Suplementy", icon: Pill },
-  { name: "Kreatyna (wsparcie funkcji poznawczych)", category: "Suplementy", icon: Brain },
+  { name: "Kreatyna", category: "Suplementy", icon: Brain },
   { name: "Kurkumina z piperyną", category: "Suplementy", icon: ShieldPlus },
 
   { name: "Soplówka jeżowata (Lion's Mane)", category: "Adaptogeny", icon: Brain },
@@ -46,8 +53,8 @@ export const SHOPPING_BASE = [
   { name: "Reishi", category: "Adaptogeny", icon: Moon },
   { name: "Ashwagandha", category: "Adaptogeny", icon: Shield },
 
-  { name: "Zielona Matcha (stabilne skupienie)", category: "Napoje", icon: Leaf },
-  { name: "Kawa w ziarnach jakościowa (szybka energia)", category: "Napoje", icon: Coffee },
+  { name: "Zielona Matcha", category: "Napoje", icon: Leaf },
+  { name: "Kawa w ziarnach (jakościowa)", category: "Napoje", icon: Coffee },
   
   { name: "Rokitnik (wsparcie odporności)", category: "Owoce i Warzywa", icon: Grape }
 ];

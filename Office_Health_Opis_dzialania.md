@@ -27,6 +27,7 @@ Moduł pozwalający na śledzenie i rozliczanie nawyków każdego dnia.
 Lista zakupów i zasobów, które warto mieć zawsze pod ręką.
 - Podział asortymentu w postaci filtrów na: „Miesięczną Bazę” (suplementy, adaptogeny i produkty z długą datą) oraz „Tygodniowe Uzupełnienie” (produkty świeże, jajka, warzywa itp.).
 - Dodano dedykowaną, wyodrębnioną kategorię "ADAPTOGENY" na liście zakupowej dla łatwiejszego namierzania kluczowych wyciągów roślinnych (np. Soplówka jeżowata, Różeniec Górski).
+- Baza produktów została zsynchronizowana z asortymentem z wariantu IT Health v2.0 (m m.in. rozdzielenie zbiorczych kategorii nasion/orzechów na pojedyncze pozycje, dodanie takich produktów jak Witamina D3+K2, Cynamon cejloński).
 - Interaktywny pasek postępu wyświetlający procent skompletowania optymalnej diety biohackera.
 
 ### 3. Kafejka (Hydratacja i Zioła)
