@@ -54,6 +54,7 @@ Moduł zarządzania logowaniem i zabezpieczaniem postępów użytkownika (Cloud 
 - Logowanie za pomocą konta Google (Firebase Authentication).
 - Spersonalizowany widok zalogowanego użytkownika (wyświetla awatar profilowy, imię i status autoryzacji).
 - Automatyczny, limitless backup w chmurze – zabezpieczający na bieżąco postępy statystyk (Firestore).
+- Ulepszona obsługa błędów autoryzacji: W przypadku problemów z autoryzacją zewnętrznych domen (np. przy wdrożeniach na platformie Vercel), aplikacja przechwytuje błąd `auth/unauthorized-domain` i wyświetla precyzyjny komunikat instruktażowy o konieczności dodania domeny w ustawieniach Firebase Authentication.
 
 ### 7. Nowoczesny UX i In-App Alerts (Powiadomienia Wewnętrzne)
 System powiadamiania użytkownika został zaprojektowany z zachowaniem natywnego wrażenia "app-like UX".
