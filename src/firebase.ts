@@ -23,7 +23,18 @@ testConnection();
 
 export const provider = new GoogleAuthProvider();
 
-export const signIn = () => signInWithPopup(auth, provider);
+export const signIn = async () => {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (error: any) {
+    console.error("Login error:", error);
+    if (error.code === 'auth/unauthorized-domain') {
+      alert("Błąd: Domenę tej aplikacji należy dodać do autoryzowanych domen w ustawieniach Firebase Authentication (Authentication -> Ustawienia -> Autoryzowane domeny).");
+    } else {
+      alert("Błąd logowania: " + error.message);
+    }
+  }
+};
 export const logOut = () => signOut(auth);
 
 // Provide auth state listener
