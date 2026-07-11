@@ -11,7 +11,7 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['app-icon.png', 'icon.svg'],
+        includeAssets: ['icon-192x192.png', 'icon-512x512.png', 'screenshot-wide.png', 'screenshot-narrow.png', 'app-icon.png', 'icon.svg'],
         manifest: {
           name: 'Office Health v2.0',
           short_name: 'Office Health v2.0',
@@ -19,13 +19,47 @@ export default defineConfig(() => {
           theme_color: '#0f172a',
           background_color: '#0f172a',
           display: 'standalone',
+          display_override: ['window-controls-overlay', 'standalone'],
           orientation: 'portrait',
+          lang: 'pl',
+          dir: 'ltr',
+          scope: '/',
+          start_url: '/',
+          id: '/?source=pwa',
+          categories: ['health', 'productivity'],
+          shortcuts: [
+            {
+              name: "Rutyna",
+              url: "/?tab=routine",
+              icons: [{ src: "/icon-192x192.png", sizes: "192x192", type: "image/png" }]
+            }
+          ],
           icons: [
             {
-              src: '/app-icon.png',
-              sizes: '192x192 256x256 512x512',
+              src: '/icon-192x192.png',
+              sizes: '192x192',
               type: 'image/png',
               purpose: 'any maskable'
+            },
+            {
+              src: '/icon-512x512.png',
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'any maskable'
+            }
+          ],
+          screenshots: [
+            {
+              src: '/screenshot-wide.png',
+              sizes: '1920x1080',
+              type: 'image/png',
+              form_factor: 'wide'
+            },
+            {
+              src: '/screenshot-narrow.png',
+              sizes: '1080x1920',
+              type: 'image/png',
+              form_factor: 'narrow'
             }
           ]
         }
