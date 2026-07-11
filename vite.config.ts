@@ -19,7 +19,7 @@ export default defineConfig(() => {
           theme_color: '#0f172a',
           background_color: '#0f172a',
           display: 'standalone',
-          display_override: ['window-controls-overlay', 'standalone'],
+          display_override: ['window-controls-overlay', 'tabbed', 'standalone'],
           orientation: 'portrait',
           lang: 'pl',
           dir: 'ltr',
@@ -27,6 +27,57 @@ export default defineConfig(() => {
           start_url: '/',
           id: '/?source=pwa',
           categories: ['health', 'productivity'],
+          edge_side_panel: {
+            preferred_width: 400
+          },
+          launch_handler: {
+            client_mode: ['navigate-existing', 'auto']
+          },
+          file_handlers: [
+            {
+              action: "/",
+              accept: {
+                "text/plain": [".txt"]
+              }
+            }
+          ],
+          protocol_handlers: [
+            {
+              protocol: "web+officehealth",
+              url: "/?uri=%s"
+            }
+          ],
+          prefer_related_applications: false,
+          related_applications: [],
+          share_target: {
+            action: "/",
+            method: "GET",
+            params: {
+              title: "title",
+              text: "text",
+              url: "url"
+            }
+          },
+          iarc_rating_id: "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+          widgets: [
+            {
+              name: "Office Health Widget",
+              short_name: "Health",
+              description: "Widget do szybkiego podglądu nawodnienia i zadań.",
+              tag: "office-health-widget",
+              template_url: "https://office-health-v2-0-653665935798.europe-west2.run.app/widget.json",
+              type: "application/json",
+              icons: [{ src: "/icon-192x192.png", sizes: "192x192", type: "image/png" }]
+            }
+          ],
+          note_taking: {
+            new_note_url: "/?new_note=true"
+          },
+          scope_extensions: [
+            {
+              origin: "*.europe-west2.run.app"
+            }
+          ],
           shortcuts: [
             {
               name: "Rutyna",
