@@ -75,7 +75,7 @@ export default defineConfig(() => {
           },
           scope_extensions: [
             {
-              origin: "*.europe-west2.run.app"
+              origin: "https://*.europe-west2.run.app"
             }
           ],
           shortcuts: [
