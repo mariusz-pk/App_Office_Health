@@ -12,6 +12,9 @@ export default defineConfig(() => {
       VitePWA({
         registerType: 'autoUpdate',
         includeAssets: ['icon-192x192.png', 'icon-512x512.png', 'screenshot-wide.png', 'screenshot-narrow.png', 'app-icon.png', 'icon.svg'],
+        workbox: {
+          importScripts: ['sw-custom.js']
+        },
         manifest: {
           name: 'Office Health v2.0',
           short_name: 'Office Health v2.0',
@@ -47,8 +50,14 @@ export default defineConfig(() => {
               url: "/?uri=%s"
             }
           ],
-          prefer_related_applications: false,
-          related_applications: [],
+          prefer_related_applications: true,
+          related_applications: [
+            {
+              platform: "play",
+              url: "https://play.google.com/store/apps/details?id=com.officehealth.app",
+              id: "com.officehealth.app"
+            }
+          ],
           share_target: {
             action: "/",
             method: "GET",
