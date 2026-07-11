@@ -56,8 +56,14 @@ Moduł zarządzania logowaniem i zabezpieczaniem postępów użytkownika (Cloud 
 - Automatyczny, limitless backup w chmurze – zabezpieczający na bieżąco postępy statystyk (Firestore).
 - Ulepszona obsługa błędów autoryzacji: W przypadku problemów z autoryzacją zewnętrznych domen (np. przy wdrożeniach na platformie Vercel), aplikacja przechwytuje błąd `auth/unauthorized-domain` i wyświetla precyzyjny komunikat instruktażowy o konieczności dodania domeny w ustawieniach Firebase Authentication.
 
-### 7. Nowoczesny UX i In-App Alerts (Powiadomienia Wewnętrzne)
-System powiadamiania użytkownika został zaprojektowany z zachowaniem natywnego wrażenia "app-like UX".
-- Całkowita rezygnacja z inwazyjnych blokujących okien przeglądarki (np. `alert()`, `prompt()`) na rzecz dedykowanych komponentów alertowych UI.
-- Powiadomienia w autoryzacji chmurowej m.in. o braku uprawnień w ustawieniach przeglądarki, renderujące się łagodnie w oknie aplikacji.
-- Pływające powiadomienia (banery / toast) z wbudowanym systemem opóźnień asynchronicznych podczas raportowania ukończonego parzenia w *Kafejce* oraz wskaźników z *Centrum Kontroli*.
+### 8. Pełna zgodność z PWA (Progressive Web App) i integracja z OS
+Aplikacja została wzbogacona o zaawansowane możliwości integracji z systemami operacyjnymi (szczególnie Windows i Android), osiągając niemal perfekcyjny wynik audytu (np. PWABuilder).
+- Możliwość instalacji aplikacji (Standalone) bezpośrednio z poziomu przeglądarki.
+- Pełen zestaw nowoczesnych funkcji PWA:
+  - **Skróty (Shortcuts):** Szybki dostęp do modułu "Rutyna" z poziomu menu kontekstowego ikony aplikacji.
+  - **Widgety (Widgets):** Przygotowana architektura widgetów dla systemu Windows.
+  - **Obsługa plików (File Handlers):** Integracja z systemowym otwieraniem określonych rozszerzeń (np. `.txt`).
+  - **Share Target & Note Taking:** Możliwość udostępniania treści bezpośrednio do aplikacji oraz wbudowane akcje tworzenia notatek systemowych.
+  - **Protokół aplikacji (Protocol Handlers):** Reagowanie na unikalne adresy URL `web+officehealth://`.
+  - **Window Controls Overlay & Tabbed:** Nowoczesne wsparcie dla natywnych belek tytułowych (ukrywanie pasków przeglądarki) i interfejsów opartych na zakładkach.
+  - **Service Worker:** Własna logika Service Workera działająca w tle, przygotowana do przechwytywania powiadomień Push oraz zdarzeń Sync i PeriodicSync.

@@ -7,7 +7,10 @@
 - **Backend / Chmura:** Firebase (Authentication do autoryzacji Google, Firestore do zabezpieczania logów statystyk i rutyny).
 - **Zarządzanie stanem (Hooki):** Niestandardowe hooki łączące bazę chmurową z warstwą wizualną (m.in. `useFirebaseRoutine`, `useFirebaseCollection`).
 - **Ikony i Zasoby graficzne:** Lucide React oraz zoptymalizowane pod tryb ciemny maskowalne ikony PWA (`app-icon.png` w kolorystyce ciemnego granatu/slate dostosowanej do głównego motywu tła).
-- **PWA:** Vite PWA Plugin, pozwalający na łatwą instalację aplikacji na ekranie głównym urządzeń mobilnych wspierający "standalone mode" (w tym generujący prawidłową, wymuszoną docelową nazwę "Office Health v2.0" dla przypiętych skrótów `short_name` oraz definicje wymuszające poprawne renderowanie maskowalnych ikon instalacyjnych `purpose: "maskable any"`).
+- **PWA (Progressive Web App):** Zaawansowana integracja Vite PWA Plugin, pozwalająca na łatwą instalację aplikacji na ekranie głównym urządzeń mobilnych oraz integrację z systemami Desktop (Windows, Android). Aplikacja osiągnęła najwyższe noty zgodności dzięki obsłudze m.in.:
+  - **Manifest (Web Manifest):** Kompletna deklaracja zawierająca `name`, `short_name`, kategoryzację (`categories: ['health', 'productivity']`), definicje językowe (`lang`, `dir`), wsparcie dedykowanych maskowalnych ikon PWA (`purpose: "maskable any"`), oraz zrzutów ekranu (`screenshots` form factor: `wide` & `narrow`).
+  - **App Capabilities:** Zaimplementowano wsparcie dla nowoczesnych możliwości OS: `display_override` (`window-controls-overlay`, `tabbed`), `shortcuts` (Jumplists Windows/Android), `edge_side_panel` (uruchamianie w pasku bocznym Edge), `widgets` (adaptacyjne widżety systemowe), `share_target`, `file_handlers`, `protocol_handlers` (np. `web+officehealth://`), a także `note_taking`.
+  - **Service Worker:** Domyślny tryb autoUpdate w Vite PWA z wstrzykiwanym niestandardowym skryptem `sw-custom.js` zapewniającym nasłuchiwanie na zdarzenia Background Sync, Periodic Sync oraz Push Notifications (`push`, `sync`, `periodicsync`). Zarejestrowany globalnie w `main.tsx`.
 - **Budowa:** Vite.
 
 ## Architektura Danych / Model Pamięci
