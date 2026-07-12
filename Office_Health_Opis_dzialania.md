@@ -67,3 +67,6 @@ Aplikacja została wzbogacona o zaawansowane możliwości integracji z systemami
   - **Protokół aplikacji (Protocol Handlers):** Reagowanie na unikalne adresy URL `web+officehealth://`.
   - **Window Controls Overlay & Tabbed:** Nowoczesne wsparcie dla natywnych belek tytułowych (ukrywanie pasków przeglądarki) i interfejsów opartych na zakładkach.
   - **Service Worker:** Własna logika Service Workera działająca w tle, przygotowana do przechwytywania powiadomień Push oraz zdarzeń Sync i PeriodicSync.
+
+### 9. Optymalizacja Cache i Wdrażanie (Vercel)
+W środowisku chmurowym, w którym brak jest Server-Side Rendering (SSR), wdrożono bezkonfliktowe zasady cache'owania plików chroniące przed nieświeżymi danymi (tzw. "stale cache"). Konfiguracja zawarta w pliku `vercel.json` upewnia się, że Vercel oraz Service Worker poprawnie odświeżają kluczowe pliki wejściowe (HTML, Manifest, Service Worker) przy każdym wejściu z zasadą `max-age=0, must-revalidate`. Natomiast statyczne komponenty takie jak skrypty JavaScript i arkusze stylów (CSS) korzystają z niezwykle efektywnej polityki wielomiesięcznego przechowywania w cache użytkownika (`immutable`), przyspieszając diametralnie responsywność aplikacji.

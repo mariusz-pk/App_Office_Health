@@ -35,7 +35,6 @@ Aplikacja przeszła wielofazową migrację. Oryginalnie zaprojektowana przy uży
 - `/src/components/*` - Poszczególne interfejsy wizualne oparte m.in. o renderowanie w locie natywnych bibliotek i tagów SVG wspierana przez platformę uwierzytelniania.
 
 ## Wymagania i Uruchomienie
-
 Aplikacja ma wymuszony "Mobile-First Design" operujący na ustalonej maksymalnej szerokości ekranu na urządzeniach Desktopowych (`max-w-md`), nadając widokowi stały kształt rzutowania UX smartfona.
 
 ### Wdrożenie Lokalne (Local Development)
@@ -57,3 +56,10 @@ Aplikacja ma wymuszony "Mobile-First Design" operujący na ustalonej maksymalnej
    ```bash
    npm run build
    ```
+
+### Strategia Cacheowania i Wdrażanie (Vercel)
+W tym środowisku nie ma renderowania po stronie serwera (SSR) i funkcji takich jak `getServerSideProps` czy konfiguracji `dynamic = 'force-dynamic'`. Vercel agresywnie cache'uje pliki statyczne, co może kolidować z mechanizmem Service Workera w PWA.
+
+Dla prawidłowego działania utworzono plik `vercel.json`:
+- Główne pliki wejściowe (w tym `index.html`, plik manifestu, `sw.js`) otrzymują nagłówek `Cache-Control: public, max-age=0, must-revalidate` co eliminuje występowanie błędu "X-Vercel-Cache: HIT" i serwowanie starych dokumentów PWA.
+- Statyczne komponenty w podkatalogu `/assets/` korzystają ze zmienionej zoptymalizowanej polityki długoterminowego przechowywania `Cache-Control: public, max-age=31536000, immutable`, która w przypadku plików "hashingowanych" przez Vite zapewnia bezbłędną responsywność bez zapytań kontrolnych.
