@@ -11,7 +11,7 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['Icon-App_Health_Office.png', 'screenshot-wide.svg', 'screenshot-narrow.svg'],
+        includeAssets: ['icon-192.png', 'icon-512.png', 'screenshot-wide.png', 'screenshot-narrow.png', 'Icon-App_Health_Office.png'],
         workbox: {
           importScripts: ['sw-custom.js']
         },
@@ -76,7 +76,7 @@ export default defineConfig(() => {
               tag: "office-health-widget",
               template_url: "https://office-health-v2-0-653665935798.europe-west2.run.app/widget.json",
               type: "application/json",
-              icons: [{ src: "/Icon-App_Health_Office.png", sizes: "any", type: "image/png" }]
+              icons: [{ src: "/icon-192.png", sizes: "192x192", type: "image/png" }]
             }
           ],
           note_taking: {
@@ -91,28 +91,34 @@ export default defineConfig(() => {
             {
               name: "Rutyna",
               url: "/?tab=routine",
-              icons: [{ src: "/Icon-App_Health_Office.png", sizes: "any", type: "image/png" }]
+              icons: [{ src: "/icon-192.png", sizes: "192x192", type: "image/png" }]
             }
           ],
           icons: [
             {
-              src: '/Icon-App_Health_Office.png',
-              sizes: 'any',
+              src: '/icon-192.png',
+              sizes: '192x192',
+              type: 'image/png',
+              purpose: 'any maskable'
+            },
+            {
+              src: '/icon-512.png',
+              sizes: '512x512',
               type: 'image/png',
               purpose: 'any maskable'
             }
           ],
           screenshots: [
             {
-              src: '/screenshot-wide.svg',
+              src: '/screenshot-wide.png',
               sizes: '1920x1080',
-              type: 'image/svg+xml',
+              type: 'image/png',
               form_factor: 'wide'
             },
             {
-              src: '/screenshot-narrow.svg',
+              src: '/screenshot-narrow.png',
               sizes: '1080x1920',
-              type: 'image/svg+xml',
+              type: 'image/png',
               form_factor: 'narrow'
             }
           ]
