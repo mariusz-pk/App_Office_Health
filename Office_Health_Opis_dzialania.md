@@ -65,6 +65,7 @@ Aplikacja została wzbogacona o zaawansowane możliwości integracji z systemami
   - **Obsługa plików (File Handlers):** Integracja z systemowym otwieraniem określonych rozszerzeń (np. `.txt`).
   - **Share Target & Note Taking:** Możliwość udostępniania treści bezpośrednio do aplikacji oraz wbudowane akcje tworzenia notatek systemowych.
   - **Protokół aplikacji (Protocol Handlers):** Reagowanie na unikalne adresy URL `web+officehealth://`.
+  - **Idealna zgodność Assets (App Store / Play Store):** Dzięki dedykowanemu generatorowi (skrypt `generate-pwa-assets.js`), aplikacja automatycznie formatuje zrzuty ekranu i skaluje ikony do wytycznych PWA Buildera w locie (wymagane precyzyjne rozdzielczości 192x192, 512x512, 1920x1080, 1080x1920), w 100% zamykając ścieżkę do konwersji i publikacji aplikacji na telefony.
   - **Window Controls Overlay & Tabbed:** Nowoczesne wsparcie dla natywnych belek tytułowych (ukrywanie pasków przeglądarki) i interfejsów opartych na zakładkach.
   - **Service Worker:** Własna logika Service Workera działająca w tle, przygotowana do przechwytywania powiadomień Push oraz zdarzeń Sync i PeriodicSync.
 
