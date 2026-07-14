@@ -8,13 +8,13 @@
   "theme_color": "#0f172a",
   "icons": [
     {
-      "src": "/icon-192-v2027.png",
+      "src": "/Icon-App_Health_Office.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/icon-512-v2027.png",
+      "src": "/Icon-App_Health_Office.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
