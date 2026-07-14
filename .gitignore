@@ -6,3 +6,9 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Generated PWA assets
+public/icon-192.png
+public/icon-512.png
+public/screenshot-wide.png
+public/screenshot-narrow.png
