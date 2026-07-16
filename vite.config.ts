@@ -2,7 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
-import { VitePWA } from 'vite-plugin-pwa';
+import { VitePWA, type DisplayOverride, type ManifestOptions } from 'vite-plugin-pwa';
 
 export default defineConfig(() => {
   return {
@@ -25,7 +25,9 @@ export default defineConfig(() => {
           theme_color: '#0f172a',
           background_color: '#0f172a',
           display: 'standalone',
-          display_override: ['window-controls-overlay', 'tabbed', 'standalone'],
+          // 'tabbed' is valid per the W3C manifest spec, but the plugin's DisplayOverride
+          // union stops at Display | 'window-controls-overlay', so tsc rejects it.
+          display_override: ['window-controls-overlay', 'tabbed', 'standalone'] as unknown as DisplayOverride[],
           orientation: 'portrait',
           lang: 'pl',
           dir: 'ltr',
@@ -125,7 +127,8 @@ export default defineConfig(() => {
               form_factor: 'narrow'
             }
           ]
-        }
+          // widgets and note_taking are real spec fields that ManifestOptions doesn't model.
+        } as Partial<ManifestOptions>
       })
     ],
     resolve: {
