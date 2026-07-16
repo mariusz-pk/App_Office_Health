@@ -11,7 +11,9 @@ const __dirname = path.dirname(__filename);
 const PNG_OPTS = { compressionLevel: 9, effort: 10, palette: true, quality: 90 };
 
 async function run() {
-  const src = path.join(__dirname, 'public', 'Icon-App_Health_Office.png');
+  // Lives outside public/ so the 4.5 MB original is never deployed — only the
+  // downscaled icons and screenshots written below reach the client.
+  const src = path.join(__dirname, 'assets', 'Icon-App_Health_Office.png');
   
   if (!fs.existsSync(src)) {
     console.error('Source file not found:', src);
