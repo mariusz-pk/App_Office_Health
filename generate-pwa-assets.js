@@ -6,6 +6,10 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Palette quantisation keeps these well under a tenth of sharp's default PNG output,
+// which matters because the icons ship in the service worker precache.
+const PNG_OPTS = { compressionLevel: 9, effort: 10, palette: true, quality: 90 };
+
 async function run() {
   const src = path.join(__dirname, 'public', 'Icon-App_Health_Office.png');
   
@@ -16,19 +20,19 @@ async function run() {
   
   try {
     // Create 192x192 and 512x512 icons
-    await sharp(src).resize(192, 192).png().toFile(path.join(__dirname, 'public', 'icon-192.png'));
-    await sharp(src).resize(512, 512).png().toFile(path.join(__dirname, 'public', 'icon-512.png'));
+    await sharp(src).resize(192, 192).png(PNG_OPTS).toFile(path.join(__dirname, 'public', 'icon-192.png'));
+    await sharp(src).resize(512, 512).png(PNG_OPTS).toFile(path.join(__dirname, 'public', 'icon-512.png'));
     
     // Screenshots
     const srcBuffer = await sharp(src).resize(800, 800, {fit: 'inside'}).toBuffer();
     
     await sharp({
       create: { width: 1920, height: 1080, channels: 4, background: '#0f172a' }
-    }).composite([{ input: srcBuffer, gravity: 'center' }]).png().toFile(path.join(__dirname, 'public', 'screenshot-wide.png'));
+    }).composite([{ input: srcBuffer, gravity: 'center' }]).png(PNG_OPTS).toFile(path.join(__dirname, 'public', 'screenshot-wide.png'));
 
     await sharp({
       create: { width: 1080, height: 1920, channels: 4, background: '#0f172a' }
-    }).composite([{ input: srcBuffer, gravity: 'center' }]).png().toFile(path.join(__dirname, 'public', 'screenshot-narrow.png'));
+    }).composite([{ input: srcBuffer, gravity: 'center' }]).png(PNG_OPTS).toFile(path.join(__dirname, 'public', 'screenshot-narrow.png'));
     
     console.log('PWA assets generated successfully');
   } catch (err) {

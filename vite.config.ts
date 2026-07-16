@@ -11,7 +11,10 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['icon-192.png', 'icon-512.png', 'screenshot-wide.png', 'screenshot-narrow.png', 'Icon-App_Health_Office.png'],
+        // Only the manifest icons are precached. Screenshots are fetched on demand by the
+        // install prompt, and Icon-App_Health_Office.png is a build-time source for
+        // generate-pwa-assets.js — precaching them cost ~7.9 MB on first load.
+        includeAssets: ['icon-192.png', 'icon-512.png'],
         workbox: {
           importScripts: ['sw-custom.js']
         },
