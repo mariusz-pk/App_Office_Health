@@ -1,20 +1,42 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Office Health v2.0
 
-# Run and deploy your AI Studio app
+Aplikacja PWA wspierająca zdrowie i efektywność osób pracujących biurowo, w trybie siedzącym.
+Sześć modułów: **Rutyna · Baza · Kafejka · Kontrola · Raporty · Synchronizacja**.
 
-This contains everything you need to run your app locally.
+**Demo:** https://office-health-v20.vercel.app
 
-View your app in AI Studio: https://ai.studio/apps/8434b982-8c64-4737-aa54-fed663f856e5
+## Stos
 
-## Run Locally
+React 19 · TypeScript · Tailwind CSS v4 · Vite 6 · Firebase (Auth + Firestore) · vite-plugin-pwa
 
-**Prerequisites:**  Node.js
+## Uruchomienie lokalne
 
+Wymagany Node.js 18+ (zalecane 20+).
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # build produkcyjny do ./dist
+npm run lint     # tsc --noEmit
+```
+
+Konfiguracja Firebase znajduje się w `firebase-applet-config.json` w repozytorium,
+więc do uruchomienia nie trzeba tworzyć pliku `.env`.
+
+## Dostęp do aplikacji
+
+Wejście chroni kod aktywacyjny w formacie `OFH-XXXX-XXXX-XXXX`, podawany jednorazowo
+przy pierwszym uruchomieniu. Generowanie kolejnej partii:
+
+```bash
+node scripts/generate-codes.mjs 200 partia-02
+```
+
+Do repozytorium trafiają **wyłącznie hashe** (`src/lib/accessCodes.ts`). Kody jawne zapisywane
+są poza repozytorium — repo jest publiczne. Szczegóły w dokumentacji technicznej.
+
+## Dokumentacja
+
+- [Opis działania aplikacji](Office_Health_Opis_dzialania.md) — funkcje i moduły od strony użytkownika
+- [Dokumentacja techniczna](Office_Health-%20dokumentacja_techniczna.md) — architektura, PWA, bramka dostępu, wdrożenie
+- [Specyfikacja bezpieczeństwa](security_spec.md) — reguły Firestore i model danych

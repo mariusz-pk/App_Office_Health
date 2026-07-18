@@ -8,9 +8,11 @@ Celem narzędzia jest pomoc w codziennym monitorowaniu kluczowych parametrów zd
 
 Zamiast standardowego żargonu medycznego, aplikacja komunikuje się w przystępnym, "korporacyjnym" języku, przedstawiając zarządzanie własnym zdrowiem jak optymalizację projektów biznesowych ("Rutyna", "Baza", "Kafejka", "Kontrola", "Raporty").
 
+Dostęp do aplikacji chroniony jest **kodem aktywacyjnym**, który nabywca otrzymuje wraz z linkiem. Kod podaje się jednorazowo, przy pierwszym uruchomieniu — szczegóły w sekcji *Aktywacja*.
+
 ## Funkcjonalności i Opis Modułów
 
-Aplikacja jest podzielona na 5 oddzielnych sekcji znajdujących się w dolnym pasku nawigacyjnym:
+Aplikacja jest podzielona na 6 oddzielnych sekcji znajdujących się w dolnym pasku nawigacyjnym:
 
 ### Ekran powitalny (Splash Screen)
 Podczas uruchamiania aplikacji wyświetlany jest płynny ekran powitalny, prezentujący odświeżone logo aplikacji (z dostosowanym, ciemnym tłem), centralny tytuł aplikacji "Office Health v2.0" oraz delikatny podpis u samego dołu ekranu "by WszystkokolwiekWFormie", nadając autentyczne odczucie uruchamiania natywnego programu.
@@ -55,6 +57,18 @@ Moduł zarządzania logowaniem i zabezpieczaniem postępów użytkownika (Cloud 
 - Spersonalizowany widok zalogowanego użytkownika (wyświetla awatar profilowy, imię i status autoryzacji).
 - Automatyczny, limitless backup w chmurze – zabezpieczający na bieżąco postępy statystyk (Firestore).
 - Ulepszona obsługa błędów autoryzacji: W przypadku problemów z autoryzacją zewnętrznych domen (np. przy wdrożeniach na platformie Vercel), aplikacja przechwytuje błąd `auth/unauthorized-domain` i wyświetla precyzyjny komunikat instruktażowy o konieczności dodania domeny w ustawieniach Firebase Authentication.
+
+### 7. Aktywacja (Kod dostępu / Licencja produktu)
+Aplikacja jest produktem płatnym — link do niej otrzymuje wyłącznie nabywca, wraz z indywidualnym kodem aktywacyjnym. Ekran aktywacji pojawia się zaraz po ekranie powitalnym i pozostaje jedyną widoczną częścią programu do czasu podania prawidłowego kodu.
+
+- **Ekran startowy:** Utrzymany w tej samej stylistyce co reszta aplikacji (ciemne tło slate, akcent emerald, logo aplikacji). Zawiera pole na kod, przycisk *Aktywuj* oraz informację, że kod podaje się tylko raz.
+- **Format kodu:** `OFH-XXXX-XXXX-XXXX`. Kod świadomie nie zawiera znaków, które łatwo pomylić przy przepisywaniu (nie występują w nim litery `I` oraz `O` ani cyfry `0` i `1`).
+- **Wyrozumiałość przy wpisywaniu:** Pole samo porządkuje wpisywaną treść. Kod można podać małymi literami, ze spacjami zamiast myślników lub zupełnie bez separatorów — zapis `ofh a2b3 c4d5 e6f7` zostanie automatycznie sprowadzony do postaci `OFH-A2B3-C4D5-E6F7`. Ogranicza to liczbę nieudanych prób wynikających ze sposobu przepisania kodu.
+- **Reakcja na błędny kod:** Aplikacja wyświetla czytelny komunikat z prośbą o sprawdzenie poprawności przepisania i pozostawia wpisaną treść do korekty.
+- **Trwałość aktywacji:** Po pomyślnej weryfikacji fakt aktywacji zapisywany jest w pamięci przeglądarki. Aplikacja nie pyta o kod ponownie — ani przy kolejnych uruchomieniach, ani po zamknięciu i ponownym otwarciu z ekranu głównego telefonu.
+- **Zakres aktywacji:** Aktywacja dotyczy konkretnej przeglądarki na danym urządzeniu. Uruchomienie aplikacji na drugim telefonie lub w trybie prywatnym wymaga ponownego podania kodu. Wyczyszczenie danych strony w przeglądarce również usuwa aktywację.
+- **Prywatność kodu:** Sam kod nie jest nigdzie przechowywany — zapisywany jest wyłącznie wynik jego przetworzenia funkcją kryptograficzną. Kody nie znajdują się także w kodzie źródłowym aplikacji, mimo że repozytorium projektu jest publiczne.
+- **Kody a wariant IT Health:** Kody obu aplikacji nie są wymienne. Kod `OFH-…` otwiera wyłącznie Office Health, a kod `ITH-…` wyłącznie IT Health.
 
 ### 8. Pełna zgodność z PWA (Progressive Web App) i integracja z OS
 Aplikacja została wzbogacona o zaawansowane możliwości integracji z systemami operacyjnymi (szczególnie Windows i Android), osiągając niemal perfekcyjny wynik audytu (np. PWABuilder).
