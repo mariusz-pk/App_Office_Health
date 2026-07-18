@@ -7,6 +7,11 @@ coverage/
 .env*
 !.env.example
 
+# Kody dostepu w postaci jawnej — repozytorium jest publiczne.
+# Do repo trafiaja wylacznie hashe (src/lib/accessCodes.ts).
+kody-*.csv
+kody-dostepu/
+
 # Generated PWA assets
 public/icon-192.png
 public/icon-512.png

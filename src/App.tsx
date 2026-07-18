@@ -7,7 +7,9 @@ import WellnessCafe from './components/WellnessCafe';
 import ControlCenter from './components/ControlCenter';
 import Reports from './components/Reports';
 import CloudAlerts from './components/CloudAlerts';
+import { ActivationGate } from './components/ActivationGate';
 import { useNotifications } from './hooks/useNotifications';
+import { useAccess } from './hooks/useAccess';
 
 const SocketIcon = ({ className }: { className?: string }) => (
   <svg 
@@ -27,6 +29,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('cloud');
   const [showSplash, setShowSplash] = useState(true);
   const { user } = useAuth();
+  const { wymagaAktywacji, odswiez } = useAccess();
   const { showBigModal, dismissBigModal, missingCount } = useNotifications();
 
   useEffect(() => {
@@ -84,6 +87,10 @@ export default function App() {
         </div>
       </div>
     );
+  }
+
+  if (wymagaAktywacji) {
+    return <ActivationGate onActivated={odswiez} />;
   }
 
   return (
