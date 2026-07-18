@@ -5,7 +5,6 @@ coverage/
 .DS_Store
 *.log
 .env*
-!.env.example
 
 # Kody dostepu w postaci jawnej — repozytorium jest publiczne.
 # Do repo trafiaja wylacznie hashe (src/lib/accessCodes.ts).
