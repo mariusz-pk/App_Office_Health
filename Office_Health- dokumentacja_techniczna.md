@@ -55,6 +55,9 @@ przeglądarki zamiast w trybie pełnoekranowym.
 > wygenerowanej przez PWABuilder (klucz przesyłania / upload key) i trzeba go wkleić **przed**
 > wysłaniem aplikacji do sklepu.
 
+**`prefer_related_applications: false`** — jawna deklaracja, że użytkownik ma dostać PWA, a nie aplikację
+natywną. Spójne z wariantem IT Health.
+
 **`related_applications` celowo pominięte.** Wcześniej manifest deklarował `prefer_related_applications: true`
 wraz z odsyłaczem do pozycji `com.officehealth.app` w Google Play, która nie istnieje. Taka kombinacja mówi
 przeglądarce „wolę aplikację natywną niż PWA", przez co Chrome na Androidzie mógł tłumić monit o instalację

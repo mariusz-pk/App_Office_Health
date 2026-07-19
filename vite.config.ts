@@ -55,6 +55,8 @@ export default defineConfig(() => {
               url: "/?uri=%s"
             }
           ],
+          // Jawna deklaracja: użytkownik ma dostać PWA, nie aplikację natywną.
+          prefer_related_applications: false,
           // related_applications celowo pominięte: wskazywałoby na pozycję w Google Play,
           // której jeszcze nie ma, a prefer_related_applications: true tłumiło monit
           // instalacji PWA. Wpis wróci dopiero, gdy aplikacja realnie trafi do sklepu.
