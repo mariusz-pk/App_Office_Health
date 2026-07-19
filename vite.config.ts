@@ -55,14 +55,9 @@ export default defineConfig(() => {
               url: "/?uri=%s"
             }
           ],
-          prefer_related_applications: true,
-          related_applications: [
-            {
-              platform: "play",
-              url: "https://play.google.com/store/apps/details?id=com.officehealth.app",
-              id: "com.officehealth.app"
-            }
-          ],
+          // related_applications celowo pominięte: wskazywałoby na pozycję w Google Play,
+          // której jeszcze nie ma, a prefer_related_applications: true tłumiło monit
+          // instalacji PWA. Wpis wróci dopiero, gdy aplikacja realnie trafi do sklepu.
           share_target: {
             action: "/",
             method: "GET",

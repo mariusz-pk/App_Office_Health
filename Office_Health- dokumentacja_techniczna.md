@@ -39,6 +39,28 @@ Aplikacja przeszła wielofazową migrację. Oryginalnie zaprojektowana przy uży
 - `/src/components/ControlCenter.tsx` & `/src/components/WellnessCafe.tsx` - Moduły wykorzystujące wewnętrzny system "In-App Alerts". Zastąpiono powiadomienia natywne przeglądarki nowoczesnym zarządzaniem stanu powiadomień. W module Kafejki wprowadzono transformacje danych i justowanie tekstu, z mocnym wyróżnieniem UX dla bloku "Twój adaptogen", zachowując prawidłowe łamanie linii dla list opcji. Moduł Centrum Kontroli używa precyzyjnego pozycjonowania teksu we wskaźnikach.
 - `/src/components/*` - Poszczególne interfejsy wizualne oparte m.in. o renderowanie w locie natywnych bibliotek i tagów SVG wspierana przez platformę uwierzytelniania.
 
+## Pakowanie do Google Play (TWA)
+Aplikację pakuje się do formatu TWA (Trusted Web Activity) narzędziem
+[PWABuilder](https://www.pwabuilder.com/).
+
+**Nazwa pakietu:** `pl.wszystkokolwiek.officehealth` — odwrócona notacja domenowa od `wszystkokolwiek.pl`,
+spójna z wariantem Budżet (`pl.wszystkokolwiek.budzet`). Nazwa jest **nieodwracalna po pierwszej publikacji**
+w Google Play: nie da się jej zmienić w istniejącej pozycji sklepu.
+
+**Powiązanie z domeną:** plik `public/.well-known/assetlinks.json` potwierdza Androidowi, że aplikacja
+z tej nazwy pakietu ma prawo obsługiwać adresy domeny. Bez niego TWA otworzy się z paskiem adresu
+przeglądarki zamiast w trybie pełnoekranowym.
+
+> ⚠️ Plik zawiera `REPLACE_ME` w polu `sha256_cert_fingerprints`. Odcisk SHA-256 pochodzi z paczki
+> wygenerowanej przez PWABuilder (klucz przesyłania / upload key) i trzeba go wkleić **przed**
+> wysłaniem aplikacji do sklepu.
+
+**`related_applications` celowo pominięte.** Wcześniej manifest deklarował `prefer_related_applications: true`
+wraz z odsyłaczem do pozycji `com.officehealth.app` w Google Play, która nie istnieje. Taka kombinacja mówi
+przeglądarce „wolę aplikację natywną niż PWA", przez co Chrome na Androidzie mógł tłumić monit o instalację
+PWA i kierować użytkownika do nieistniejącej pozycji sklepu. Wpis wróci dopiero, gdy aplikacja realnie
+trafi do Google Play — wtedy z nazwą `pl.wszystkokolwiek.officehealth`.
+
 ## Bramka dostępu (kody aktywacyjne)
 Aplikacja jest produktem płatnym. Wejście chroni kod aktywacyjny weryfikowany po stronie klienta.
 
