@@ -79,7 +79,8 @@ Aplikacja została wzbogacona o zaawansowane możliwości integracji z systemami
   - **Obsługa plików (File Handlers):** Integracja z systemowym otwieraniem określonych rozszerzeń (np. `.txt`).
   - **Share Target & Note Taking:** Możliwość udostępniania treści bezpośrednio do aplikacji oraz wbudowane akcje tworzenia notatek systemowych.
   - **Protokół aplikacji (Protocol Handlers):** Reagowanie na unikalne adresy URL `web+officehealth://`.
-  - **Idealna zgodność Assets (App Store / Play Store):** Dzięki dedykowanemu generatorowi (skrypt `generate-pwa-assets.js`), aplikacja automatycznie formatuje zrzuty ekranu i skaluje ikony do wytycznych PWA Buildera w locie (wymagane precyzyjne rozdzielczości 192x192, 512x512, 1920x1080, 1080x1920), w 100% zamykając ścieżkę do konwersji i publikacji aplikacji na telefony.
+  - **Zgodność Assets (App Store / Play Store):** Dzięki dedykowanemu generatorowi (skrypt `generate-pwa-assets.js`), aplikacja automatycznie formatuje zrzuty ekranu i skaluje ikony do wytycznych PWA Buildera w locie (wymagane precyzyjne rozdzielczości 192x192, 512x512, 1920x1080, 1080x1920), przygotowując ścieżkę do konwersji i publikacji aplikacji na telefony.
+  - **Publikacja w Google Play (TWA):** Aplikacja jest przygotowana do spakowania jako TWA pod nazwą pakietu `pl.wszystkokolwiek.officehealth` (spójną z wariantem Budżet), a plik `.well-known/assetlinks.json` wiąże ją z domeną, dzięki czemu uruchamia się pełnoekranowo, bez paska adresu przeglądarki. ⚠️ Przed wysyłką do sklepu trzeba jeszcze wkleić do tego pliku odcisk SHA-256 klucza z paczki wygenerowanej przez PWABuilder — szczegóły w dokumentacji technicznej.
   - **Window Controls Overlay & Tabbed:** Nowoczesne wsparcie dla natywnych belek tytułowych (ukrywanie pasków przeglądarki) i interfejsów opartych na zakładkach.
   - **Service Worker:** Własna logika Service Workera działająca w tle, przygotowana do przechwytywania powiadomień Push oraz zdarzeń Sync i PeriodicSync.
 
