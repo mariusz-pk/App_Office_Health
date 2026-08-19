@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Heart, Activity, Square, CheckSquare, Clock, AlertTriangle, CheckCircle } from 'lucide-react';
 import { useFirebaseCollection } from '../hooks/useFirebaseData';
 import { HealthLog } from '../types';
+import { MedicalDisclaimer } from './MedicalDisclaimer';
 
 const SYMPTOMS_MAP: Record<string, string> = {
   'Mgła mózgowa': 'Uzupełnij witaminy B9/B12 (wątróbka, jaja, szpinak). Zadbaj o mikrodawkę kofeiny z l-teaniną (Matcha).',
@@ -72,7 +73,9 @@ export default function ControlCenter() {
         <div className="flex items-center gap-2 text-[10px] text-amber-500 tracking-wider uppercase font-semibold mb-5">
           <Heart className="w-3.5 h-3.5" /> Autodiagnoza poranna
         </div>
-        
+
+        <MedicalDisclaimer className="mb-5" />
+
         {alertState && (
           <div className={`mb-5 p-4 rounded-xl flex items-start gap-3 border ${
             alertState.type === 'error' ? 'bg-rose-500/10 border-rose-500/20 text-rose-400' :
