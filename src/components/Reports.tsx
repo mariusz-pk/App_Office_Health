@@ -1,15 +1,15 @@
 import React, { useMemo, useRef, useEffect } from 'react';
 import { BarChart3, Activity, Sun, Moon, CheckSquare, Target, Droplet } from 'lucide-react';
 import { useFirebaseRoutine } from '../hooks/useFirebaseRoutine';
-import { useFirebaseHydrationTarget } from '../hooks/useFirebaseHydrationTarget';
-import { useFirebaseCollection } from '../hooks/useFirebaseData';
+import { useLocalHydrationTarget } from '../hooks/useLocalHydrationTarget';
+import { useLocalCollection } from '../hooks/useLocalData';
 import { RoutineHistory, HydrationLog } from '../types';
 import { HABITS_LIST } from '../data';
 
 export default function Reports() {
   const [history] = useFirebaseRoutine();
-  const [hydrationTarget] = useFirebaseHydrationTarget();
-  const { data: hydrationLogs } = useFirebaseCollection<HydrationLog>('hydrationLogs');
+  const [hydrationTarget] = useLocalHydrationTarget();
+  const { data: hydrationLogs } = useLocalCollection<HydrationLog>('hydrationLogs');
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
   const stats = useMemo(() => {

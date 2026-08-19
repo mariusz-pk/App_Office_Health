@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Activity, Coffee, Moon, Footprints, Sun, CheckCircle2, Droplet, CheckSquare, Square, Plus, Save } from 'lucide-react';
 import { useFirebaseRoutine } from '../hooks/useFirebaseRoutine';
-import { useFirebaseHydrationTarget } from '../hooks/useFirebaseHydrationTarget';
-import { useFirebaseCollection } from '../hooks/useFirebaseData';
+import { useLocalHydrationTarget } from '../hooks/useLocalHydrationTarget';
+import { useLocalCollection } from '../hooks/useLocalData';
 import { RoutineHistory, HydrationLog } from '../types';
 import { HABITS_LIST } from '../data';
 
@@ -18,8 +18,8 @@ export default function DailyRoutine() {
   const [history, setHistory] = useFirebaseRoutine();
   const [currentDateStr, setCurrentDateStr] = useState('');
   
-  const [target, setTarget] = useFirebaseHydrationTarget();
-  const { data: hydrationLogsData, addOrUpdateDoc: addHydrationDoc } = useFirebaseCollection<HydrationLog>('hydrationLogs');
+  const [target, setTarget] = useLocalHydrationTarget();
+  const { data: hydrationLogsData, addOrUpdateDoc: addHydrationDoc } = useLocalCollection<HydrationLog>('hydrationLogs');
   const [isEditingTarget, setIsEditingTarget] = useState(false);
   const [tempTarget, setTempTarget] = useState('');
   const [showStepSaveMsg, setShowStepSaveMsg] = useState(false);
