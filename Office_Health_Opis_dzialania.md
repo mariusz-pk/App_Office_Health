@@ -86,3 +86,10 @@ Aplikacja została wzbogacona o zaawansowane możliwości integracji z systemami
 
 ### 9. Optymalizacja Cache i Wdrażanie (Vercel)
 W środowisku chmurowym, w którym brak jest Server-Side Rendering (SSR), wdrożono bezkonfliktowe zasady cache'owania plików chroniące przed nieświeżymi danymi (tzw. "stale cache"). Konfiguracja zawarta w pliku `vercel.json` upewnia się, że Vercel oraz Service Worker poprawnie odświeżają kluczowe pliki wejściowe (HTML, Manifest, Service Worker) przy każdym wejściu z zasadą `max-age=0, must-revalidate`. Natomiast statyczne komponenty takie jak skrypty JavaScript i arkusze stylów (CSS) korzystają z niezwykle efektywnej polityki wielomiesięcznego przechowywania w cache użytkownika (`immutable`), przyspieszając diametralnie responsywność aplikacji.
+
+
+---
+
+## Zastrzeżenie medyczne
+
+> Aplikacja ma charakter wyłącznie edukacyjny i informacyjny — nie zastępuje porady lekarskiej ani diagnozy i nie jest wyrobem medycznym. Przed wprowadzeniem zmian w diecie, suplementacji, aktywności fizycznej i innych elementach stylu życia skonsultuj się z lekarzem, zwłaszcza jeśli masz choroby przewlekłe, przyjmujesz leki, jesteś w ciąży lub karmisz piersią.

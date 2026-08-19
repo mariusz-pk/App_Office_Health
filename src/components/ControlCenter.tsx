@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, Activity, Square, CheckSquare, Clock, AlertTriangle, CheckCircle } from 'lucide-react';
-import { useFirebaseCollection } from '../hooks/useFirebaseData';
+import { useLocalCollection } from '../hooks/useLocalData';
 import { HealthLog } from '../types';
 import { MedicalDisclaimer } from './MedicalDisclaimer';
 
@@ -13,7 +13,8 @@ const SYMPTOMS_MAP: Record<string, string> = {
 };
 
 export default function ControlCenter() {
-  const { data: logs, addOrUpdateDoc } = useFirebaseCollection<HealthLog>('healthLogs');
+  // Pomiary zdrowia (tętno, saturacja, objawy) zostają WYŁĄCZNIE lokalnie — nie trafiają do chmury.
+  const { data: logs, addOrUpdateDoc } = useLocalCollection<HealthLog>('healthLogs');
   const [rhr, setRhr] = useState('');
   const [spo2, setSpo2] = useState('');
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Droplet, RefreshCw, Plus, ChevronDown, Play, StopCircle, Sunrise, Sun, Sunset, Clock, CheckCircle } from 'lucide-react';
-import { useFirebaseHydrationTarget } from '../hooks/useFirebaseHydrationTarget';
-import { useFirebaseCollection } from '../hooks/useFirebaseData';
+import { useLocalHydrationTarget } from '../hooks/useLocalHydrationTarget';
+import { useLocalCollection } from '../hooks/useLocalData';
 import { DRINKS_CATALOG } from '../data';
 import { HydrationLog } from '../types';
 
 export default function WellnessCafe() {
   const [openAccordion, setOpenAccordion] = useState<number | null>(null);
-  const [target, setTarget] = useFirebaseHydrationTarget();
-  const { data: history, addOrUpdateDoc } = useFirebaseCollection<HydrationLog>('hydrationLogs');
+  const [target, setTarget] = useLocalHydrationTarget();
+  const { data: history, addOrUpdateDoc } = useLocalCollection<HydrationLog>('hydrationLogs');
   
   // Timer State
   const [activeTimer, setActiveTimer] = useState<{ id: number, remaining: number } | null>(null);
