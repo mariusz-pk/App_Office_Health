@@ -5,7 +5,10 @@
       "namespace": "android_app",
       "package_name": "pl.wszystkokolwiek.officehealth",
       "sha256_cert_fingerprints": [
-        "REPLACE_ME"
+        "88:76:C4:D9:A0:D5:77:6F:A6:56:9D:38:08:5B:72:9B:98:F7:7E:79:4F:01:01:97:74:0A:67:FE:52:00:F6:4E",
+        "51:97:6A:F7:11:EF:E9:23:19:39:21:57:72:85:C3:1F:0C:61:FC:85:8A:69:6E:69:AE:84:ED:C4:01:8A:09:CF",
+        "C5:3C:D1:ED:49:B9:F8:E6:BA:46:4A:DC:81:54:6E:1D:9A:69:33:B5:58:9C:5F:2B:4E:C1:49:2B:72:7D:DC:93",
+        "E4:69:91:9D:D2:BE:34:3A:A7:57:AC:E0:73:C1:66:BD:49:F3:19:9E:73:FC:1E:56:B4:A8:D8:9E:7A:06:FF:99"
       ]
     }
   }
