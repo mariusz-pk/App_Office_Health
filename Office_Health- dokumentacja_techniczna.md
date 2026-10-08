@@ -87,7 +87,7 @@ Alfabet generatora pomija znaki mylące przy przepisywaniu (`I`, `O`, `0`, `1`).
 **Rozdział kodów jawnych i hashy.** Repozytorium jest publiczne, dlatego:
 
 - do repo trafiają **wyłącznie hashe** (`src/lib/accessCodes.ts`, plik generowany — nie edytować ręcznie),
-- kody jawne zapisywane są **poza repozytorium**, w `D:\Claude_Env\docs\kody-dostepu\kody-office-health-<partia>.csv`,
+- kody jawne zapisywane są **poza repozytorium**, w `D:\Claude_Env\produkty\zdrowie-biurowe\kody-dostepu\kody-office-health-<partia>.csv`,
 - `.gitignore` blokuje wzorce `kody-*.csv` oraz `kody-dostepu/` jako zabezpieczenie przed przypadkowym commitem.
 
 **Zakres ochrony — świadome ograniczenie.** Weryfikacja odbywa się w przeglądarce, więc jest to
