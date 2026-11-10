@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Activity, Coffee, Moon, Footprints, Sun, CheckCircle2, Droplet, CheckSquare, Square, Plus, Save } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Activity, Coffee, Moon, Footprints, Sun, CheckCircle2, Droplet, CheckSquare, Square, Plus, Save, MonitorOff, BedDouble } from 'lucide-react';
 import { useFirebaseRoutine } from '../hooks/useFirebaseRoutine';
 import { useLocalHydrationTarget } from '../hooks/useLocalHydrationTarget';
 import { useLocalCollection } from '../hooks/useLocalData';
 import { RoutineHistory, HydrationLog } from '../types';
-import { HABITS_LIST } from '../data';
+import { HABITS_LIST, HABIT_HINTS, habitPoints } from '../data';
 
 const HABIT_ICONS: Record<string, React.ElementType> = {
   "Poranny Izotonik": Droplet,
   "Kawa po 90 minutach": Coffee,
   "Mikro-przerwa (Ruch co 60 min)": Activity,
   "Wieczorny Magnez": Moon,
-  "Dzienny limit kroków": Footprints
+  "Dzienny limit kroków": Footprints,
+  "Bez ekranów od 21:00": MonitorOff,
+  "W łóżku przed 23:00": BedDouble
 };
 
 export default function DailyRoutine() {
@@ -137,7 +139,7 @@ export default function DailyRoutine() {
   };
 
   const score = Math.min(100, Math.round(
-    (currentData.checkedHabits.length * 10) + 
+    habitPoints(currentData.checkedHabits.length) + 
     (currentData.energyLevel * 1.5) + 
     (currentData.sleepQuality * 1.5) +
     ((Math.min(currentAmount, target) / target) * 20)
@@ -201,6 +203,9 @@ export default function DailyRoutine() {
                 </div>
                 <div className="flex-1 min-w-0 pr-4 flex flex-col justify-center">
                   <div className={`text-sm font-semibold truncate transition-colors ${isChecked ? 'text-white' : 'text-slate-300'}`}>{habit}</div>
+                  {HABIT_HINTS[habit] && (
+                    <div className="text-xs text-slate-400 mt-0.5">{HABIT_HINTS[habit]}</div>
+                  )}
                   {habit === "Dzienny limit kroków" && (
                     <div className="flex items-center gap-2 mt-2" onClick={(e) => e.stopPropagation()}>
                       <input

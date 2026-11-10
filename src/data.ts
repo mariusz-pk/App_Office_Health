@@ -5,8 +5,19 @@ export const HABITS_LIST = [
   "Kawa po 90 minutach",
   "Mikro-przerwa (Ruch co 60 min)",
   "Wieczorny Magnez",
-  "Dzienny limit kroków"
+  "Dzienny limit kroków",
+  "Bez ekranów od 21:00",
+  "W łóżku przed 23:00"
 ];
+
+// Nazwa nawyku jest też jego identyfikatorem w historii — nie zmieniaj jej po publikacji.
+export const HABIT_HINTS: Record<string, string> = {
+  "Bez ekranów od 21:00": "albo okulary blokujące niebieskie światło"
+};
+
+// Nawyki dają razem max 50 pkt wskaźnika witalności, niezależnie od ich liczby.
+export const habitPoints = (checkedCount: number) =>
+  (Math.min(checkedCount, HABITS_LIST.length) / HABITS_LIST.length) * 50;
 
 export const SHOPPING_BASE = [
   { name: "Kasza jaglana", category: "Sypkie i Nasiona", icon: Wheat },

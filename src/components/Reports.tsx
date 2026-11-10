@@ -4,7 +4,7 @@ import { useFirebaseRoutine } from '../hooks/useFirebaseRoutine';
 import { useLocalHydrationTarget } from '../hooks/useLocalHydrationTarget';
 import { useLocalCollection } from '../hooks/useLocalData';
 import { RoutineHistory, HydrationLog } from '../types';
-import { HABITS_LIST } from '../data';
+import { HABITS_LIST, habitPoints } from '../data';
 
 export default function Reports() {
   const [history] = useFirebaseRoutine();
@@ -59,7 +59,7 @@ export default function Reports() {
       const hydrationPoints = (Math.min(dailyHydration, hydrationTarget) / hydrationTarget) * 20;
       
       const score = Math.min(100, Math.round(
-        (data.checkedHabits.length * 10) + 
+        habitPoints(data.checkedHabits.length) + 
         (data.energyLevel * 1.5) + 
         (data.sleepQuality * 1.5) + 
         hydrationPoints
@@ -91,7 +91,7 @@ export default function Reports() {
       if (data) {
         const hydrationPoints = (Math.min(dailyHydration, hydrationTarget) / hydrationTarget) * 20;
         score = Math.min(100, Math.round(
-          (data.checkedHabits.length * 10) + 
+          habitPoints(data.checkedHabits.length) + 
           (data.energyLevel * 1.5) + 
           (data.sleepQuality * 1.5) + 
           hydrationPoints
